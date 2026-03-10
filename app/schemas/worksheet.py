@@ -83,6 +83,7 @@ class Template(BaseModel):
     template_code: str
     skill_id: str
     family_id: str
+    pattern_code: str | None = None
     name: str
     question_type: QuestionType
     template_text: str
@@ -202,9 +203,18 @@ class VisualPayload(BaseModel):
     params: dict[str, Any]
 
 
+
+
+class MisconceptionDetail(BaseModel):
+    code: str
+    name: str
+    description: str
+    distractor_strategy: str | None = None
+
 class QuestionMetadata(BaseModel):
     representation_type: str
     misconception_targets: list[str] = Field(default_factory=list)
+    misconception_details: list[MisconceptionDetail] = Field(default_factory=list)
     prerequisite_skill_ids: list[str] = Field(default_factory=list)
     estimated_difficulty_score: float
 
@@ -246,6 +256,7 @@ class AnswerKeyEntry(BaseModel):
 class TeacherNotes(BaseModel):
     skills_tested: list[str]
     misconceptions_targeted: list[str]
+    misconception_details: list[MisconceptionDetail] = Field(default_factory=list)
 
 
 class RenderableWorksheet(BaseModel):

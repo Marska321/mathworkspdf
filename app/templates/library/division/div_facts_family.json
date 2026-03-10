@@ -1,0 +1,240 @@
+{
+  "family_id": "fam_div_facts_g4_01",
+  "family_code": "div_facts_family",
+  "skill_id": "div_facts_g4_01",
+  "name": "Division Facts",
+  "description": "Use division as sharing and grouping.",
+  "supports_visual": true,
+  "supports_theme": true,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "intervention"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "word_problem"
+  ],
+  "misconception_targets": [
+    "division_as_subtraction_only",
+    "inverse_fact_confusion",
+    "group_count_confusion"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_div_facts_01",
+      "template_code": "div_facts_01",
+      "skill_id": "div_facts_g4_01",
+      "family_id": "div_facts_family",
+      "pattern_code": "direct_compute",
+      "name": "Direct division fact",
+      "question_type": "direct",
+      "template_text": "{a} ? {b} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "sampled_quotient": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "b_values": [
+            2,
+            5,
+            10
+          ],
+          "sampled_quotient_range": [
+            1,
+            10
+          ]
+        },
+        "core": {
+          "b_values": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "sampled_quotient_range": [
+            1,
+            10
+          ]
+        },
+        "stretch": {
+          "b_values": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "sampled_quotient_range": [
+            1,
+            12
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "a = b * sampled_quotient"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "a / b"
+      },
+      "distractor_rules": [
+        {
+          "type": "multiply_instead"
+        },
+        {
+          "type": "subtract_instead"
+        }
+      ],
+      "explanation_template": "Division tells how many equal groups or how many in each group.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "inverse_fact_confusion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_div_facts_02",
+      "template_code": "div_facts_02",
+      "skill_id": "div_facts_g4_01",
+      "family_id": "div_facts_family",
+      "pattern_code": "equal_groups_story",
+      "name": "Sharing model word problem",
+      "question_type": "word_problem",
+      "template_text": "{name} shares {a} {object_a} equally among {b} friends. How many does each friend get?",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "sampled_quotient": {
+          "type": "int",
+          "required": true
+        },
+        "name": {
+          "type": "enum",
+          "values": [
+            "Lebo",
+            "Aya",
+            "Neo",
+            "Thabo"
+          ],
+          "required": true
+        },
+        "object_a": {
+          "type": "enum",
+          "values": [
+            "stickers",
+            "marbles",
+            "books",
+            "cones"
+          ],
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "b_values": [
+            2,
+            5,
+            10
+          ],
+          "sampled_quotient_range": [
+            1,
+            10
+          ]
+        },
+        "core": {
+          "b_values": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            8,
+            10
+          ],
+          "sampled_quotient_range": [
+            1,
+            10
+          ]
+        },
+        "stretch": {
+          "b_values": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            8,
+            10,
+            12
+          ],
+          "sampled_quotient_range": [
+            1,
+            12
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "a = b * sampled_quotient"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "a / b"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Share equally to find the amount in each group.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": true,
+      "visual_supported": false,
+      "misconception_targets": [
+        "group_count_confusion"
+      ],
+      "active": true
+    }
+  ]
+}

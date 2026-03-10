@@ -1,0 +1,330 @@
+[
+  {
+    "code": "digit_value_confusion",
+    "name": "Digit value confusion",
+    "description": "Learner reads the digit itself instead of its place value.",
+    "affected_skills": [
+      "pv_identify_g4_01",
+      "expanded_notation_g4_01",
+      "compare_order_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "value of 5 in 3542 -> 5"
+    ],
+    "distractor_strategy": "digit_only"
+  },
+  {
+    "code": "place_name_confusion",
+    "name": "Place name confusion",
+    "description": "Learner confuses adjacent place names like tens and hundreds.",
+    "affected_skills": [
+      "pv_identify_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "digit 4 in 3456 -> tens instead of hundreds"
+    ],
+    "distractor_strategy": "neighbor_place_name"
+  },
+  {
+    "code": "reads_digit_not_value",
+    "name": "Reads digit not value",
+    "description": "Learner names the face value rather than the place value.",
+    "affected_skills": [
+      "pv_identify_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "underlined 5 -> 5 instead of 500"
+    ],
+    "distractor_strategy": "digit_only"
+  },
+  {
+    "code": "digit_count_confusion",
+    "name": "Digit count confusion",
+    "description": "Learner compares number length or digit count incorrectly.",
+    "affected_skills": [
+      "compare_order_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "999 vs 1000 -> chooses 999"
+    ],
+    "distractor_strategy": "same_length_confuser"
+  },
+  {
+    "code": "left_to_right_comparison_error",
+    "name": "Left-to-right comparison error",
+    "description": "Learner compares the wrong place first when ordering numbers.",
+    "affected_skills": [
+      "compare_order_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "457 vs 503 -> chooses 457 because 7 > 3"
+    ],
+    "distractor_strategy": "flip_compare_symbol"
+  },
+  {
+    "code": "reverses_order_language",
+    "name": "Reverses order language",
+    "description": "Learner reverses ascending and descending order directions.",
+    "affected_skills": [
+      "compare_order_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "ascending order written largest to smallest"
+    ],
+    "distractor_strategy": "reverse_order_csv"
+  },
+  {
+    "code": "drops_zero_place",
+    "name": "Drops zero place",
+    "description": "Learner ignores a zero placeholder in expanded notation.",
+    "affected_skills": [
+      "expanded_notation_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "4305 -> 400 + 30 + 5"
+    ],
+    "distractor_strategy": "omit_zero_place"
+  },
+  {
+    "code": "adds_digits_not_values",
+    "name": "Adds digits not values",
+    "description": "Learner adds or lists digits instead of place values.",
+    "affected_skills": [
+      "expanded_notation_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3482 -> 3 + 4 + 8 + 2"
+    ],
+    "distractor_strategy": "sum_of_digits"
+  },
+  {
+    "code": "wrong_place_expansion",
+    "name": "Wrong place expansion",
+    "description": "Learner expands a number into incorrect place values.",
+    "affected_skills": [
+      "expanded_notation_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3482 -> 300 + 40 + 8 + 2"
+    ],
+    "distractor_strategy": "wrong_place_expansion"
+  },
+  {
+    "code": "place_alignment_error",
+    "name": "Place alignment error",
+    "description": "Learner mixes ones, tens, and hundreds across columns.",
+    "affected_skills": [
+      "add_noregroup_g4_01",
+      "sub_noregroup_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "34 + 27 -> 511"
+    ],
+    "distractor_strategy": "place_mix_error"
+  },
+  {
+    "code": "ones_tens_mixup",
+    "name": "Ones tens mixup",
+    "description": "Learner combines ones and tens inconsistently.",
+    "affected_skills": [
+      "add_noregroup_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "43 + 28 from digit fragments"
+    ],
+    "distractor_strategy": "digit_concat_error"
+  },
+  {
+    "code": "ignore_carry",
+    "name": "Ignore carry",
+    "description": "Learner fails to regroup in addition.",
+    "affected_skills": [
+      "add_regroup_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "47 + 38 = 715"
+    ],
+    "distractor_strategy": "ignore_carry"
+  },
+  {
+    "code": "place_value_confusion",
+    "name": "Place value confusion",
+    "description": "Learner carries or combines values into the wrong place.",
+    "affected_skills": [
+      "add_regroup_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "58 + 26 = 714"
+    ],
+    "distractor_strategy": "off_by_ten"
+  },
+  {
+    "code": "digit_reversal",
+    "name": "Digit reversal",
+    "description": "Learner reverses the digits of the computed answer.",
+    "affected_skills": [
+      "add_regroup_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "84 written as 48"
+    ],
+    "distractor_strategy": "digit_reversal"
+  },
+  {
+    "code": "digit_add_without_regroup",
+    "name": "Digit add without regroup",
+    "description": "Learner adds each digit pair without carrying to the next place.",
+    "affected_skills": [
+      "add_regroup_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "58 + 27 with ones kept as 15"
+    ],
+    "distractor_strategy": "ignore_carry"
+  },
+  {
+    "code": "subtract_smaller_from_larger_digit",
+    "name": "Subtract smaller from larger digit",
+    "description": "Learner subtracts digits by size instead of by place and direction.",
+    "affected_skills": [
+      "sub_noregroup_g4_01",
+      "sub_regroup_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "53 - 28 = 35"
+    ],
+    "distractor_strategy": "subtract_reversed_digits"
+  },
+  {
+    "code": "borrow_not_applied",
+    "name": "Borrow not applied",
+    "description": "Learner recognizes the need to borrow but does not adjust the next place correctly.",
+    "affected_skills": [
+      "sub_regroup_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "52 - 38 = 24"
+    ],
+    "distractor_strategy": "borrow_not_applied"
+  },
+  {
+    "code": "forgets_reduce_tens",
+    "name": "Forgets reduce tens",
+    "description": "Learner borrows to the ones place but forgets to reduce the tens.",
+    "affected_skills": [
+      "sub_regroup_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "62 - 28 keeps tens unchanged"
+    ],
+    "distractor_strategy": "forget_reduce_tens"
+  },
+  {
+    "code": "counts_additively_only",
+    "name": "Counts additively only",
+    "description": "Learner treats multiplication as repeated addition without scaling correctly.",
+    "affected_skills": [
+      "mult_facts_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3 ? 4 = 7"
+    ],
+    "distractor_strategy": "near_additive_error"
+  },
+  {
+    "code": "factor_order_confusion",
+    "name": "Factor order confusion",
+    "description": "Learner confuses the factors and the total in multiplication.",
+    "affected_skills": [
+      "mult_facts_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "6 ? 7 = 13"
+    ],
+    "distractor_strategy": "factor_plus_factor"
+  },
+  {
+    "code": "repeated_addition_error",
+    "name": "Repeated addition error",
+    "description": "Learner counts rows or columns without combining all groups correctly.",
+    "affected_skills": [
+      "mult_facts_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "array counted by one dimension only"
+    ],
+    "distractor_strategy": "row_count_only"
+  },
+  {
+    "code": "division_as_subtraction_only",
+    "name": "Division as subtraction only",
+    "description": "Learner applies subtraction once rather than equal sharing or grouping.",
+    "affected_skills": [
+      "div_facts_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "12 ? 3 = 9"
+    ],
+    "distractor_strategy": "subtract_instead"
+  },
+  {
+    "code": "inverse_fact_confusion",
+    "name": "Inverse fact confusion",
+    "description": "Learner multiplies instead of dividing or swaps dividend and divisor roles.",
+    "affected_skills": [
+      "div_facts_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "12 ? 3 = 36"
+    ],
+    "distractor_strategy": "multiply_instead"
+  },
+  {
+    "code": "group_count_confusion",
+    "name": "Group count confusion",
+    "description": "Learner confuses number of groups with size of each group.",
+    "affected_skills": [
+      "div_facts_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "12 shared among 3 gives 12 each"
+    ],
+    "distractor_strategy": "group_count_confuser"
+  },
+  {
+    "code": "swap_numerator_denominator",
+    "name": "Swap numerator denominator",
+    "description": "Learner reverses the numerator and denominator of a fraction.",
+    "affected_skills": [
+      "fraction_partwhole_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3/5 written as 5/3"
+    ],
+    "distractor_strategy": "swap_num_den"
+  },
+  {
+    "code": "counts_unshaded",
+    "name": "Counts unshaded parts",
+    "description": "Learner uses the unshaded parts instead of the shaded parts.",
+    "affected_skills": [
+      "fraction_partwhole_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3 shaded out of 5 answered as 2/5"
+    ],
+    "distractor_strategy": "use_unshaded_as_numerator"
+  },
+  {
+    "code": "denominator_as_shaded",
+    "name": "Denominator as shaded",
+    "description": "Learner thinks the denominator tells how many parts to shade.",
+    "affected_skills": [
+      "fraction_partwhole_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "Shade 2/5 by shading all 5 parts"
+    ],
+    "distractor_strategy": "shade_all_parts"
+  }
+]

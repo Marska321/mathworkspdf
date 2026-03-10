@@ -1,0 +1,285 @@
+{
+  "family_id": "fam_add_noregroup_g4_01",
+  "family_code": "add_noregroup_family",
+  "skill_id": "add_noregroup_g4_01",
+  "name": "Addition Without Regrouping",
+  "description": "Add whole numbers without regrouping.",
+  "supports_visual": false,
+  "supports_theme": true,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "intervention"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "word_problem"
+  ],
+  "misconception_targets": [
+    "place_alignment_error",
+    "ones_tens_mixup"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_add_noregroup_01",
+      "template_code": "add_noregroup_01",
+      "skill_id": "add_noregroup_g4_01",
+      "family_id": "add_noregroup_family",
+      "pattern_code": "direct_compute",
+      "name": "Direct addition no regrouping",
+      "question_type": "direct",
+      "template_text": "{a} + {b} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            10,
+            49
+          ],
+          "b_range": [
+            10,
+            49
+          ]
+        },
+        "core": {
+          "a_range": [
+            10,
+            99
+          ],
+          "b_range": [
+            10,
+            99
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            100,
+            499
+          ],
+          "b_range": [
+            100,
+            499
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "no_regroup(a, b)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "a + b"
+      },
+      "distractor_rules": [
+        {
+          "type": "digit_concat_error"
+        },
+        {
+          "type": "place_mix_error"
+        }
+      ],
+      "explanation_template": "Add the ones and tens separately because no regrouping is needed.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "ones_tens_mixup"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_add_noregroup_02",
+      "template_code": "add_noregroup_02",
+      "skill_id": "add_noregroup_g4_01",
+      "family_id": "add_noregroup_family",
+      "pattern_code": "missing_operand",
+      "name": "Missing addend no regrouping",
+      "question_type": "fill_blank",
+      "template_text": "{a} + __ = {sum}",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "sum": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            10,
+            49
+          ],
+          "b_range": [
+            10,
+            49
+          ]
+        },
+        "core": {
+          "a_range": [
+            10,
+            99
+          ],
+          "b_range": [
+            10,
+            99
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            100,
+            499
+          ],
+          "b_range": [
+            100,
+            499
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "sum = a + b"
+        },
+        {
+          "type": "expression",
+          "rule": "no_regroup(a, b)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "b"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Find the missing part by thinking about the total.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "place_alignment_error"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_add_noregroup_03",
+      "template_code": "add_noregroup_03",
+      "skill_id": "add_noregroup_g4_01",
+      "family_id": "add_noregroup_family",
+      "pattern_code": "one_step_story",
+      "name": "Word problem no regrouping",
+      "question_type": "word_problem",
+      "template_text": "{name} has {a} {object_a} and gets {b} more. How many {object_a} does {name} have now?",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "name": {
+          "type": "enum",
+          "values": [
+            "Lebo",
+            "Aya",
+            "Neo",
+            "Thabo"
+          ],
+          "required": true
+        },
+        "object_a": {
+          "type": "enum",
+          "values": [
+            "stickers",
+            "marbles",
+            "books",
+            "cones"
+          ],
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            10,
+            29
+          ],
+          "b_range": [
+            10,
+            29
+          ]
+        },
+        "core": {
+          "a_range": [
+            10,
+            59
+          ],
+          "b_range": [
+            10,
+            59
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            10,
+            99
+          ],
+          "b_range": [
+            10,
+            99
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "no_regroup(a, b)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "a + b"
+      },
+      "distractor_rules": [],
+      "explanation_template": "This is an addition story, so add the two amounts.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": true,
+      "visual_supported": false,
+      "misconception_targets": [
+        "ones_tens_mixup"
+      ],
+      "active": true
+    }
+  ]
+}

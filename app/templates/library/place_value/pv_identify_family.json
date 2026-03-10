@@ -1,0 +1,349 @@
+{
+  "family_id": "fam_pv_identify_g4_01",
+  "family_code": "pv_identify_family",
+  "skill_id": "pv_identify_g4_01",
+  "name": "Place Value Identification",
+  "description": "Identify digit values and place names in whole numbers.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "digit_value_confusion",
+    "place_name_confusion",
+    "reads_digit_not_value"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_pv_identify_01",
+      "template_code": "pv_identify_01",
+      "skill_id": "pv_identify_g4_01",
+      "family_id": "pv_identify_family",
+      "pattern_code": "direct_compute",
+      "name": "Value of selected digit",
+      "question_type": "direct",
+      "template_text": "What is the value of the digit {digit} in {number}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "number": {
+          "type": "int",
+          "required": true
+        },
+        "place": {
+          "type": "enum",
+          "values": [
+            "ones",
+            "tens",
+            "hundreds",
+            "thousands"
+          ],
+          "required": true
+        },
+        "digit": {
+          "type": "int",
+          "required": true
+        },
+        "place_multiplier": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "number_range": [
+            10,
+            999
+          ],
+          "allowed_places": [
+            "ones",
+            "tens",
+            "hundreds"
+          ]
+        },
+        "core": {
+          "number_range": [
+            100,
+            9999
+          ],
+          "allowed_places": [
+            "ones",
+            "tens",
+            "hundreds",
+            "thousands"
+          ]
+        },
+        "stretch": {
+          "number_range": [
+            1000,
+            9999
+          ],
+          "allowed_places": [
+            "ones",
+            "tens",
+            "hundreds",
+            "thousands"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "digit = get_digit_at_place(number, place)"
+        },
+        {
+          "type": "derived",
+          "rule": "place_multiplier = get_place_multiplier(place)"
+        },
+        {
+          "type": "expression",
+          "rule": "digit > 0"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "digit * place_multiplier"
+      },
+      "distractor_rules": [
+        {
+          "type": "digit_only"
+        },
+        {
+          "type": "neighbor_place_value"
+        },
+        {
+          "type": "zero_append_error"
+        }
+      ],
+      "explanation_template": "The value of a digit depends on its place.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "digit_value_confusion",
+        "reads_digit_not_value"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_pv_identify_02",
+      "template_code": "pv_identify_02",
+      "skill_id": "pv_identify_g4_01",
+      "family_id": "pv_identify_family",
+      "pattern_code": "missing_operand",
+      "name": "Name the place of a digit",
+      "question_type": "fill_blank",
+      "template_text": "In the number {number}, the digit {digit} is in the __ place.",
+      "instructions_template": null,
+      "variable_schema": {
+        "number": {
+          "type": "int",
+          "required": true
+        },
+        "answer_place": {
+          "type": "enum",
+          "values": [
+            "ones",
+            "tens",
+            "hundreds",
+            "thousands"
+          ],
+          "required": true
+        },
+        "digit": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "number_range": [
+            10,
+            999
+          ],
+          "allowed_answer_places": [
+            "ones",
+            "tens",
+            "hundreds"
+          ]
+        },
+        "core": {
+          "number_range": [
+            100,
+            9999
+          ],
+          "allowed_answer_places": [
+            "ones",
+            "tens",
+            "hundreds",
+            "thousands"
+          ]
+        },
+        "stretch": {
+          "number_range": [
+            1000,
+            9999
+          ],
+          "allowed_answer_places": [
+            "ones",
+            "tens",
+            "hundreds",
+            "thousands"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "digit = get_digit_at_place(number, answer_place)"
+        },
+        {
+          "type": "expression",
+          "rule": "digit > 0"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "answer_place"
+      },
+      "distractor_rules": [
+        {
+          "type": "neighbor_place_name"
+        }
+      ],
+      "explanation_template": "Look at the position of the digit from right to left.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "place_name_confusion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_pv_identify_03",
+      "template_code": "pv_identify_03",
+      "skill_id": "pv_identify_g4_01",
+      "family_id": "pv_identify_family",
+      "pattern_code": "standard_mcq",
+      "name": "MCQ underlined digit value",
+      "question_type": "multiple_choice",
+      "template_text": "What is the value of the underlined digit in {number_marked}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "number": {
+          "type": "int",
+          "required": true
+        },
+        "place": {
+          "type": "enum",
+          "values": [
+            "ones",
+            "tens",
+            "hundreds",
+            "thousands"
+          ],
+          "required": true
+        },
+        "correct_value": {
+          "type": "int",
+          "required": true
+        },
+        "number_marked": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "number_range": [
+            10,
+            999
+          ],
+          "allowed_places": [
+            "ones",
+            "tens",
+            "hundreds"
+          ]
+        },
+        "core": {
+          "number_range": [
+            100,
+            9999
+          ],
+          "allowed_places": [
+            "ones",
+            "tens",
+            "hundreds",
+            "thousands"
+          ]
+        },
+        "stretch": {
+          "number_range": [
+            1000,
+            9999
+          ],
+          "allowed_places": [
+            "ones",
+            "tens",
+            "hundreds",
+            "thousands"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "correct_value = get_digit_at_place(number, place) * get_place_multiplier(place)"
+        },
+        {
+          "type": "derived",
+          "rule": "number_marked = mark_digit(number, place)"
+        },
+        {
+          "type": "expression",
+          "rule": "correct_value > 0"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_value"
+      },
+      "distractor_rules": [
+        {
+          "type": "digit_only"
+        },
+        {
+          "type": "neighbor_place_value"
+        },
+        {
+          "type": "zero_append_error"
+        }
+      ],
+      "explanation_template": "The underlined digit has a place value, not just a face value.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "digit_value_confusion"
+      ],
+      "active": true
+    }
+  ]
+}

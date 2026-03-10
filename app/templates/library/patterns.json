@@ -1,0 +1,362 @@
+[
+  {
+    "pattern_code": "direct_compute",
+    "name": "Direct computation",
+    "description": "Learner computes the result of a number sentence.",
+    "cognitive_type": "procedural",
+    "allowed_question_types": [
+      "direct",
+      "fill_blank"
+    ],
+    "recommended_worksheet_types": [
+      "fluency",
+      "mixed",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "number_range_scaling",
+      "regrouping",
+      "multi_digit_progression"
+    ],
+    "visual_support": false,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "ignore_carry",
+      "place_value_confusion"
+    ],
+    "template_slots": [
+      "a",
+      "b"
+    ],
+    "generation_notes": "Use for arithmetic fluency and standard written practice."
+  },
+  {
+    "pattern_code": "missing_operand",
+    "name": "Missing operand",
+    "description": "Learner finds a missing value in a number sentence.",
+    "cognitive_type": "conceptual",
+    "allowed_question_types": [
+      "fill_blank"
+    ],
+    "recommended_worksheet_types": [
+      "concept",
+      "mixed",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "number_range_scaling",
+      "inverse_reasoning"
+    ],
+    "visual_support": false,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "ignore_carry",
+      "place_value_confusion"
+    ],
+    "template_slots": [
+      "a",
+      "b",
+      "total"
+    ],
+    "generation_notes": "Supports inverse operations and missing-number reasoning."
+  },
+  {
+    "pattern_code": "compare_two_quantities",
+    "name": "Compare two quantities",
+    "description": "Learner compares two values using relational symbols.",
+    "cognitive_type": "conceptual",
+    "allowed_question_types": [
+      "fill_blank"
+    ],
+    "recommended_worksheet_types": [
+      "fluency",
+      "mixed",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "number_range_scaling",
+      "representation_shift"
+    ],
+    "visual_support": false,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "digit_count_confusion",
+      "left_to_right_comparison_error"
+    ],
+    "template_slots": [
+      "a",
+      "b"
+    ],
+    "generation_notes": "Useful for ordering and relational thinking."
+  },
+  {
+    "pattern_code": "standard_mcq",
+    "name": "Standard MCQ",
+    "description": "Learner selects the correct answer from misconception-based options.",
+    "cognitive_type": "diagnostic",
+    "allowed_question_types": [
+      "multiple_choice"
+    ],
+    "recommended_worksheet_types": [
+      "mixed",
+      "intervention",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "distractor_strength",
+      "language_complexity"
+    ],
+    "visual_support": true,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "swap_numerator_denominator",
+      "counts_unshaded",
+      "ignore_carry"
+    ],
+    "template_slots": [
+      "options"
+    ],
+    "generation_notes": "Distractors should align closely to misconception tags."
+  },
+  {
+    "pattern_code": "error_spotting",
+    "name": "Error spotting",
+    "description": "Learner critiques a worked answer and identifies the mistake.",
+    "cognitive_type": "diagnostic",
+    "allowed_question_types": [
+      "error_spotting"
+    ],
+    "recommended_worksheet_types": [
+      "intervention",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "distractor_strength",
+      "language_complexity"
+    ],
+    "visual_support": false,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "ignore_carry",
+      "borrow_not_applied"
+    ],
+    "template_slots": [
+      "a",
+      "b",
+      "wrong_answer"
+    ],
+    "generation_notes": "Best used sparingly to surface conceptual misunderstandings."
+  },
+  {
+    "pattern_code": "visual_identification",
+    "name": "Visual identification",
+    "description": "Learner interprets a visual model and names the represented value.",
+    "cognitive_type": "conceptual",
+    "allowed_question_types": [
+      "visual"
+    ],
+    "recommended_worksheet_types": [
+      "concept",
+      "mixed",
+      "intervention"
+    ],
+    "difficulty_behavior": [
+      "representation_shift",
+      "number_range_scaling"
+    ],
+    "visual_support": true,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "swap_numerator_denominator",
+      "counts_unshaded"
+    ],
+    "template_slots": [
+      "parts_total",
+      "parts_shaded"
+    ],
+    "generation_notes": "Essential for concept worksheets and low-floor access."
+  },
+  {
+    "pattern_code": "one_step_story",
+    "name": "One-step story",
+    "description": "Learner solves a themed one-step word problem.",
+    "cognitive_type": "reasoning",
+    "allowed_question_types": [
+      "word_problem"
+    ],
+    "recommended_worksheet_types": [
+      "mixed",
+      "intervention"
+    ],
+    "difficulty_behavior": [
+      "language_complexity",
+      "number_range_scaling"
+    ],
+    "visual_support": false,
+    "theme_support": true,
+    "typical_misconceptions": [
+      "ones_tens_mixup",
+      "group_count_confusion"
+    ],
+    "template_slots": [
+      "name",
+      "a",
+      "b",
+      "object_a"
+    ],
+    "generation_notes": "Use theme wrapper only after math values are fixed."
+  },
+  {
+    "pattern_code": "match_visual_to_symbolic",
+    "name": "Match visual to symbolic",
+    "description": "Learner links a model to its symbolic form.",
+    "cognitive_type": "conceptual",
+    "allowed_question_types": [
+      "matching",
+      "multiple_choice",
+      "visual"
+    ],
+    "recommended_worksheet_types": [
+      "concept",
+      "mixed"
+    ],
+    "difficulty_behavior": [
+      "representation_shift",
+      "distractor_strength"
+    ],
+    "visual_support": true,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "swap_numerator_denominator",
+      "counts_unshaded"
+    ],
+    "template_slots": [
+      "visual_payload",
+      "answer"
+    ],
+    "generation_notes": "Use when you want deliberate representation changes in a sequence."
+  },
+  {
+    "pattern_code": "choose_greatest",
+    "name": "Choose greatest",
+    "description": "Learner identifies the greatest value from a small set.",
+    "cognitive_type": "conceptual",
+    "allowed_question_types": [
+      "multiple_choice"
+    ],
+    "recommended_worksheet_types": [
+      "fluency",
+      "mixed",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "number_range_scaling",
+      "distractor_strength"
+    ],
+    "visual_support": false,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "digit_count_confusion",
+      "left_to_right_comparison_error"
+    ],
+    "template_slots": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "generation_notes": "Keep options close in value to force place-value comparison."
+  },
+  {
+    "pattern_code": "order_set",
+    "name": "Order a set",
+    "description": "Learner orders a set of values from smallest to largest.",
+    "cognitive_type": "conceptual",
+    "allowed_question_types": [
+      "sequence"
+    ],
+    "recommended_worksheet_types": [
+      "concept",
+      "mixed",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "number_range_scaling",
+      "language_complexity"
+    ],
+    "visual_support": false,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "reverses_order_language",
+      "left_to_right_comparison_error"
+    ],
+    "template_slots": [
+      "a",
+      "b",
+      "c",
+      "numbers_csv"
+    ],
+    "generation_notes": "Use ascending and descending language carefully."
+  },
+  {
+    "pattern_code": "complete_number_sentence",
+    "name": "Complete number sentence",
+    "description": "Learner completes an equivalent number sentence or representation.",
+    "cognitive_type": "conceptual",
+    "allowed_question_types": [
+      "fill_blank",
+      "direct"
+    ],
+    "recommended_worksheet_types": [
+      "concept",
+      "mixed",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "representation_shift",
+      "language_complexity"
+    ],
+    "visual_support": false,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "wrong_place_expansion",
+      "adds_digits_not_values"
+    ],
+    "template_slots": [
+      "number",
+      "expanded_text"
+    ],
+    "generation_notes": "Use for equivalence and place-value decomposition."
+  },
+  {
+    "pattern_code": "equal_groups_story",
+    "name": "Equal groups or sharing story",
+    "description": "Learner applies multiplication or division through equal groups.",
+    "cognitive_type": "reasoning",
+    "allowed_question_types": [
+      "word_problem",
+      "visual"
+    ],
+    "recommended_worksheet_types": [
+      "mixed",
+      "intervention"
+    ],
+    "difficulty_behavior": [
+      "language_complexity",
+      "representation_shift"
+    ],
+    "visual_support": true,
+    "theme_support": true,
+    "typical_misconceptions": [
+      "group_count_confusion",
+      "repeated_addition_error"
+    ],
+    "template_slots": [
+      "a",
+      "b",
+      "name",
+      "object_a"
+    ],
+    "generation_notes": "Use for grouping, sharing, and equal-rows situations."
+  }
+]

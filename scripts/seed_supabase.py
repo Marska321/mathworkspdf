@@ -4,7 +4,10 @@ from collections.abc import Iterable
 
 from app.core.config import get_settings
 from app.repositories.supabase_repo import SupabaseWorksheetRepository
-from app.templates.seed_data.pilot_content import PILOT_CONTENT
+from app.templates.loader import load_template_library
+
+
+LIBRARY = load_template_library()
 
 
 def unique_rows(rows: Iterable[dict], key_fields: tuple[str, ...]) -> list[dict]:
@@ -20,47 +23,34 @@ def unique_rows(rows: Iterable[dict], key_fields: tuple[str, ...]) -> list[dict]
 
 
 def build_family_rows() -> list[dict]:
-    skill_lookup = {skill["skill_id"]: skill for skill in PILOT_CONTENT["skills"]}
-    family_rows = []
-    for template in PILOT_CONTENT["templates"]:
-        skill = skill_lookup[template["skill_id"]]
-        family_rows.append(
-            {
-                "family_code": template["family_id"],
-                "skill_id": template["skill_id"],
-                "name": template["family_id"].replace("_", " ").title(),
-                "description": f"Pilot family for {skill['name']}.",
-                "supports_visual": template.get("visual_supported", False),
-                "supports_theme": template.get("theme_supported", False),
-                "active": True,
-            }
-        )
-    return unique_rows(family_rows, ("family_code",))
+    return [
+        {
+            "family_code": family["family_code"],
+            "skill_id": family["skill_id"],
+            "name": family["name"],
+            "description": family["description"],
+            "supports_visual": family.get("supports_visual", False),
+            "supports_theme": family.get("supports_theme", False),
+            "active": True,
+        }
+        for family in LIBRARY["families"]
+    ]
 
 
 def build_misconception_rows() -> list[dict]:
-    misconception_codes = set()
-    for skill in PILOT_CONTENT["skills"]:
-        misconception_codes.update(skill.get("misconception_tags", []))
-    for template in PILOT_CONTENT["templates"]:
-        misconception_codes.update(template.get("misconception_targets", []))
-
-    rows = []
-    for code in sorted(misconception_codes):
-        name = code.replace("_", " ").title()
-        rows.append(
-            {
-                "code": code,
-                "name": name,
-                "description": f"Auto-seeded misconception tag for {name}.",
-            }
-        )
-    return rows
+    return [
+        {
+            "code": item["code"],
+            "name": item["name"],
+            "description": item["description"],
+        }
+        for item in LIBRARY.get("misconceptions", [])
+    ]
 
 
 def build_skill_misconception_rows(misconception_id_lookup: dict[str, str]) -> list[dict]:
     rows = []
-    for skill in PILOT_CONTENT["skills"]:
+    for skill in LIBRARY["skills"]:
         for code in skill.get("misconception_tags", []):
             misconception_id = misconception_id_lookup.get(code)
             if misconception_id:
@@ -70,7 +60,7 @@ def build_skill_misconception_rows(misconception_id_lookup: dict[str, str]) -> l
 
 def build_template_misconception_rows(misconception_id_lookup: dict[str, str]) -> list[dict]:
     rows = []
-    for template in PILOT_CONTENT["templates"]:
+    for template in LIBRARY["templates"]:
         for code in template.get("misconception_targets", []):
             misconception_id = misconception_id_lookup.get(code)
             if misconception_id:
@@ -80,7 +70,7 @@ def build_template_misconception_rows(misconception_id_lookup: dict[str, str]) -
 
 def build_prerequisite_rows() -> list[dict]:
     rows = []
-    for skill in PILOT_CONTENT["skills"]:
+    for skill in LIBRARY["skills"]:
         for prerequisite_skill_id in skill.get("prerequisite_skill_ids", []):
             rows.append({"skill_id": skill["skill_id"], "prerequisite_skill_id": prerequisite_skill_id})
     return unique_rows(rows, ("skill_id", "prerequisite_skill_id"))
@@ -92,7 +82,7 @@ def main() -> None:
         raise RuntimeError("Set MWP_SUPABASE_URL and MWP_SUPABASE_SERVICE_KEY before seeding Supabase.")
 
     repository = SupabaseWorksheetRepository(settings.supabase_url, settings.supabase_service_key)
-    repository.seed_table("skills", PILOT_CONTENT["skills"], "skill_id")
+    repository.seed_table("skills", LIBRARY["skills"], "skill_id")
 
     prerequisite_rows = build_prerequisite_rows()
     if prerequisite_rows:
@@ -112,7 +102,7 @@ def main() -> None:
     if family_rows:
         repository.seed_table("template_families", family_rows, "family_code")
 
-    repository.seed_table("templates", PILOT_CONTENT["templates"], "template_id")
+    repository.seed_table("templates", LIBRARY["templates"], "template_id")
 
     template_misconception_rows = build_template_misconception_rows(misconception_id_lookup)
     if template_misconception_rows:
@@ -126,10 +116,10 @@ def main() -> None:
             "structure_json": blueprint,
             "active": True,
         }
-        for blueprint in PILOT_CONTENT["blueprints"]
+        for blueprint in LIBRARY["blueprints"]
     ]
     repository.seed_table("worksheet_blueprints", blueprint_rows, "id")
-    print("Seeded pilot worksheet content into Supabase.")
+    print("Seeded worksheet template library into Supabase.")
 
 
 if __name__ == "__main__":

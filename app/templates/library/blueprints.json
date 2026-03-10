@@ -9,8 +9,22 @@
         "title": "Warm-Up",
         "target_count": 4,
         "difficulty_bias": "support",
-        "question_types": ["visual", "fill_blank"],
-        "template_family_bias": ["fraction_partwhole_family", "add_regroup_family"],
+        "question_types": [
+          "visual",
+          "fill_blank"
+        ],
+        "template_family_bias": [
+          "fraction_partwhole_family",
+          "add_regroup_family",
+          "pv_identify_family",
+          "compare_order_family",
+          "expanded_notation_family",
+          "add_noregroup_family",
+          "sub_noregroup_family",
+          "sub_regroup_family",
+          "mult_facts_family",
+          "div_facts_family"
+        ],
         "instructions": "Start with guided questions."
       },
       {
@@ -18,8 +32,24 @@
         "title": "Core Practice",
         "target_count": 12,
         "difficulty_bias": "core",
-        "question_types": ["direct", "fill_blank", "multiple_choice", "visual"],
-        "template_family_bias": ["fraction_partwhole_family", "add_regroup_family"],
+        "question_types": [
+          "direct",
+          "fill_blank",
+          "multiple_choice",
+          "visual"
+        ],
+        "template_family_bias": [
+          "fraction_partwhole_family",
+          "add_regroup_family",
+          "pv_identify_family",
+          "compare_order_family",
+          "expanded_notation_family",
+          "add_noregroup_family",
+          "sub_noregroup_family",
+          "sub_regroup_family",
+          "mult_facts_family",
+          "div_facts_family"
+        ],
         "instructions": "Show what you know."
       },
       {
@@ -27,8 +57,23 @@
         "title": "Challenge",
         "target_count": 4,
         "difficulty_bias": "stretch",
-        "question_types": ["direct", "multiple_choice", "visual"],
-        "template_family_bias": ["fraction_partwhole_family", "add_regroup_family"],
+        "question_types": [
+          "direct",
+          "multiple_choice",
+          "visual"
+        ],
+        "template_family_bias": [
+          "fraction_partwhole_family",
+          "add_regroup_family",
+          "pv_identify_family",
+          "compare_order_family",
+          "expanded_notation_family",
+          "add_noregroup_family",
+          "sub_noregroup_family",
+          "sub_regroup_family",
+          "mult_facts_family",
+          "div_facts_family"
+        ],
         "instructions": "Try the trickier questions."
       }
     ]
@@ -43,8 +88,24 @@
         "title": "Practice",
         "target_count": 16,
         "difficulty_bias": "support",
-        "question_types": ["direct", "fill_blank", "multiple_choice"],
-        "template_family_bias": ["add_regroup_family", "fraction_partwhole_family"],
+        "question_types": [
+          "direct",
+          "fill_blank",
+          "multiple_choice",
+          "visual"
+        ],
+        "template_family_bias": [
+          "fraction_partwhole_family",
+          "add_regroup_family",
+          "pv_identify_family",
+          "compare_order_family",
+          "expanded_notation_family",
+          "add_noregroup_family",
+          "sub_noregroup_family",
+          "sub_regroup_family",
+          "mult_facts_family",
+          "div_facts_family"
+        ],
         "instructions": "Work quickly and carefully."
       },
       {
@@ -52,9 +113,112 @@
         "title": "Review",
         "target_count": 4,
         "difficulty_bias": "core",
-        "question_types": ["direct", "fill_blank", "multiple_choice"],
-        "template_family_bias": ["add_regroup_family", "fraction_partwhole_family"],
+        "question_types": [
+          "direct",
+          "fill_blank",
+          "multiple_choice",
+          "visual"
+        ],
+        "template_family_bias": [
+          "fraction_partwhole_family",
+          "add_regroup_family",
+          "pv_identify_family",
+          "compare_order_family",
+          "expanded_notation_family",
+          "add_noregroup_family",
+          "sub_noregroup_family",
+          "sub_regroup_family",
+          "mult_facts_family",
+          "div_facts_family"
+        ],
         "instructions": "Finish with mixed review."
+      }
+    ]
+  },
+  {
+    "blueprint_id": "bp_mixed_default",
+    "worksheet_type": "mixed",
+    "question_count": 20,
+    "sections": [
+      {
+        "section_id": "warmup",
+        "title": "Warm-Up",
+        "target_count": 6,
+        "difficulty_bias": "support",
+        "question_types": [
+          "direct",
+          "fill_blank",
+          "visual",
+          "word_problem"
+        ],
+        "template_family_bias": [
+          "fraction_partwhole_family",
+          "add_regroup_family",
+          "pv_identify_family",
+          "compare_order_family",
+          "expanded_notation_family",
+          "add_noregroup_family",
+          "sub_noregroup_family",
+          "sub_regroup_family",
+          "mult_facts_family",
+          "div_facts_family"
+        ],
+        "instructions": "Start with a mix of quick questions."
+      },
+      {
+        "section_id": "mixed_practice",
+        "title": "Mixed Practice",
+        "target_count": 10,
+        "difficulty_bias": "core",
+        "question_types": [
+          "direct",
+          "fill_blank",
+          "multiple_choice",
+          "sequence",
+          "visual",
+          "word_problem",
+          "error_spotting"
+        ],
+        "template_family_bias": [
+          "fraction_partwhole_family",
+          "add_regroup_family",
+          "pv_identify_family",
+          "compare_order_family",
+          "expanded_notation_family",
+          "add_noregroup_family",
+          "sub_noregroup_family",
+          "sub_regroup_family",
+          "mult_facts_family",
+          "div_facts_family"
+        ],
+        "instructions": "Use different strategies as you work through the set."
+      },
+      {
+        "section_id": "check",
+        "title": "Check Understanding",
+        "target_count": 4,
+        "difficulty_bias": "core",
+        "question_types": [
+          "fill_blank",
+          "multiple_choice",
+          "sequence",
+          "word_problem",
+          "error_spotting",
+          "visual"
+        ],
+        "template_family_bias": [
+          "fraction_partwhole_family",
+          "add_regroup_family",
+          "pv_identify_family",
+          "compare_order_family",
+          "expanded_notation_family",
+          "add_noregroup_family",
+          "sub_noregroup_family",
+          "sub_regroup_family",
+          "mult_facts_family",
+          "div_facts_family"
+        ],
+        "instructions": "Finish by checking your understanding."
       }
     ]
   }

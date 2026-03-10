@@ -1,0 +1,147 @@
+{
+  "family_id": "fam_expanded_notation_g4_01",
+  "family_code": "expanded_notation_family",
+  "skill_id": "expanded_notation_g4_01",
+  "name": "Expanded Notation",
+  "description": "Convert between standard form and expanded notation.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank"
+  ],
+  "misconception_targets": [
+    "drops_zero_place",
+    "adds_digits_not_values",
+    "wrong_place_expansion"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_expanded_01",
+      "template_code": "expanded_01",
+      "skill_id": "expanded_notation_g4_01",
+      "family_id": "expanded_notation_family",
+      "pattern_code": "direct_compute",
+      "name": "Standard to expanded",
+      "question_type": "direct",
+      "template_text": "Write {number} in expanded notation.",
+      "instructions_template": null,
+      "variable_schema": {
+        "number": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "number_range": [
+            10,
+            999
+          ]
+        },
+        "core": {
+          "number_range": [
+            100,
+            9999
+          ]
+        },
+        "stretch": {
+          "number_range": [
+            1000,
+            9999
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "number >= 10"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "expand_number_as_text(number)"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Break the number into hundreds, tens, and ones or thousands, hundreds, tens, and ones.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "wrong_place_expansion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_expanded_02",
+      "template_code": "expanded_02",
+      "skill_id": "expanded_notation_g4_01",
+      "family_id": "expanded_notation_family",
+      "pattern_code": "complete_number_sentence",
+      "name": "Expanded to standard",
+      "question_type": "fill_blank",
+      "template_text": "{expanded_text} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "number": {
+          "type": "int",
+          "required": true
+        },
+        "expanded_text": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "number_range": [
+            10,
+            999
+          ]
+        },
+        "core": {
+          "number_range": [
+            100,
+            9999
+          ]
+        },
+        "stretch": {
+          "number_range": [
+            1000,
+            9999
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "expanded_text = expand_number_as_text(number)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "number"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Add the place values together to rebuild the number.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "adds_digits_not_values"
+      ],
+      "active": true
+    }
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "family_id": "fam_sub_regroup_g4_01",
+  "family_code": "sub_regroup_family",
+  "skill_id": "sub_regroup_g4_01",
+  "name": "Subtraction With Regrouping",
+  "description": "Subtract whole numbers where regrouping is required.",
+  "supports_visual": false,
+  "supports_theme": true,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "intervention",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "word_problem",
+    "error_spotting"
+  ],
+  "misconception_targets": [
+    "borrow_not_applied",
+    "subtract_smaller_from_larger_digit",
+    "forgets_reduce_tens"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_sub_regroup_01",
+      "template_code": "sub_regroup_01",
+      "skill_id": "sub_regroup_g4_01",
+      "family_id": "sub_regroup_family",
+      "pattern_code": "direct_compute",
+      "name": "Direct subtraction with regrouping",
+      "question_type": "direct",
+      "template_text": "{a} - {b} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            21,
+            59
+          ],
+          "b_range": [
+            11,
+            39
+          ]
+        },
+        "core": {
+          "a_range": [
+            21,
+            99
+          ],
+          "b_range": [
+            11,
+            79
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            100,
+            499
+          ],
+          "b_range": [
+            10,
+            299
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "a > b"
+        },
+        {
+          "type": "expression",
+          "rule": "requires_regroup_subtraction(a, b)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "a - b"
+      },
+      "distractor_rules": [
+        {
+          "type": "borrow_not_applied"
+        },
+        {
+          "type": "subtract_reversed_digits"
+        },
+        {
+          "type": "forget_reduce_tens"
+        }
+      ],
+      "explanation_template": "Regroup from the next place when the top digit is too small.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "borrow_not_applied",
+        "forgets_reduce_tens"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_sub_regroup_02",
+      "template_code": "sub_regroup_02",
+      "skill_id": "sub_regroup_g4_01",
+      "family_id": "sub_regroup_family",
+      "pattern_code": "error_spotting",
+      "name": "Error spotting subtraction regrouping",
+      "question_type": "error_spotting",
+      "template_text": "A learner says {a} - {b} = {wrong_answer}. Is this correct?",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "wrong_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            21,
+            59
+          ],
+          "b_range": [
+            11,
+            39
+          ]
+        },
+        "core": {
+          "a_range": [
+            21,
+            99
+          ],
+          "b_range": [
+            11,
+            79
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            100,
+            499
+          ],
+          "b_range": [
+            10,
+            299
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "wrong_answer = distractor_borrow_not_applied(a, b)"
+        },
+        {
+          "type": "expression",
+          "rule": "a > b"
+        },
+        {
+          "type": "expression",
+          "rule": "requires_regroup_subtraction(a, b)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "\"No\""
+      },
+      "distractor_rules": [],
+      "explanation_template": "The learner did not regroup correctly.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "borrow_not_applied"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_sub_regroup_03",
+      "template_code": "sub_regroup_03",
+      "skill_id": "sub_regroup_g4_01",
+      "family_id": "sub_regroup_family",
+      "pattern_code": "one_step_story",
+      "name": "Word problem with regrouping",
+      "question_type": "word_problem",
+      "template_text": "{name} has {a} {object_a}. {name} gives away {b}. How many {object_a} are left?",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "name": {
+          "type": "enum",
+          "values": [
+            "Lebo",
+            "Aya",
+            "Neo",
+            "Thabo"
+          ],
+          "required": true
+        },
+        "object_a": {
+          "type": "enum",
+          "values": [
+            "stickers",
+            "marbles",
+            "books",
+            "cones"
+          ],
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            31,
+            59
+          ],
+          "b_range": [
+            12,
+            39
+          ]
+        },
+        "core": {
+          "a_range": [
+            31,
+            99
+          ],
+          "b_range": [
+            12,
+            79
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            100,
+            199
+          ],
+          "b_range": [
+            12,
+            99
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "a > b"
+        },
+        {
+          "type": "expression",
+          "rule": "requires_regroup_subtraction(a, b)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "a - b"
+      },
+      "distractor_rules": [],
+      "explanation_template": "This is a subtraction story, so subtract the amount taken away.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": true,
+      "visual_supported": false,
+      "misconception_targets": [
+        "borrow_not_applied"
+      ],
+      "active": true
+    }
+  ]
+}

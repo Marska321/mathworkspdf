@@ -17,6 +17,8 @@ def _load_json(path: Path) -> Any:
 def load_template_library() -> dict[str, Any]:
     skills = _load_json(LIBRARY_ROOT / "skills.json")
     blueprints = _load_json(LIBRARY_ROOT / "blueprints.json")
+    patterns = _load_json(LIBRARY_ROOT / "patterns.json")
+    misconceptions = _load_json(LIBRARY_ROOT / "misconceptions.json")
     families: list[dict[str, Any]] = []
     templates: list[dict[str, Any]] = []
 
@@ -30,4 +32,6 @@ def load_template_library() -> dict[str, Any]:
         "families": families,
         "templates": templates,
         "blueprints": blueprints,
+        "patterns": patterns,
+        "misconceptions": misconceptions,
     }

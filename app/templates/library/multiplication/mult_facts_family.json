@@ -1,0 +1,190 @@
+{
+  "family_id": "fam_mult_facts_g4_01",
+  "family_code": "mult_facts_family",
+  "skill_id": "mult_facts_g4_01",
+  "name": "Multiplication Facts",
+  "description": "Recall and apply multiplication facts.",
+  "supports_visual": true,
+  "supports_theme": true,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "intervention"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "visual"
+  ],
+  "misconception_targets": [
+    "counts_additively_only",
+    "factor_order_confusion",
+    "repeated_addition_error"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_mult_facts_01",
+      "template_code": "mult_facts_01",
+      "skill_id": "mult_facts_g4_01",
+      "family_id": "mult_facts_family",
+      "pattern_code": "direct_compute",
+      "name": "Direct multiplication fact",
+      "question_type": "direct",
+      "template_text": "{a} ? {b} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_values": [
+            2,
+            5,
+            10
+          ],
+          "b_range": [
+            1,
+            10
+          ]
+        },
+        "core": {
+          "a_values": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "b_range": [
+            1,
+            10
+          ]
+        },
+        "stretch": {
+          "a_values": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "b_range": [
+            1,
+            12
+          ]
+        }
+      },
+      "constraints": [],
+      "answer_formula": {
+        "type": "expression",
+        "value": "a * b"
+      },
+      "distractor_rules": [
+        {
+          "type": "near_additive_error"
+        },
+        {
+          "type": "factor_plus_factor"
+        }
+      ],
+      "explanation_template": "Multiplication is repeated equal groups.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "counts_additively_only"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_mult_facts_02",
+      "template_code": "mult_facts_02",
+      "skill_id": "mult_facts_g4_01",
+      "family_id": "mult_facts_family",
+      "pattern_code": "visual_identification",
+      "name": "Array model multiplication",
+      "question_type": "visual",
+      "template_text": "How many dots are there altogether?",
+      "instructions_template": null,
+      "variable_schema": {
+        "rows": {
+          "type": "int",
+          "required": true
+        },
+        "cols": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "rows_values": [
+            2,
+            5
+          ],
+          "cols_range": [
+            1,
+            10
+          ]
+        },
+        "core": {
+          "rows_range": [
+            2,
+            10
+          ],
+          "cols_range": [
+            1,
+            10
+          ]
+        },
+        "stretch": {
+          "rows_range": [
+            2,
+            12
+          ],
+          "cols_range": [
+            1,
+            12
+          ]
+        }
+      },
+      "constraints": [],
+      "answer_formula": {
+        "type": "expression",
+        "value": "rows * cols"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Count the equal rows and columns to find the total.",
+      "rendering": {
+        "visual_type": "array_grid",
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": [
+        "repeated_addition_error"
+      ],
+      "active": true
+    }
+  ]
+}

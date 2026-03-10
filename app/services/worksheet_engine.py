@@ -15,6 +15,7 @@ from app.schemas.worksheet import (
     DifficultyBand,
     GeneratedQuestionVariant,
     GenerationRequest,
+    MisconceptionDetail,
     QuestionMetadata,
     QuestionType,
     RenderableWorksheet,
@@ -23,9 +24,12 @@ from app.schemas.worksheet import (
     TeacherNotes,
     Template,
     ValidationResult,
+    VariableDefinition,
     VisualPayload,
     WorksheetBlueprint,
 )
+from app.services.misconception_catalog import get_misconception
+from app.services.template_helpers import HELPER_REGISTRY, adjacent_place_value, distractor_ignore_carry, expand_number_as_text
 
 
 class WorksheetGenerationError(RuntimeError):
@@ -120,6 +124,7 @@ class WorksheetGenerationService:
     def assemble_worksheet(self, context: EngineContext) -> RenderableWorksheet:
         used_template_codes: list[str] = []
         used_family_ids: list[str] = []
+        used_pattern_codes: list[str] = []
         used_answer_values: list[str] = []
         used_signatures: set[str] = set()
         sections: list[SectionOutput] = []
@@ -127,7 +132,13 @@ class WorksheetGenerationService:
         for section in context.blueprint.sections:
             items: list[GeneratedQuestionVariant] = []
             while len(items) < section.target_count:
-                template = self.choose_template(context, section, used_template_codes, used_family_ids)
+                template = self.choose_template(
+                    context,
+                    section,
+                    used_template_codes,
+                    used_family_ids,
+                    used_pattern_codes,
+                )
                 variant = self.generate_valid_variant(
                     context=context,
                     template=template,
@@ -135,6 +146,7 @@ class WorksheetGenerationService:
                     used_template_codes=used_template_codes,
                     used_family_ids=used_family_ids,
                     used_answer_values=used_answer_values,
+                    used_pattern_codes=used_pattern_codes,
                     used_signatures=used_signatures,
                     current_item_count=sum(len(sec.items) for sec in sections) + len(items),
                 )
@@ -142,6 +154,7 @@ class WorksheetGenerationService:
                 used_template_codes.append(template.template_id)
                 used_family_ids.append(template.family_id)
                 used_answer_values.append(variant.answer.value)
+                used_pattern_codes.append(template.pattern_code or template.question_type.value)
                 used_signatures.add(self.build_variant_signature(variant))
 
             sections.append(
@@ -158,6 +171,7 @@ class WorksheetGenerationService:
         misconceptions = sorted(
             {tag for section in sections for item in section.items for tag in item.metadata.misconception_targets}
         )
+        misconception_details = self.build_misconception_details(misconceptions)
         worksheet_id = f"ws_{uuid.uuid4().hex[:12]}"
         return RenderableWorksheet(
             worksheet_id=worksheet_id,
@@ -179,6 +193,7 @@ class WorksheetGenerationService:
             teacher_notes=TeacherNotes(
                 skills_tested=skills_tested,
                 misconceptions_targeted=misconceptions,
+                misconception_details=misconception_details,
             ),
         )
 
@@ -188,6 +203,7 @@ class WorksheetGenerationService:
         section: BlueprintSection,
         used_template_codes: list[str],
         used_family_ids: list[str],
+        used_pattern_codes: list[str],
     ) -> Template:
         target_skill_ids = {skill.skill_id for skill in context.target_skills}
         candidates = [
@@ -202,10 +218,12 @@ class WorksheetGenerationService:
         if not candidates:
             raise WorksheetGenerationError(f"No templates available for section {section.section_id}.")
 
-        def template_rank(candidate: Template) -> tuple[int, int]:
-            consecutive_penalty = 1 if len(used_family_ids) >= 2 and used_family_ids[-2:] == [candidate.family_id, candidate.family_id] else 0
+        def template_rank(candidate: Template) -> tuple[int, int, int]:
+            candidate_pattern = candidate.pattern_code or candidate.question_type.value
+            family_penalty = 1 if len(used_family_ids) >= 2 and used_family_ids[-2:] == [candidate.family_id, candidate.family_id] else 0
+            pattern_penalty = 1 if used_pattern_codes and used_pattern_codes[-1] == candidate_pattern else 0
             prior_usage = used_template_codes.count(candidate.template_id)
-            return (consecutive_penalty, prior_usage)
+            return (family_penalty, pattern_penalty, prior_usage)
 
         best_rank = min(template_rank(candidate) for candidate in candidates)
         best_candidates = [candidate for candidate in candidates if template_rank(candidate) == best_rank]
@@ -219,11 +237,13 @@ class WorksheetGenerationService:
         used_template_codes: list[str],
         used_family_ids: list[str],
         used_answer_values: list[str],
+        used_pattern_codes: list[str],
         used_signatures: set[str],
         current_item_count: int,
     ) -> GeneratedQuestionVariant:
         for _ in range(self.settings.generation_max_attempts):
             variables = self.sample_variables(template, section.difficulty_bias, context.rng)
+            variables = self.apply_derived_rules(template, variables)
             if not self.constraints_hold(template, variables):
                 continue
             answer = self.compute_answer(template, variables)
@@ -231,6 +251,7 @@ class WorksheetGenerationService:
             options = self.build_options(template.question_type, answer, distractors, context.rng)
             difficulty_score = self.score_difficulty(template, variables, section.difficulty_bias)
             skill = next(skill for skill in context.target_skills if skill.skill_id == template.skill_id)
+            misconception_details = self.build_misconception_details(template.misconception_targets)
             variant = GeneratedQuestionVariant(
                 question_id=f"q_{uuid.uuid4().hex[:10]}",
                 template_id=template.template_id,
@@ -246,6 +267,7 @@ class WorksheetGenerationService:
                 metadata=QuestionMetadata(
                     representation_type="visual" if template.question_type == QuestionType.visual else "symbolic",
                     misconception_targets=template.misconception_targets,
+                    misconception_details=misconception_details,
                     prerequisite_skill_ids=skill.prerequisite_skill_ids,
                     estimated_difficulty_score=difficulty_score,
                 ),
@@ -258,6 +280,7 @@ class WorksheetGenerationService:
                 used_template_codes=used_template_codes,
                 used_family_ids=used_family_ids,
                 used_answer_values=used_answer_values,
+                used_pattern_codes=used_pattern_codes,
                 used_signatures=used_signatures,
                 current_item_count=current_item_count,
             )
@@ -273,47 +296,111 @@ class WorksheetGenerationService:
     ) -> dict[str, Any]:
         profile = template.difficulty_profiles[difficulty]
         for _ in range(self.settings.generation_max_attempts):
-            if template.template_code in {"add_regroup_direct_01", "add_regroup_mcq_01"}:
-                variables = {"a": rng.randint(*profile["a_range"]), "b": rng.randint(*profile["b_range"])}
-            elif template.template_code == "add_regroup_missing_01":
-                a = rng.randint(*profile["a_range"])
-                b = rng.randint(*profile["b_range"])
-                variables = {"a": a, "b": b, "total": a + b}
-            elif template.template_code in {"fraction_partwhole_visual_01", "fraction_partwhole_mcq_01"}:
-                parts_total = rng.choice(profile["parts_total_values"])
-                parts_shaded = rng.randint(1, parts_total - 1)
-                variables = {"parts_total": parts_total, "parts_shaded": parts_shaded}
-            else:
-                raise WorksheetGenerationError(f"No variable sampler registered for {template.template_code}.")
+            variables: dict[str, Any] = {}
+            stalled_rounds = 0
+            while len(variables) < len(template.variable_schema) and stalled_rounds < 3:
+                previous_count = len(variables)
+                for name, definition in template.variable_schema.items():
+                    if name in variables:
+                        continue
+                    sampled = self.sample_variable_value(name, definition, profile, variables, rng)
+                    if sampled is not None:
+                        variables[name] = sampled
+                variables = self.apply_derived_rules(template, variables)
+                stalled_rounds = stalled_rounds + 1 if len(variables) == previous_count else 0
 
-            if self.constraints_hold(template, variables):
+            variables = self.apply_derived_rules(template, variables)
+            if set(template.variable_schema).issubset(variables) and self.constraints_hold(template, variables):
                 return variables
 
         raise WorksheetGenerationError(f"Unable to sample valid variables for {template.template_code}.")
 
-    def constraints_hold(self, template: Template, variables: dict[str, Any]) -> bool:
+    def sample_variable_value(
+        self,
+        name: str,
+        definition: VariableDefinition,
+        profile: dict[str, Any],
+        variables: dict[str, Any],
+        rng: random.Random,
+    ) -> Any | None:
+        values_key = f"{name}_values"
+        range_key = f"{name}_range"
+        allowed_key = f"allowed_{name}s"
+
+        if values_key in profile:
+            return rng.choice(profile[values_key])
+        if range_key in profile:
+            low, high = profile[range_key]
+            if definition.type == "float":
+                return round(rng.uniform(low, high), 2)
+            return rng.randint(low, high)
+        if definition.values:
+            values = [value for value in definition.values if value in profile.get(allowed_key, definition.values)]
+            return rng.choice(values or definition.values)
+        if definition.type == "enum" and allowed_key in profile:
+            return rng.choice(profile[allowed_key])
+        if name in {"place", "answer_place"} and "allowed_places" in profile:
+            return rng.choice(profile["allowed_places"])
+        if name == "parts_shaded" and "parts_total" in variables:
+            return rng.randint(1, variables["parts_total"] - 1)
+        if name == "numerator" and "denominator" in variables:
+            return rng.randint(1, variables["denominator"] - 1)
+        if definition.type == "string" and name.endswith("_csv"):
+            source_name = name.removesuffix("_csv")
+            if source_name in variables and isinstance(variables[source_name], list):
+                return ", ".join(str(value) for value in variables[source_name])
+        return None
+
+    def apply_derived_rules(self, template: Template, variables: dict[str, Any]) -> dict[str, Any]:
+        resolved = dict(variables)
         for constraint in template.constraints:
-            if not bool(eval(constraint.rule, {"__builtins__": {}}, variables)):
+            if constraint.type != "derived":
+                continue
+            target, expression = [part.strip() for part in constraint.rule.split("=", maxsplit=1)]
+            try:
+                resolved[target] = self.evaluate_expression(expression, resolved)
+            except NameError:
+                continue
+        return resolved
+
+    def constraints_hold(self, template: Template, variables: dict[str, Any]) -> bool:
+        resolved = self.apply_derived_rules(template, variables)
+        for constraint in template.constraints:
+            if constraint.type != "expression":
+                continue
+            if not bool(self.evaluate_expression(constraint.rule, resolved)):
                 return False
         return True
 
+    def evaluate_expression(self, expression: str, variables: dict[str, Any]) -> Any:
+        return eval(expression, {"__builtins__": {}}, {**HELPER_REGISTRY, **variables})
+
     def compute_answer(self, template: Template, variables: dict[str, Any]) -> AnswerValue:
         formula = template.answer_formula
+        resolved = self.apply_derived_rules(template, variables)
         if formula.type == "expression":
-            value = eval(formula.value or "", {"__builtins__": {}}, variables)
+            value = self.evaluate_expression(formula.value or "", resolved)
+            if isinstance(value, bool):
+                return AnswerValue(value="True" if value else "False", format="text")
+            if isinstance(value, (list, tuple)):
+                return AnswerValue(value=", ".join(str(item) for item in value), format="text")
             return AnswerValue(value=str(value), format="integer" if isinstance(value, int) else "text")
-        numerator = eval(formula.numerator or "", {"__builtins__": {}}, variables)
-        denominator = eval(formula.denominator or "", {"__builtins__": {}}, variables)
+        numerator = self.evaluate_expression(formula.numerator or "", resolved)
+        denominator = self.evaluate_expression(formula.denominator or "", resolved)
         return AnswerValue(value=f"{numerator}/{denominator}", format="fraction")
 
     def generate_distractors(self, template: Template, variables: dict[str, Any], answer: AnswerValue) -> list[str]:
+        if template.question_type != QuestionType.multiple_choice and not template.distractor_rules:
+            return []
         distractors: list[str] = []
         for rule in template.distractor_rules:
-            candidate = self.apply_distractor_rule(rule.type, template.template_code, variables, answer)
+            candidate = self.apply_distractor_rule(rule.type, variables, answer)
             if candidate and candidate != answer.value and candidate not in distractors:
                 distractors.append(candidate)
-        while len(distractors) < 3:
-            fallback = self.fallback_distractor(template.template_code, variables, answer, len(distractors) + 1)
+        fallback_attempts = 0
+        while len(distractors) < 3 and fallback_attempts < 8:
+            fallback_attempts += 1
+            fallback = self.fallback_distractor(template.template_code, variables, answer, fallback_attempts)
             if fallback != answer.value and fallback not in distractors:
                 distractors.append(fallback)
         return distractors[:3]
@@ -321,24 +408,43 @@ class WorksheetGenerationService:
     def apply_distractor_rule(
         self,
         rule_type: str,
-        template_code: str,
         variables: dict[str, Any],
         answer: AnswerValue,
     ) -> str | None:
-        if template_code.startswith("add_regroup"):
+        if {"a", "b"}.issubset(variables):
             a = variables["a"]
             b = variables["b"]
-            total = int(answer.value)
+            total = int(answer.value) if answer.value.lstrip('-').isdigit() else a + b
             if rule_type == "ignore_carry":
-                return str(((a // 10) + (b // 10)) * 10 + ((a % 10) + (b % 10)) % 10)
+                return str(distractor_ignore_carry(a, b))
             if rule_type == "off_by_ten":
                 return str(total + 10)
             if rule_type == "digit_reversal":
                 return str(int(str(total)[::-1])) if total >= 10 else str(total)
             if rule_type == "off_by_one":
                 return str(total - 1 if total > 1 else total + 1)
+            if rule_type == "digit_concat_error":
+                return f"{a // 10 + b // 10}{(a % 10) + (b % 10)}"
+            if rule_type == "place_mix_error":
+                return str((a // 10 + b % 10) * 10 + (a % 10 + b // 10))
+            if rule_type == "subtract_reversed_digits":
+                return str(abs((a % 10) - (b % 10)) + abs((a // 10) - (b // 10)) * 10)
+            if rule_type == "place_mix_error_sub":
+                return str(abs((a // 10) - (b % 10)) * 10 + abs((a % 10) - (b // 10)))
+            if rule_type == "borrow_not_applied":
+                return str((a // 10 - b // 10) * 10 + abs((a % 10) - (b % 10)))
+            if rule_type == "forget_reduce_tens":
+                return str(((a // 10) - (b // 10)) * 10 + (10 + (a % 10) - (b % 10)))
+            if rule_type == "near_additive_error":
+                return str(a + b)
+            if rule_type == "factor_plus_factor":
+                return str(a + b)
+            if rule_type == "multiply_instead":
+                return str(a * b)
+            if rule_type == "subtract_instead":
+                return str(max(0, a - b))
 
-        if template_code.startswith("fraction_partwhole"):
+        if {"parts_total", "parts_shaded"}.issubset(variables):
             total = variables["parts_total"]
             shaded = variables["parts_shaded"]
             if rule_type == "swap_num_den":
@@ -353,6 +459,35 @@ class WorksheetGenerationService:
                 if gcd_value > 1:
                     return f"{max(1, shaded // gcd_value)}/{max(2, (total // gcd_value) + 1)}"
                 return f"{shaded}/{max(2, total + 1)}"
+
+        if "correct_value" in variables:
+            correct_value = int(variables["correct_value"])
+            if rule_type == "digit_only":
+                return str(variables.get("digit", correct_value))
+            if rule_type == "neighbor_place_value":
+                return str(adjacent_place_value(correct_value))
+            if rule_type == "zero_append_error":
+                return str(correct_value * 10) if correct_value < 1000 else str(max(1, correct_value // 10))
+
+        if "digit" in variables and "answer_place" in variables:
+            place_names = ["ones", "tens", "hundreds", "thousands"]
+            current = variables["answer_place"]
+            if rule_type == "neighbor_place_name" and current in place_names:
+                index = place_names.index(current)
+                return place_names[max(0, index - 1)] if index == len(place_names) - 1 else place_names[index + 1]
+
+        if {"a", "b"}.issubset(variables) and rule_type == "flip_compare_symbol":
+            compare_map = {">": "<", "<": ">", "=": "="}
+            return compare_map.get(answer.value)
+
+        if {"a", "b", "c"}.issubset(variables) and rule_type == "reverse_order_csv":
+            return ", ".join(str(value) for value in sorted([variables["a"], variables["b"], variables["c"]], reverse=True))
+
+        if {"a", "b", "c", "d"}.issubset(variables) and rule_type == "other_values":
+            other_values = [variables["a"], variables["b"], variables["c"], variables["d"]]
+            for value in sorted(other_values, reverse=True):
+                if str(value) != answer.value:
+                    return str(value)
         return None
 
     def fallback_distractor(
@@ -364,8 +499,35 @@ class WorksheetGenerationService:
     ) -> str:
         if template_code.startswith("add_regroup"):
             return str(int(answer.value) + offset * 2)
-        numerator, denominator = answer.value.split("/")
-        return f"{max(1, int(numerator) + offset)}/{denominator}"
+        if template_code.startswith("add_noregroup"):
+            return str(int(answer.value) + offset)
+        if template_code.startswith("sub_regroup"):
+            return str(max(0, int(answer.value) + offset))
+        if template_code.startswith("sub_noregroup"):
+            return str(max(0, int(answer.value) + offset))
+        if template_code.startswith("mult_facts"):
+            return str(int(answer.value) + offset)
+        if template_code.startswith("div_facts"):
+            return str(max(1, int(float(answer.value)) + offset))
+        if template_code.startswith("expanded_") and answer.value.isdigit():
+            return str(int(answer.value) + offset)
+        if answer.format == "fraction":
+            numerator, denominator = answer.value.split("/")
+            return f"{max(1, int(numerator) + offset)}/{denominator}"
+        if answer.format == "integer" and answer.value.lstrip('-').isdigit():
+            return str(int(answer.value) + offset)
+        text_fallbacks = {
+            ">": "<",
+            "<": ">",
+            "=": ">",
+            "ones": "tens",
+            "tens": "hundreds",
+            "hundreds": "thousands",
+            "thousands": "hundreds",
+            "True": "False",
+            "False": "True",
+        }
+        return text_fallbacks.get(answer.value, f"{answer.value} (check)")
 
     def score_difficulty(
         self,
@@ -380,13 +542,73 @@ class WorksheetGenerationService:
             representation_complexity = 0.1
             linguistic_load = 0.05
             distractor_similarity = 0.45
-        else:
+        elif template.template_code.startswith("fraction_partwhole"):
             denominator = variables["parts_total"]
             number_complexity = min(denominator / 12, 1.0)
             structure_complexity = 0.35
             representation_complexity = 0.65 if template.question_type == QuestionType.visual else 0.4
             linguistic_load = 0.08
             distractor_similarity = 0.5
+        elif template.template_code.startswith("pv_identify"):
+            number_complexity = min(len(str(variables["number"])) / 4, 1.0)
+            structure_complexity = 0.25 if template.question_type == QuestionType.direct else 0.35
+            representation_complexity = 0.2
+            linguistic_load = 0.08
+            distractor_similarity = 0.4
+        elif template.template_code.startswith("expanded_"):
+            number_complexity = min(len(str(variables["number"])) / 4, 1.0)
+            structure_complexity = 0.3
+            representation_complexity = 0.3
+            linguistic_load = 0.1
+            distractor_similarity = 0.2
+        elif template.template_code.startswith("add_noregroup"):
+            max_number = max(variables["a"], variables.get("b", 0), variables.get("sum", 0))
+            number_complexity = min(max_number / 500, 1.0)
+            structure_complexity = 0.3 if template.question_type == QuestionType.direct else 0.4
+            representation_complexity = 0.15 if template.question_type != QuestionType.word_problem else 0.25
+            linguistic_load = 0.06 if template.question_type != QuestionType.word_problem else 0.16
+            distractor_similarity = 0.3
+        elif template.template_code.startswith("sub_noregroup"):
+            max_number = max(variables["a"], variables.get("b", 0), variables.get("difference", 0))
+            number_complexity = min(max_number / 500, 1.0)
+            structure_complexity = 0.32 if template.question_type == QuestionType.direct else 0.42
+            representation_complexity = 0.15 if template.question_type != QuestionType.word_problem else 0.25
+            linguistic_load = 0.06 if template.question_type != QuestionType.word_problem else 0.16
+            distractor_similarity = 0.3
+        elif template.template_code.startswith("sub_regroup"):
+            max_number = max(variables["a"], variables.get("b", 0), variables.get("wrong_answer", 0))
+            number_complexity = min(max_number / 500, 1.0)
+            structure_complexity = 0.42 if template.question_type in {QuestionType.direct, QuestionType.fill_blank} else 0.5
+            representation_complexity = 0.18 if template.question_type != QuestionType.word_problem else 0.28
+            linguistic_load = 0.08 if template.question_type != QuestionType.word_problem else 0.18
+            distractor_similarity = 0.42
+        elif template.template_code.startswith("mult_facts"):
+            max_number = max(variables.get("a", 0), variables.get("b", 0), variables.get("rows", 0), variables.get("cols", 0))
+            number_complexity = min(max_number / 12, 1.0)
+            structure_complexity = 0.28 if template.question_type == QuestionType.direct else 0.38
+            representation_complexity = 0.2 if template.question_type == QuestionType.direct else 0.55
+            linguistic_load = 0.05
+            distractor_similarity = 0.28
+        elif template.template_code.startswith("div_facts"):
+            max_number = max(variables.get("a", 0), variables.get("b", 0), variables.get("sampled_quotient", 0))
+            number_complexity = min(max_number / 120, 1.0)
+            structure_complexity = 0.32 if template.question_type == QuestionType.direct else 0.4
+            representation_complexity = 0.18 if template.question_type == QuestionType.direct else 0.28
+            linguistic_load = 0.06 if template.question_type == QuestionType.direct else 0.16
+            distractor_similarity = 0.3
+        elif template.template_code.startswith("compare_order"):
+            max_number = max(value for key, value in variables.items() if key in {"a", "b", "c", "d"})
+            number_complexity = min(max_number / 9999, 1.0)
+            structure_complexity = 0.45 if template.question_type == QuestionType.sequence else 0.3
+            representation_complexity = 0.2
+            linguistic_load = 0.08
+            distractor_similarity = 0.35
+        else:
+            number_complexity = 0.3
+            structure_complexity = 0.3
+            representation_complexity = 0.2
+            linguistic_load = 0.08
+            distractor_similarity = 0.3
 
         score = (
             0.30 * number_complexity
@@ -412,6 +634,22 @@ class WorksheetGenerationService:
                     "orientation": "horizontal",
                 },
             )
+        if template.rendering.visual_type == "fraction_bar_blank":
+            return VisualPayload(
+                visual_type="fraction_bar_blank",
+                params={
+                    "parts_total": variables["denominator"],
+                    "orientation": "horizontal",
+                },
+            )
+        if template.rendering.visual_type == "array_grid":
+            return VisualPayload(
+                visual_type="array_grid",
+                params={
+                    "rows": variables["rows"],
+                    "cols": variables["cols"],
+                },
+            )
         return None
 
     def build_options(
@@ -434,6 +672,7 @@ class WorksheetGenerationService:
         used_template_codes: list[str],
         used_family_ids: list[str],
         used_answer_values: list[str],
+        used_pattern_codes: list[str],
         used_signatures: set[str],
         current_item_count: int,
     ) -> ValidationResult:
@@ -480,6 +719,22 @@ class WorksheetGenerationService:
             warnings.append("Difficulty close to upper support threshold")
         return ValidationResult(valid=not errors, errors=errors, warnings=warnings)
 
+    def build_misconception_details(self, codes: list[str]) -> list[MisconceptionDetail]:
+        details: list[MisconceptionDetail] = []
+        for code in codes:
+            payload = get_misconception(code)
+            if not payload:
+                continue
+            details.append(
+                MisconceptionDetail(
+                    code=payload['code'],
+                    name=payload['name'],
+                    description=payload['description'],
+                    distractor_strategy=payload.get('distractor_strategy'),
+                )
+            )
+        return details
+
     def build_variant_signature(self, variant: GeneratedQuestionVariant) -> str:
         variable_signature = "|".join(f"{key}={value}" for key, value in sorted(variant.variables.items()))
         return f"{variant.template_id}|{variable_signature}"
@@ -504,10 +759,3 @@ class WorksheetGenerationService:
                 )
                 number += 1
         return answer_key
-
-
-
-
-
-
-

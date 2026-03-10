@@ -1,0 +1,297 @@
+{
+  "family_id": "fam_sub_noregroup_g4_01",
+  "family_code": "sub_noregroup_family",
+  "skill_id": "sub_noregroup_g4_01",
+  "name": "Subtraction Without Regrouping",
+  "description": "Subtract whole numbers without regrouping.",
+  "supports_visual": false,
+  "supports_theme": true,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "intervention"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "word_problem"
+  ],
+  "misconception_targets": [
+    "subtract_smaller_from_larger_digit",
+    "place_alignment_error"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_sub_noregroup_01",
+      "template_code": "sub_noregroup_01",
+      "skill_id": "sub_noregroup_g4_01",
+      "family_id": "sub_noregroup_family",
+      "pattern_code": "direct_compute",
+      "name": "Direct subtraction no regrouping",
+      "question_type": "direct",
+      "template_text": "{a} - {b} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            20,
+            59
+          ],
+          "b_range": [
+            10,
+            29
+          ]
+        },
+        "core": {
+          "a_range": [
+            20,
+            99
+          ],
+          "b_range": [
+            10,
+            59
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            100,
+            499
+          ],
+          "b_range": [
+            10,
+            199
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "a > b"
+        },
+        {
+          "type": "expression",
+          "rule": "no_regroup_subtraction(a, b)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "a - b"
+      },
+      "distractor_rules": [
+        {
+          "type": "subtract_reversed_digits"
+        },
+        {
+          "type": "place_mix_error_sub"
+        }
+      ],
+      "explanation_template": "Subtract the ones and tens carefully because no regrouping is needed.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "place_alignment_error"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_sub_noregroup_02",
+      "template_code": "sub_noregroup_02",
+      "skill_id": "sub_noregroup_g4_01",
+      "family_id": "sub_noregroup_family",
+      "pattern_code": "missing_operand",
+      "name": "Missing subtrahend no regrouping",
+      "question_type": "fill_blank",
+      "template_text": "{a} - __ = {difference}",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "difference": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            20,
+            59
+          ],
+          "b_range": [
+            10,
+            29
+          ]
+        },
+        "core": {
+          "a_range": [
+            20,
+            99
+          ],
+          "b_range": [
+            10,
+            59
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            100,
+            499
+          ],
+          "b_range": [
+            10,
+            199
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "difference = a - b"
+        },
+        {
+          "type": "expression",
+          "rule": "a > b"
+        },
+        {
+          "type": "expression",
+          "rule": "no_regroup_subtraction(a, b)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "b"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Think about what must be taken away to make the difference.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "place_alignment_error"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_sub_noregroup_03",
+      "template_code": "sub_noregroup_03",
+      "skill_id": "sub_noregroup_g4_01",
+      "family_id": "sub_noregroup_family",
+      "pattern_code": "one_step_story",
+      "name": "Word problem no regrouping",
+      "question_type": "word_problem",
+      "template_text": "{name} has {a} {object_a}. {name} gives away {b}. How many {object_a} are left?",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "name": {
+          "type": "enum",
+          "values": [
+            "Lebo",
+            "Aya",
+            "Neo",
+            "Thabo"
+          ],
+          "required": true
+        },
+        "object_a": {
+          "type": "enum",
+          "values": [
+            "stickers",
+            "marbles",
+            "books",
+            "cones"
+          ],
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            20,
+            49
+          ],
+          "b_range": [
+            10,
+            19
+          ]
+        },
+        "core": {
+          "a_range": [
+            20,
+            89
+          ],
+          "b_range": [
+            10,
+            49
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            100,
+            199
+          ],
+          "b_range": [
+            10,
+            89
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "a > b"
+        },
+        {
+          "type": "expression",
+          "rule": "no_regroup_subtraction(a, b)"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "a - b"
+      },
+      "distractor_rules": [],
+      "explanation_template": "This is a subtraction story, so take away the amount given away.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": true,
+      "visual_supported": false,
+      "misconception_targets": [
+        "subtract_smaller_from_larger_digit"
+      ],
+      "active": true
+    }
+  ]
+}

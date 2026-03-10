@@ -66,3 +66,197 @@ def test_fraction_visual_generates_payload() -> None:
     ]
     assert visuals
     assert all(payload and payload.visual_type == "fraction_bar" for payload in visuals)
+
+
+def test_place_value_generation_supports_digit_value_questions() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Place Value",
+        subskill="Place Value Identification",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.fluency,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="place-value-seed",
+    )
+    worksheet = service.generate(request)
+    texts = [item.question_text for section in worksheet.sections for item in section.items]
+    assert any("value of the digit" in text.lower() for text in texts)
+    assert any(item.answer.value in {"ones", "tens", "hundreds"} or item.answer.value.isdigit() for section in worksheet.sections for item in section.items)
+
+
+def test_compare_order_generation_supports_sequence_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Whole Numbers",
+        subskill="Compare and Order Whole Numbers",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.fill_blank, QuestionType.sequence, QuestionType.multiple_choice],
+        seed="compare-order-seed",
+    )
+    worksheet = service.generate(request)
+    question_types = [item.question_type for section in worksheet.sections for item in section.items]
+    assert QuestionType.sequence in question_types
+    assert any(item.answer.value.count(',') >= 2 for section in worksheet.sections for item in section.items if item.question_type == QuestionType.sequence)
+
+
+def test_expanded_notation_generation_supports_expanded_text() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Place Value",
+        subskill="Expanded Notation",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.fluency,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.fill_blank],
+        seed="expanded-seed",
+    )
+    worksheet = service.generate(request)
+    texts = [item.question_text for section in worksheet.sections for item in section.items]
+    assert any("expanded notation" in text.lower() or "+" in text for text in texts)
+    assert any(" + " in item.answer.value or item.answer.value.isdigit() for section in worksheet.sections for item in section.items)
+
+
+def test_add_noregroup_generation_supports_word_problem() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Addition",
+        subskill="Addition without regrouping",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.fill_blank, QuestionType.word_problem],
+        seed="add-noregroup-seed",
+    )
+    worksheet = service.generate(request)
+    question_types = [item.question_type for section in worksheet.sections for item in section.items]
+    assert QuestionType.word_problem in question_types
+    assert any("more" in item.question_text.lower() for section in worksheet.sections for item in section.items if item.question_type == QuestionType.word_problem)
+
+
+def test_sub_noregroup_generation_supports_word_problem() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Subtraction",
+        subskill="Subtraction without regrouping",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.fill_blank, QuestionType.word_problem],
+        seed="sub-noregroup-seed",
+    )
+    worksheet = service.generate(request)
+    question_types = [item.question_type for section in worksheet.sections for item in section.items]
+    assert QuestionType.word_problem in question_types
+    assert any("left" in item.question_text.lower() for section in worksheet.sections for item in section.items if item.question_type == QuestionType.word_problem)
+
+
+def test_sub_regroup_generation_supports_error_spotting() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Subtraction",
+        subskill="Subtraction with regrouping",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.error_spotting, QuestionType.word_problem],
+        seed="sub-regroup-seed",
+    )
+    worksheet = service.generate(request)
+    question_types = [item.question_type for section in worksheet.sections for item in section.items]
+    assert QuestionType.error_spotting in question_types
+    assert any(item.answer.value == "No" for section in worksheet.sections for item in section.items if item.question_type == QuestionType.error_spotting)
+
+
+def test_mult_facts_generation_supports_array_visual() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Multiplication",
+        subskill="Multiplication facts",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.visual],
+        seed="mult-facts-seed",
+    )
+    worksheet = service.generate(request)
+    visuals = [item.visual_payload for section in worksheet.sections for item in section.items if item.question_type == QuestionType.visual]
+    assert visuals
+    assert all(payload and payload.visual_type == "array_grid" for payload in visuals)
+
+
+def test_div_facts_generation_supports_sharing_story() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Division",
+        subskill="Division facts",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.word_problem],
+        seed="div-facts-seed",
+    )
+    worksheet = service.generate(request)
+    question_types = [item.question_type for section in worksheet.sections for item in section.items]
+    assert QuestionType.word_problem in question_types
+    assert any("equally" in item.question_text.lower() for section in worksheet.sections for item in section.items if item.question_type == QuestionType.word_problem)
+
+
+from app.services.misconception_catalog import load_misconception_catalog, validate_misconception_references
+
+
+def test_misconception_registry_covers_all_references() -> None:
+    missing = validate_misconception_references()
+    assert missing == []
+    catalog = load_misconception_catalog()
+    assert 'ignore_carry' in catalog
+    assert catalog['ignore_carry']['distractor_strategy'] == 'ignore_carry'
+
+
+def test_generated_metadata_includes_misconception_details() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Fractions",
+        subskill="Fractions as part of a whole",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.concept,
+        question_count=5,
+        question_types=[QuestionType.visual, QuestionType.multiple_choice],
+        seed="misconception-details-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    assert any(item.metadata.misconception_details for item in items)
+    first_with_details = next(item for item in items if item.metadata.misconception_details)
+    assert first_with_details.metadata.misconception_details[0].code in first_with_details.metadata.misconception_targets
+    assert worksheet.teacher_notes.misconception_details
+    assert worksheet.teacher_notes.misconception_details[0].description

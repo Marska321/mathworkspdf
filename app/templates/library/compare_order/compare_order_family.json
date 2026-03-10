@@ -1,0 +1,319 @@
+{
+  "family_id": "fam_compare_order_g4_01",
+  "family_code": "compare_order_family",
+  "skill_id": "compare_order_g4_01",
+  "name": "Compare and Order Whole Numbers",
+  "description": "Compare and order whole numbers up to 4 digits.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "fill_blank",
+    "multiple_choice",
+    "sequence"
+  ],
+  "misconception_targets": [
+    "digit_count_confusion",
+    "left_to_right_comparison_error",
+    "reverses_order_language"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_compare_order_01",
+      "template_code": "compare_order_01",
+      "skill_id": "compare_order_g4_01",
+      "family_id": "compare_order_family",
+      "pattern_code": "compare_two_quantities",
+      "name": "Insert comparison sign",
+      "question_type": "fill_blank",
+      "template_text": "{a} __ {b}",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            0,
+            999
+          ],
+          "b_range": [
+            0,
+            999
+          ]
+        },
+        "core": {
+          "a_range": [
+            0,
+            9999
+          ],
+          "b_range": [
+            0,
+            9999
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            0,
+            9999
+          ],
+          "b_range": [
+            0,
+            9999
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "a != b"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "compare_symbol(a, b)"
+      },
+      "distractor_rules": [
+        {
+          "type": "flip_compare_symbol"
+        }
+      ],
+      "explanation_template": "Compare the numbers from the highest place value first.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "left_to_right_comparison_error"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_compare_order_02",
+      "template_code": "compare_order_02",
+      "skill_id": "compare_order_g4_01",
+      "family_id": "compare_order_family",
+      "pattern_code": "order_set",
+      "name": "Order numbers ascending",
+      "question_type": "sequence",
+      "template_text": "Write these numbers in ascending order: {numbers_csv}",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "c": {
+          "type": "int",
+          "required": true
+        },
+        "numbers_csv": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            0,
+            999
+          ],
+          "b_range": [
+            0,
+            999
+          ],
+          "c_range": [
+            0,
+            999
+          ]
+        },
+        "core": {
+          "a_range": [
+            0,
+            9999
+          ],
+          "b_range": [
+            0,
+            9999
+          ],
+          "c_range": [
+            0,
+            9999
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            0,
+            9999
+          ],
+          "b_range": [
+            0,
+            9999
+          ],
+          "c_range": [
+            0,
+            9999
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "all_unique([a, b, c])"
+        },
+        {
+          "type": "derived",
+          "rule": "numbers_csv = join_csv([a, b, c])"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "join_csv(sort_ascending([a, b, c]))"
+      },
+      "distractor_rules": [
+        {
+          "type": "reverse_order_csv"
+        }
+      ],
+      "explanation_template": "Ascending order means smallest to biggest.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "reverses_order_language"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_compare_order_03",
+      "template_code": "compare_order_03",
+      "skill_id": "compare_order_g4_01",
+      "family_id": "compare_order_family",
+      "pattern_code": "choose_greatest",
+      "name": "Choose greatest number",
+      "question_type": "multiple_choice",
+      "template_text": "Which number is the greatest?",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "c": {
+          "type": "int",
+          "required": true
+        },
+        "d": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            0,
+            999
+          ],
+          "b_range": [
+            0,
+            999
+          ],
+          "c_range": [
+            0,
+            999
+          ],
+          "d_range": [
+            0,
+            999
+          ]
+        },
+        "core": {
+          "a_range": [
+            0,
+            9999
+          ],
+          "b_range": [
+            0,
+            9999
+          ],
+          "c_range": [
+            0,
+            9999
+          ],
+          "d_range": [
+            0,
+            9999
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            0,
+            9999
+          ],
+          "b_range": [
+            0,
+            9999
+          ],
+          "c_range": [
+            0,
+            9999
+          ],
+          "d_range": [
+            0,
+            9999
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "all_unique([a, b, c, d])"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "max(a, b, c, d)"
+      },
+      "distractor_rules": [
+        {
+          "type": "other_values"
+        }
+      ],
+      "explanation_template": "The greatest number has the highest value when you compare place values.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "two_column"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "digit_count_confusion"
+      ],
+      "active": true
+    }
+  ]
+}
