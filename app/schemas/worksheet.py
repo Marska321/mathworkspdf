@@ -33,14 +33,15 @@ class QuestionType(str, Enum):
     sequence = "sequence"
 
 
-class ExpressionConstraint(BaseModel):
-    type: Literal["expression"] = "expression"
+class ConstraintRule(BaseModel):
+    type: Literal["expression", "derived"]
     rule: str
 
 
 class VariableDefinition(BaseModel):
-    type: Literal["int", "float", "string", "fraction", "array", "enum"]
+    type: str
     required: bool = True
+    values: list[Any] = Field(default_factory=list)
 
 
 class AnswerFormula(BaseModel):
@@ -88,7 +89,7 @@ class Template(BaseModel):
     instructions_template: str | None = None
     variable_schema: dict[str, VariableDefinition]
     difficulty_profiles: dict[DifficultyBand, dict[str, Any]]
-    constraints: list[ExpressionConstraint] = Field(default_factory=list)
+    constraints: list[ConstraintRule] = Field(default_factory=list)
     answer_formula: AnswerFormula
     distractor_rules: list[DistractorRule] = Field(default_factory=list)
     explanation_template: str

@@ -5,14 +5,15 @@ from typing import Any
 
 from app.repositories.base import WorksheetRepository
 from app.schemas.worksheet import RenderableWorksheet, Skill, Template, WorksheetBlueprint
-from app.templates.seed_data.pilot_content import PILOT_CONTENT
+from app.templates.loader import load_template_library
 
 
 class InMemoryWorksheetRepository(WorksheetRepository):
     def __init__(self) -> None:
-        self._skills = [Skill.model_validate(item) for item in PILOT_CONTENT["skills"]]
-        self._templates = [Template.model_validate(item) for item in PILOT_CONTENT["templates"]]
-        self._blueprints = [WorksheetBlueprint.model_validate(item) for item in PILOT_CONTENT["blueprints"]]
+        library = load_template_library()
+        self._skills = [Skill.model_validate(item) for item in library["skills"]]
+        self._templates = [Template.model_validate(item) for item in library["templates"]]
+        self._blueprints = [WorksheetBlueprint.model_validate(item) for item in library["blueprints"]]
         self._generated: dict[str, dict[str, Any]] = {}
 
     def get_skills(self) -> list[Skill]:

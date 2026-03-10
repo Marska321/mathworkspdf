@@ -1,0 +1,61 @@
+[
+  {
+    "blueprint_id": "bp_concept_default",
+    "worksheet_type": "concept",
+    "question_count": 20,
+    "sections": [
+      {
+        "section_id": "warmup",
+        "title": "Warm-Up",
+        "target_count": 4,
+        "difficulty_bias": "support",
+        "question_types": ["visual", "fill_blank"],
+        "template_family_bias": ["fraction_partwhole_family", "add_regroup_family"],
+        "instructions": "Start with guided questions."
+      },
+      {
+        "section_id": "core",
+        "title": "Core Practice",
+        "target_count": 12,
+        "difficulty_bias": "core",
+        "question_types": ["direct", "fill_blank", "multiple_choice", "visual"],
+        "template_family_bias": ["fraction_partwhole_family", "add_regroup_family"],
+        "instructions": "Show what you know."
+      },
+      {
+        "section_id": "challenge",
+        "title": "Challenge",
+        "target_count": 4,
+        "difficulty_bias": "stretch",
+        "question_types": ["direct", "multiple_choice", "visual"],
+        "template_family_bias": ["fraction_partwhole_family", "add_regroup_family"],
+        "instructions": "Try the trickier questions."
+      }
+    ]
+  },
+  {
+    "blueprint_id": "bp_fluency_default",
+    "worksheet_type": "fluency",
+    "question_count": 20,
+    "sections": [
+      {
+        "section_id": "practice",
+        "title": "Practice",
+        "target_count": 16,
+        "difficulty_bias": "support",
+        "question_types": ["direct", "fill_blank", "multiple_choice"],
+        "template_family_bias": ["add_regroup_family", "fraction_partwhole_family"],
+        "instructions": "Work quickly and carefully."
+      },
+      {
+        "section_id": "review",
+        "title": "Review",
+        "target_count": 4,
+        "difficulty_bias": "core",
+        "question_types": ["direct", "fill_blank", "multiple_choice"],
+        "template_family_bias": ["add_regroup_family", "fraction_partwhole_family"],
+        "instructions": "Finish with mixed review."
+      }
+    ]
+  }
+]

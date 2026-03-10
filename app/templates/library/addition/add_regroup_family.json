@@ -1,0 +1,86 @@
+{
+  "family_id": "fam_add_regroup_g4_01",
+  "family_code": "add_regroup_family",
+  "skill_id": "add_regroup_g4_01",
+  "name": "Addition With Regrouping",
+  "description": "Add whole numbers where regrouping is required.",
+  "supports_visual": false,
+  "supports_theme": true,
+  "recommended_worksheet_types": ["fluency", "mixed", "intervention", "assessment"],
+  "recommended_question_types": ["direct", "fill_blank", "multiple_choice", "word_problem", "error_spotting"],
+  "misconception_targets": ["ignore_carry", "place_value_confusion", "digit_add_without_regroup"],
+  "templates": [
+    {
+      "template_id": "tpl_add_regroup_direct_01",
+      "template_code": "add_regroup_direct_01",
+      "skill_id": "add_regroup_g4_01",
+      "family_id": "add_regroup_family",
+      "name": "Two-digit addition with regrouping",
+      "question_type": "direct",
+      "template_text": "{a} + {b} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {"type": "int", "required": true},
+        "b": {"type": "int", "required": true}
+      },
+      "difficulty_profiles": {
+        "support": {"a_range": [11, 49], "b_range": [11, 49]},
+        "core": {"a_range": [11, 79], "b_range": [11, 79]},
+        "stretch": {"a_range": [11, 99], "b_range": [11, 99]}
+      },
+      "constraints": [
+        {"type": "expression", "rule": "requires_regroup(a, b)"},
+        {"type": "expression", "rule": "a + b <= 150"}
+      ],
+      "answer_formula": {"type": "expression", "value": "a + b"},
+      "distractor_rules": [
+        {"type": "ignore_carry"},
+        {"type": "off_by_ten"},
+        {"type": "digit_reversal"}
+      ],
+      "explanation_template": "Add the ones first. Regroup if needed. Then add the tens.",
+      "rendering": {"visual_type": null, "layout_hint": "single_line"},
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": ["ignore_carry", "place_value_confusion", "digit_reversal"],
+      "active": true
+    },
+    {
+      "template_id": "tpl_add_regroup_missing_01",
+      "template_code": "add_regroup_missing_01",
+      "skill_id": "add_regroup_g4_01",
+      "family_id": "add_regroup_family",
+      "name": "Missing addend with regrouping",
+      "question_type": "fill_blank",
+      "template_text": "{a} + __ = {total}",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {"type": "int", "required": true},
+        "b": {"type": "int", "required": true},
+        "total": {"type": "int", "required": true}
+      },
+      "difficulty_profiles": {
+        "support": {"a_range": [10, 39], "b_range": [11, 39]},
+        "core": {"a_range": [10, 59], "b_range": [11, 59]},
+        "stretch": {"a_range": [10, 89], "b_range": [11, 89]}
+      },
+      "constraints": [
+        {"type": "derived", "rule": "total = a + b"},
+        {"type": "expression", "rule": "requires_regroup(a, b)"},
+        {"type": "expression", "rule": "total <= 160"}
+      ],
+      "answer_formula": {"type": "expression", "value": "b"},
+      "distractor_rules": [
+        {"type": "ignore_carry"},
+        {"type": "off_by_one"},
+        {"type": "off_by_ten"}
+      ],
+      "explanation_template": "Find the missing addend by subtracting the known addend from the total.",
+      "rendering": {"visual_type": null, "layout_hint": "single_line"},
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": ["ignore_carry", "place_value_confusion"],
+      "active": true
+    }
+  ]
+}

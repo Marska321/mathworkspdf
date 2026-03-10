@@ -1,0 +1,36 @@
+[
+  {
+    "skill_id": "fraction_partwhole_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Fractions",
+    "subtopic": "Fractions as part of a whole",
+    "name": "Identify fractions as part of a whole",
+    "description": "Learner identifies shaded fractions using simple visual and symbolic forms.",
+    "caps_code": "G4-T1-FRA-PW-01",
+    "difficulty_bands_supported": ["support", "core", "stretch"],
+    "recommended_question_types": ["visual", "multiple_choice"],
+    "prerequisite_skill_ids": [],
+    "misconception_tags": ["swap_numerator_denominator", "counts_unshaded"],
+    "active": true
+  },
+  {
+    "skill_id": "add_regroup_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Addition",
+    "subtopic": "Addition with regrouping",
+    "name": "Add numbers with regrouping",
+    "description": "Learner adds two-digit numbers and explains regrouping.",
+    "caps_code": "G4-T1-ADD-RG-01",
+    "difficulty_bands_supported": ["support", "core", "stretch"],
+    "recommended_question_types": ["direct", "fill_blank", "multiple_choice"],
+    "prerequisite_skill_ids": [],
+    "misconception_tags": ["ignore_carry", "place_value_confusion", "digit_reversal"],
+    "active": true
+  }
+]

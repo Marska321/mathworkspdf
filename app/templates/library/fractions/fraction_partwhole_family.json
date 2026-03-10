@@ -1,0 +1,84 @@
+{
+  "family_id": "fam_fraction_partwhole_g4_01",
+  "family_code": "fraction_partwhole_family",
+  "skill_id": "fraction_partwhole_g4_01",
+  "name": "Fractions as Part of a Whole",
+  "description": "Recognise, represent, and interpret fractions as part of a whole.",
+  "supports_visual": true,
+  "supports_theme": false,
+  "recommended_worksheet_types": ["concept", "mixed", "intervention"],
+  "recommended_question_types": ["visual", "multiple_choice", "true_false", "fill_blank"],
+  "misconception_targets": ["swap_numerator_denominator", "counts_unshaded", "denominator_as_shaded"],
+  "templates": [
+    {
+      "template_id": "tpl_fraction_partwhole_visual_01",
+      "template_code": "fraction_partwhole_visual_01",
+      "skill_id": "fraction_partwhole_g4_01",
+      "family_id": "fraction_partwhole_family",
+      "name": "Identify shaded fraction from bar model",
+      "question_type": "visual",
+      "template_text": "What fraction of the shape is shaded?",
+      "instructions_template": null,
+      "variable_schema": {
+        "parts_total": {"type": "int", "required": true},
+        "parts_shaded": {"type": "int", "required": true}
+      },
+      "difficulty_profiles": {
+        "support": {"parts_total_values": [2, 3, 4, 5, 6]},
+        "core": {"parts_total_values": [2, 3, 4, 5, 6, 8]},
+        "stretch": {"parts_total_values": [2, 3, 4, 5, 6, 8, 10, 12]}
+      },
+      "constraints": [
+        {"type": "expression", "rule": "parts_shaded >= 1"},
+        {"type": "expression", "rule": "parts_shaded < parts_total"}
+      ],
+      "answer_formula": {"type": "fraction", "numerator": "parts_shaded", "denominator": "parts_total"},
+      "distractor_rules": [
+        {"type": "swap_num_den"},
+        {"type": "use_unshaded_as_numerator"},
+        {"type": "off_by_one_shaded"}
+      ],
+      "explanation_template": "The numerator shows shaded parts. The denominator shows total equal parts.",
+      "rendering": {"visual_type": "fraction_bar", "layout_hint": "full_width"},
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": ["swap_numerator_denominator", "counts_unshaded"],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_partwhole_mcq_01",
+      "template_code": "fraction_partwhole_mcq_01",
+      "skill_id": "fraction_partwhole_g4_01",
+      "family_id": "fraction_partwhole_family",
+      "name": "Choose the correct shaded fraction",
+      "question_type": "multiple_choice",
+      "template_text": "Choose the fraction that matches the shaded parts: {parts_shaded} shaded out of {parts_total}.",
+      "instructions_template": null,
+      "variable_schema": {
+        "parts_total": {"type": "int", "required": true},
+        "parts_shaded": {"type": "int", "required": true}
+      },
+      "difficulty_profiles": {
+        "support": {"parts_total_values": [2, 3, 4, 5, 6]},
+        "core": {"parts_total_values": [3, 4, 5, 6, 8]},
+        "stretch": {"parts_total_values": [4, 5, 6, 8, 10, 12]}
+      },
+      "constraints": [
+        {"type": "expression", "rule": "parts_shaded >= 1"},
+        {"type": "expression", "rule": "parts_shaded < parts_total"}
+      ],
+      "answer_formula": {"type": "fraction", "numerator": "parts_shaded", "denominator": "parts_total"},
+      "distractor_rules": [
+        {"type": "swap_num_den"},
+        {"type": "use_unshaded_as_numerator"},
+        {"type": "simplified_wrong"}
+      ],
+      "explanation_template": "Use shaded parts for the numerator and total parts for the denominator.",
+      "rendering": {"visual_type": null, "layout_hint": "single_line"},
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": ["swap_numerator_denominator", "counts_unshaded"],
+      "active": true
+    }
+  ]
+}
