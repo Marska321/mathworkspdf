@@ -1,0 +1,138 @@
+{
+  "family_id": "fam_fraction_equivalent_g4_01",
+  "family_code": "fraction_equivalent_family",
+  "skill_id": "fraction_equivalent_g4_01",
+  "name": "Equivalent Fractions",
+  "description": "Recognise and complete equivalent fractions.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "scale_one_part_only",
+    "add_same_number_to_both_terms",
+    "copy_numerator_denominator"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_fraction_equivalent_01",
+      "template_code": "fraction_equivalent_01",
+      "skill_id": "fraction_equivalent_g4_01",
+      "family_id": "fraction_equivalent_family",
+      "pattern_code": "complete_number_sentence",
+      "name": "Complete equivalent fraction",
+      "question_type": "fill_blank",
+      "template_text": "Complete: {numerator}/{denominator} = __/{equiv_denominator}",
+      "instructions_template": null,
+      "variable_schema": {
+        "denominator": { "type": "int", "required": true },
+        "numerator": { "type": "int", "required": true },
+        "scale_factor": { "type": "int", "required": true },
+        "equiv_denominator": { "type": "int", "required": true }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "denominator_values": [2, 3, 4, 5],
+          "scale_factor_values": [2, 3]
+        },
+        "core": {
+          "denominator_values": [2, 3, 4, 5, 6, 8],
+          "scale_factor_values": [2, 3, 4]
+        },
+        "stretch": {
+          "denominator_values": [3, 4, 5, 6, 8, 10],
+          "scale_factor_values": [2, 3, 4, 5]
+        }
+      },
+      "constraints": [
+        { "type": "derived", "rule": "equiv_denominator = denominator * scale_factor" },
+        { "type": "expression", "rule": "numerator >= 1" },
+        { "type": "expression", "rule": "numerator < denominator" }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "numerator * scale_factor"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Equivalent fractions are made by multiplying the numerator and denominator by the same number.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "scale_one_part_only"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_equivalent_02",
+      "template_code": "fraction_equivalent_02",
+      "skill_id": "fraction_equivalent_g4_01",
+      "family_id": "fraction_equivalent_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose equivalent fraction",
+      "question_type": "multiple_choice",
+      "template_text": "Which fraction is equivalent to {numerator}/{denominator}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "denominator": { "type": "int", "required": true },
+        "numerator": { "type": "int", "required": true },
+        "scale_factor": { "type": "int", "required": true },
+        "equiv_numerator": { "type": "int", "required": true },
+        "equiv_denominator": { "type": "int", "required": true }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "denominator_values": [2, 3, 4, 5],
+          "scale_factor_values": [2, 3]
+        },
+        "core": {
+          "denominator_values": [2, 3, 4, 5, 6, 8],
+          "scale_factor_values": [2, 3, 4]
+        },
+        "stretch": {
+          "denominator_values": [3, 4, 5, 6, 8, 10],
+          "scale_factor_values": [2, 3, 4, 5]
+        }
+      },
+      "constraints": [
+        { "type": "derived", "rule": "equiv_numerator = numerator * scale_factor" },
+        { "type": "derived", "rule": "equiv_denominator = denominator * scale_factor" },
+        { "type": "expression", "rule": "numerator >= 1" },
+        { "type": "expression", "rule": "numerator < denominator" }
+      ],
+      "answer_formula": {
+        "type": "fraction",
+        "numerator": "equiv_numerator",
+        "denominator": "equiv_denominator"
+      },
+      "distractor_rules": [
+        { "type": "scale_denominator_only" },
+        { "type": "add_to_both_fraction_terms" },
+        { "type": "copy_fraction_terms" }
+      ],
+      "explanation_template": "Both numerator and denominator must be scaled by the same factor to stay equivalent.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "scale_one_part_only",
+        "add_same_number_to_both_terms",
+        "copy_numerator_denominator"
+      ],
+      "active": true
+    }
+  ]
+}

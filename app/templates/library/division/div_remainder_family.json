@@ -1,0 +1,135 @@
+{
+  "family_id": "fam_div_remainder_g4_01",
+  "family_code": "div_remainder_family",
+  "skill_id": "div_remainder_g4_01",
+  "name": "Division With Remainders",
+  "description": "Solve division problems where items are left over.",
+  "supports_visual": false,
+  "supports_theme": true,
+  "recommended_worksheet_types": [
+    "mixed",
+    "intervention",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "ignore_remainder",
+    "use_divisor_as_remainder",
+    "round_up_quotient_remainder"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_div_remainder_01",
+      "template_code": "div_remainder_01",
+      "skill_id": "div_remainder_g4_01",
+      "family_id": "div_remainder_family",
+      "pattern_code": "direct_compute",
+      "name": "Direct division with remainder",
+      "question_type": "direct",
+      "template_text": "{a} ? {b} = __ remainder __",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": { "type": "int", "required": true },
+        "b": { "type": "int", "required": true },
+        "quotient": { "type": "int", "required": true },
+        "remainder": { "type": "int", "required": true }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "b_values": [2, 3, 4, 5],
+          "quotient_range": [1, 10]
+        },
+        "core": {
+          "b_values": [2, 3, 4, 5, 6, 8, 10],
+          "quotient_range": [1, 12]
+        },
+        "stretch": {
+          "b_values": [3, 4, 5, 6, 8, 10, 12],
+          "quotient_range": [2, 12]
+        }
+      },
+      "constraints": [
+        { "type": "derived", "rule": "a = b * quotient + remainder" },
+        { "type": "expression", "rule": "remainder > 0" },
+        { "type": "expression", "rule": "remainder < b" }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "str(quotient) + ' remainder ' + str(remainder)"
+      },
+      "distractor_rules": [],
+      "explanation_template": "The quotient tells how many equal groups you can make, and the remainder tells what is left over.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "ignore_remainder"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_div_remainder_02",
+      "template_code": "div_remainder_02",
+      "skill_id": "div_remainder_g4_01",
+      "family_id": "div_remainder_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose quotient and remainder",
+      "question_type": "multiple_choice",
+      "template_text": "Which answer is correct for {a} ? {b}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": { "type": "int", "required": true },
+        "b": { "type": "int", "required": true },
+        "quotient": { "type": "int", "required": true },
+        "remainder": { "type": "int", "required": true }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "b_values": [2, 3, 4, 5],
+          "quotient_range": [1, 10]
+        },
+        "core": {
+          "b_values": [2, 3, 4, 5, 6, 8, 10],
+          "quotient_range": [1, 12]
+        },
+        "stretch": {
+          "b_values": [3, 4, 5, 6, 8, 10, 12],
+          "quotient_range": [2, 12]
+        }
+      },
+      "constraints": [
+        { "type": "derived", "rule": "a = b * quotient + remainder" },
+        { "type": "expression", "rule": "remainder > 0" },
+        { "type": "expression", "rule": "remainder < b" }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "str(quotient) + ' remainder ' + str(remainder)"
+      },
+      "distractor_rules": [
+        { "type": "ignore_remainder_value" },
+        { "type": "use_divisor_as_remainder_value" },
+        { "type": "round_up_quotient_remainder_value" }
+      ],
+      "explanation_template": "A remainder must be smaller than the divisor.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "ignore_remainder",
+        "use_divisor_as_remainder",
+        "round_up_quotient_remainder"
+      ],
+      "active": true
+    }
+  ]
+}

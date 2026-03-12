@@ -25,7 +25,11 @@
           "mult_facts_family",
           "div_facts_family",
           "rounding_family",
-          "mult_missing_factor_family"
+          "mult_missing_factor_family",
+          "div_remainder_family",
+          "fraction_equivalent_family",
+          "fraction_compare_family",
+          "fraction_simplify_family"
         ],
         "instructions": "Start with guided questions."
       },
@@ -52,7 +56,11 @@
           "mult_facts_family",
           "div_facts_family",
           "rounding_family",
-          "mult_missing_factor_family"
+          "mult_missing_factor_family",
+          "div_remainder_family",
+          "fraction_equivalent_family",
+          "fraction_compare_family",
+          "fraction_simplify_family"
         ],
         "instructions": "Show what you know."
       },
@@ -78,7 +86,11 @@
           "mult_facts_family",
           "div_facts_family",
           "rounding_family",
-          "mult_missing_factor_family"
+          "mult_missing_factor_family",
+          "div_remainder_family",
+          "fraction_equivalent_family",
+          "fraction_compare_family",
+          "fraction_simplify_family"
         ],
         "instructions": "Try the trickier questions."
       }
@@ -112,7 +124,11 @@
           "mult_facts_family",
           "div_facts_family",
           "rounding_family",
-          "mult_missing_factor_family"
+          "mult_missing_factor_family",
+          "div_remainder_family",
+          "fraction_equivalent_family",
+          "fraction_compare_family",
+          "fraction_simplify_family"
         ],
         "instructions": "Work quickly and carefully."
       },
@@ -139,7 +155,11 @@
           "mult_facts_family",
           "div_facts_family",
           "rounding_family",
-          "mult_missing_factor_family"
+          "mult_missing_factor_family",
+          "div_remainder_family",
+          "fraction_equivalent_family",
+          "fraction_compare_family",
+          "fraction_simplify_family"
         ],
         "instructions": "Finish with mixed review."
       }
@@ -173,7 +193,11 @@
           "mult_facts_family",
           "div_facts_family",
           "rounding_family",
-          "mult_missing_factor_family"
+          "mult_missing_factor_family",
+          "div_remainder_family",
+          "fraction_equivalent_family",
+          "fraction_compare_family",
+          "fraction_simplify_family"
         ],
         "instructions": "Start with a mix of quick questions."
       },
@@ -203,7 +227,11 @@
           "mult_facts_family",
           "div_facts_family",
           "rounding_family",
-          "mult_missing_factor_family"
+          "mult_missing_factor_family",
+          "div_remainder_family",
+          "fraction_equivalent_family",
+          "fraction_compare_family",
+          "fraction_simplify_family"
         ],
         "instructions": "Use different strategies as you work through the set."
       },
@@ -232,7 +260,11 @@
           "mult_facts_family",
           "div_facts_family",
           "rounding_family",
-          "mult_missing_factor_family"
+          "mult_missing_factor_family",
+          "div_remainder_family",
+          "fraction_equivalent_family",
+          "fraction_compare_family",
+          "fraction_simplify_family"
         ],
         "instructions": "Finish by checking your understanding."
       }

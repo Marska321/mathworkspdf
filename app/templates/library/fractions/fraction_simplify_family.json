@@ -1,0 +1,308 @@
+{
+  "family_id": "fam_fraction_simplify_g4_01",
+  "family_code": "fraction_simplify_family",
+  "skill_id": "fraction_simplify_g4_01",
+  "name": "Simplify Fractions",
+  "description": "Write common fractions in simplest form.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "reduces_numerator_only",
+    "reduces_denominator_only",
+    "keeps_unsimplified_fraction"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_fraction_simplify_01",
+      "template_code": "fraction_simplify_01",
+      "skill_id": "fraction_simplify_g4_01",
+      "family_id": "fraction_simplify_family",
+      "pattern_code": "complete_number_sentence",
+      "name": "Simplify fraction",
+      "question_type": "fill_blank",
+      "template_text": "Simplify: {numerator}/{denominator} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "base_numerator": {
+          "type": "int",
+          "required": true
+        },
+        "base_denominator": {
+          "type": "int",
+          "required": true
+        },
+        "scale_factor": {
+          "type": "int",
+          "required": true
+        },
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "base_numerator_values": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "base_denominator_values": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "scale_factor_values": [
+            2
+          ]
+        },
+        "core": {
+          "base_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "base_denominator_values": [
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "scale_factor_values": [
+            2,
+            3
+          ]
+        },
+        "stretch": {
+          "base_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "base_denominator_values": [
+            4,
+            5,
+            6,
+            8,
+            10,
+            12
+          ],
+          "scale_factor_values": [
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "numerator = base_numerator * scale_factor"
+        },
+        {
+          "type": "derived",
+          "rule": "denominator = base_denominator * scale_factor"
+        },
+        {
+          "type": "expression",
+          "rule": "base_numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "base_numerator < base_denominator"
+        },
+        {
+          "type": "expression",
+          "rule": "math_gcd(base_numerator, base_denominator) == 1"
+        }
+      ],
+      "answer_formula": {
+        "type": "fraction",
+        "numerator": "base_numerator",
+        "denominator": "base_denominator"
+      },
+      "distractor_rules": [],
+      "explanation_template": "To simplify a fraction, divide the numerator and denominator by the same number until the fraction is in simplest form.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "reduces_numerator_only",
+        "reduces_denominator_only"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_simplify_02",
+      "template_code": "fraction_simplify_02",
+      "skill_id": "fraction_simplify_g4_01",
+      "family_id": "fraction_simplify_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose simplest form",
+      "question_type": "multiple_choice",
+      "template_text": "Which fraction is the simplest form of {numerator}/{denominator}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "base_numerator": {
+          "type": "int",
+          "required": true
+        },
+        "base_denominator": {
+          "type": "int",
+          "required": true
+        },
+        "scale_factor": {
+          "type": "int",
+          "required": true
+        },
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "base_numerator_values": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "base_denominator_values": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "scale_factor_values": [
+            2
+          ]
+        },
+        "core": {
+          "base_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "base_denominator_values": [
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "scale_factor_values": [
+            2,
+            3
+          ]
+        },
+        "stretch": {
+          "base_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "base_denominator_values": [
+            4,
+            5,
+            6,
+            8,
+            10,
+            12
+          ],
+          "scale_factor_values": [
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "numerator = base_numerator * scale_factor"
+        },
+        {
+          "type": "derived",
+          "rule": "denominator = base_denominator * scale_factor"
+        },
+        {
+          "type": "expression",
+          "rule": "base_numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "base_numerator < base_denominator"
+        },
+        {
+          "type": "expression",
+          "rule": "math_gcd(base_numerator, base_denominator) == 1"
+        }
+      ],
+      "answer_formula": {
+        "type": "fraction",
+        "numerator": "base_numerator",
+        "denominator": "base_denominator"
+      },
+      "distractor_rules": [
+        {
+          "type": "simplify_numerator_only"
+        },
+        {
+          "type": "simplify_denominator_only"
+        },
+        {
+          "type": "keep_unsimplified_fraction"
+        }
+      ],
+      "explanation_template": "The simplest form uses the same value but with the numerator and denominator reduced by the same factor.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "reduces_numerator_only",
+        "reduces_denominator_only",
+        "keeps_unsimplified_fraction"
+      ],
+      "active": true
+    }
+  ]
+}

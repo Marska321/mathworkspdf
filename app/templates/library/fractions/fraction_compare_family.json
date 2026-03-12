@@ -1,0 +1,300 @@
+{
+  "family_id": "fam_fraction_compare_g4_01",
+  "family_code": "fraction_compare_family",
+  "skill_id": "fraction_compare_g4_01",
+  "name": "Compare Fractions",
+  "description": "Compare simple fractions with shared numerators or denominators.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "compares_denominator_only",
+    "larger_denominator_means_larger_fraction",
+    "reverses_greater_less_symbol"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_fraction_compare_01",
+      "template_code": "fraction_compare_01",
+      "skill_id": "fraction_compare_g4_01",
+      "family_id": "fraction_compare_family",
+      "pattern_code": "complete_number_sentence",
+      "name": "Compare fractions with same denominator",
+      "question_type": "fill_blank",
+      "template_text": "Complete: {left_numerator}/{denominator} __ {right_numerator}/{denominator}",
+      "instructions_template": null,
+      "variable_schema": {
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "left_numerator": {
+          "type": "int",
+          "required": true
+        },
+        "right_numerator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "denominator_values": [
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "left_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "right_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "core": {
+          "denominator_values": [
+            4,
+            5,
+            6,
+            8,
+            10
+          ],
+          "left_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "right_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        "stretch": {
+          "denominator_values": [
+            5,
+            6,
+            8,
+            10,
+            12
+          ],
+          "left_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "right_numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "left_numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "right_numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "left_numerator < denominator"
+        },
+        {
+          "type": "expression",
+          "rule": "right_numerator < denominator"
+        },
+        {
+          "type": "expression",
+          "rule": "left_numerator != right_numerator"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "'>' if left_numerator > right_numerator else '<'"
+      },
+      "distractor_rules": [],
+      "explanation_template": "When denominators are the same, the fraction with the larger numerator is greater.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "compares_denominator_only",
+        "reverses_greater_less_symbol"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_compare_02",
+      "template_code": "fraction_compare_02",
+      "skill_id": "fraction_compare_g4_01",
+      "family_id": "fraction_compare_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose greater fraction with same numerator",
+      "question_type": "multiple_choice",
+      "template_text": "Which fraction is greater: {numerator}/{left_denominator} or {numerator}/{right_denominator}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "left_denominator": {
+          "type": "int",
+          "required": true
+        },
+        "right_denominator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "left_denominator_values": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "right_denominator_values": [
+            4,
+            5,
+            6,
+            8
+          ],
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "core": {
+          "left_denominator_values": [
+            4,
+            5,
+            6,
+            8
+          ],
+          "right_denominator_values": [
+            5,
+            6,
+            8,
+            10
+          ],
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "stretch": {
+          "left_denominator_values": [
+            5,
+            6,
+            8,
+            10
+          ],
+          "right_denominator_values": [
+            6,
+            8,
+            10,
+            12
+          ],
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "left_denominator != right_denominator"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator < left_denominator"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator < right_denominator"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "f'{numerator}/{left_denominator}' if left_denominator < right_denominator else f'{numerator}/{right_denominator}'"
+      },
+      "distractor_rules": [
+        {
+          "type": "other_fraction_in_pair"
+        },
+        {
+          "type": "unit_fraction_same_denominator"
+        },
+        {
+          "type": "neighbor_numerator_same_denominator"
+        }
+      ],
+      "explanation_template": "When numerators are the same, the fraction with the smaller denominator is greater because the parts are bigger.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "larger_denominator_means_larger_fraction"
+      ],
+      "active": true
+    }
+  ]
+}

@@ -398,5 +398,149 @@
       "5 ? __ = 35 answered as 6 or 8"
     ],
     "distractor_strategy": "off_by_one_factor"
+  },
+  {
+    "code": "ignore_remainder",
+    "name": "Ignore remainder",
+    "description": "Learner gives only the quotient and leaves out the remainder.",
+    "affected_skills": [
+      "div_remainder_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "13 ? 4 = 3"
+    ],
+    "distractor_strategy": "ignore_remainder_value"
+  },
+  {
+    "code": "use_divisor_as_remainder",
+    "name": "Use divisor as remainder",
+    "description": "Learner gives the divisor as the remainder instead of a value smaller than the divisor.",
+    "affected_skills": [
+      "div_remainder_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "14 ? 3 = 4 remainder 3"
+    ],
+    "distractor_strategy": "use_divisor_as_remainder_value"
+  },
+  {
+    "code": "round_up_quotient_remainder",
+    "name": "Round up quotient remainder",
+    "description": "Learner increases the quotient to avoid leaving a remainder.",
+    "affected_skills": [
+      "div_remainder_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "14 ? 3 = 5 remainder 0"
+    ],
+    "distractor_strategy": "round_up_quotient_remainder_value"
+  },
+  {
+    "code": "scale_one_part_only",
+    "name": "Scale one part only",
+    "description": "Learner changes only the denominator or only the numerator when making an equivalent fraction.",
+    "affected_skills": [
+      "fraction_equivalent_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "1/2 -> 1/4"
+    ],
+    "distractor_strategy": "scale_denominator_only"
+  },
+  {
+    "code": "add_same_number_to_both_terms",
+    "name": "Add same number to both terms",
+    "description": "Learner adds the same number to numerator and denominator instead of multiplying.",
+    "affected_skills": [
+      "fraction_equivalent_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "1/3 -> 3/5"
+    ],
+    "distractor_strategy": "add_to_both_fraction_terms"
+  },
+  {
+    "code": "copy_numerator_denominator",
+    "name": "Copy numerator denominator",
+    "description": "Learner repeats the original fraction instead of generating an equivalent one.",
+    "affected_skills": [
+      "fraction_equivalent_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "2/5 -> 2/5"
+    ],
+    "distractor_strategy": "copy_fraction_terms"
+  },
+  {
+    "code": "compares_denominator_only",
+    "name": "Compares denominator only",
+    "description": "Learner decides which fraction is larger by looking only at the denominator, even when numerators differ.",
+    "affected_skills": [
+      "fraction_compare_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3/8 > 5/8 because 8 is bigger"
+    ],
+    "distractor_strategy": "flip_compare_symbol"
+  },
+  {
+    "code": "larger_denominator_means_larger_fraction",
+    "name": "Larger denominator means larger fraction",
+    "description": "Learner thinks the fraction with the larger denominator must be greater when numerators are the same.",
+    "affected_skills": [
+      "fraction_compare_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3/8 > 3/5 because 8 is bigger"
+    ],
+    "distractor_strategy": "other_fraction_in_pair"
+  },
+  {
+    "code": "reverses_greater_less_symbol",
+    "name": "Reverses greater less symbol",
+    "description": "Learner understands the fractions but chooses the comparison symbol in the opposite direction.",
+    "affected_skills": [
+      "fraction_compare_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "writes > instead of <"
+    ],
+    "distractor_strategy": "flip_compare_symbol"
+  },
+  {
+    "code": "reduces_numerator_only",
+    "name": "Reduces numerator only",
+    "description": "Learner divides only the numerator when simplifying a fraction.",
+    "affected_skills": [
+      "fraction_simplify_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "6/8 -> 3/8"
+    ],
+    "distractor_strategy": "simplify_numerator_only"
+  },
+  {
+    "code": "reduces_denominator_only",
+    "name": "Reduces denominator only",
+    "description": "Learner divides only the denominator when simplifying a fraction.",
+    "affected_skills": [
+      "fraction_simplify_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "6/8 -> 6/4"
+    ],
+    "distractor_strategy": "simplify_denominator_only"
+  },
+  {
+    "code": "keeps_unsimplified_fraction",
+    "name": "Keeps unsimplified fraction",
+    "description": "Learner recognizes an equivalent fraction but leaves it in the original unsimplified form.",
+    "affected_skills": [
+      "fraction_simplify_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "6/8 -> 6/8"
+    ],
+    "distractor_strategy": "keep_unsimplified_fraction"
   }
 ]

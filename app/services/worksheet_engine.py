@@ -353,6 +353,8 @@ class WorksheetGenerationService:
             return rng.randint(1, variables["parts_total"] - 1)
         if name == "numerator" and "denominator" in variables:
             return rng.randint(1, variables["denominator"] - 1)
+        if name == "remainder" and "b" in variables:
+            return rng.randint(1, variables["b"] - 1)
         if definition.type == "string" and name.endswith("_csv"):
             source_name = name.removesuffix("_csv")
             if source_name in variables and isinstance(variables[source_name], list):
@@ -452,6 +454,17 @@ class WorksheetGenerationService:
             if rule_type == "subtract_instead":
                 return str(max(0, a - b))
 
+
+        if {"numerator", "denominator", "scale_factor"}.issubset(variables):
+            numerator = variables["numerator"]
+            denominator = variables["denominator"]
+            scale_factor = variables["scale_factor"]
+            if rule_type == "scale_denominator_only":
+                return f"{numerator}/{denominator * scale_factor}"
+            if rule_type == "add_to_both_fraction_terms":
+                return f"{numerator + scale_factor}/{denominator + scale_factor}"
+            if rule_type == "copy_fraction_terms":
+                return f"{numerator}/{denominator}"
         if {"parts_total", "parts_shaded"}.issubset(variables):
             total = variables["parts_total"]
             shaded = variables["parts_shaded"]
@@ -509,7 +522,47 @@ class WorksheetGenerationService:
                 return str(a + b)
             if rule_type == "off_by_one_factor":
                 return str(b + 1 if b < 12 else max(1, b - 1))
+
+        if {"a", "b", "quotient", "remainder"}.issubset(variables):
+            quotient = variables["quotient"]
+            remainder = variables["remainder"]
+            divisor = variables["b"]
+            if rule_type == "ignore_remainder_value":
+                return str(quotient)
+            if rule_type == "use_divisor_as_remainder_value":
+                return f"{quotient} remainder {divisor}"
+            if rule_type == "round_up_quotient_remainder_value":
+                return f"{quotient + 1} remainder 0"
+        if rule_type == "other_fraction_in_pair" and {"numerator", "left_denominator", "right_denominator"}.issubset(variables):
+            left_fraction = f"{variables['numerator']}/{variables['left_denominator']}"
+            right_fraction = f"{variables['numerator']}/{variables['right_denominator']}"
+            return right_fraction if answer.value == left_fraction else left_fraction
+
+        if rule_type == "simplify_numerator_only" and {"base_numerator", "denominator"}.issubset(variables):
+            return f"{variables['base_numerator']}/{variables['denominator']}"
+
+        if rule_type == "simplify_denominator_only" and {"numerator", "base_denominator"}.issubset(variables):
+            return f"{variables['numerator']}/{variables['base_denominator']}"
+
+        if rule_type == "keep_unsimplified_fraction" and {"numerator", "denominator"}.issubset(variables):
+            return f"{variables['numerator']}/{variables['denominator']}"
+
+        if rule_type == "unit_fraction_same_denominator" and "/" in answer.value:
+            numerator, denominator = [int(part) for part in answer.value.split("/")]
+            unit_numerator = 2 if numerator == 1 and denominator > 2 else 1
+            return f"{unit_numerator}/{denominator}"
+
+        if rule_type == "neighbor_numerator_same_denominator" and "/" in answer.value:
+            numerator, denominator = [int(part) for part in answer.value.split("/")]
+            if numerator + 1 < denominator:
+                return f"{numerator + 1}/{denominator}"
+            return f"{max(1, numerator - 1)}/{denominator}"
+
         if {"a", "b"}.issubset(variables) and rule_type == "flip_compare_symbol":
+            compare_map = {">": "<", "<": ">", "=": "="}
+            return compare_map.get(answer.value)
+
+        if {"left_numerator", "right_numerator", "denominator"}.issubset(variables) and rule_type == "flip_compare_symbol":
             compare_map = {">": "<", "<": ">", "=": "="}
             return compare_map.get(answer.value)
 
@@ -542,10 +595,18 @@ class WorksheetGenerationService:
             return str(int(answer.value) + offset)
         if template_code.startswith("div_facts"):
             return str(max(1, int(float(answer.value)) + offset))
+        if template_code.startswith("div_remainder") and answer.value.isdigit():
+            return str(max(1, int(answer.value) + offset))
         if template_code.startswith("mult_missing_factor") and answer.value.isdigit():
             return str(max(1, int(answer.value) + offset))
         if template_code.startswith("rounding") and answer.value.isdigit():
             return str(int(answer.value) + offset * 10)
+        if template_code.startswith("fraction_compare") and "/" in answer.value:
+            numerator, denominator = answer.value.split("/")
+            return f"{numerator}/{max(int(numerator) + 1, int(denominator) + offset)}"
+        if template_code.startswith("fraction_equivalent") and answer.format == "fraction":
+            numerator, denominator = answer.value.split("/")
+            return f"{max(1, int(numerator) + offset)}/{max(2, int(denominator) + offset)}"
         if template_code.startswith("expanded_") and answer.value.isdigit():
             return str(int(answer.value) + offset)
         if answer.format == "fraction":
@@ -578,6 +639,27 @@ class WorksheetGenerationService:
             structure_complexity = 0.38 if template.question_type in {QuestionType.direct, QuestionType.multiple_choice} else 0.5
             representation_complexity = 0.1
             linguistic_load = 0.05
+            distractor_similarity = 0.45
+        elif template.template_code.startswith("fraction_compare"):
+            denominator = max(variables.get("denominator", 0), variables.get("left_denominator", 0), variables.get("right_denominator", 0))
+            number_complexity = min(denominator / 12, 1.0)
+            structure_complexity = 0.36 if template.question_type == QuestionType.multiple_choice else 0.4
+            representation_complexity = 0.24
+            linguistic_load = 0.08
+            distractor_similarity = 0.42
+        elif template.template_code.startswith("fraction_simplify"):
+            denominator = variables["denominator"]
+            number_complexity = min(denominator / 16, 1.0)
+            structure_complexity = 0.36 if template.question_type == QuestionType.multiple_choice else 0.4
+            representation_complexity = 0.26
+            linguistic_load = 0.08
+            distractor_similarity = 0.44
+        elif template.template_code.startswith("fraction_equivalent"):
+            denominator = variables["denominator"]
+            number_complexity = min(denominator / 12, 1.0)
+            structure_complexity = 0.38 if template.question_type == QuestionType.multiple_choice else 0.42
+            representation_complexity = 0.28
+            linguistic_load = 0.08
             distractor_similarity = 0.45
         elif template.template_code.startswith("fraction_partwhole"):
             denominator = variables["parts_total"]
@@ -619,6 +701,13 @@ class WorksheetGenerationService:
             representation_complexity = 0.18 if template.question_type != QuestionType.word_problem else 0.28
             linguistic_load = 0.08 if template.question_type != QuestionType.word_problem else 0.18
             distractor_similarity = 0.42
+        elif template.template_code.startswith("div_remainder"):
+            max_number = max(variables.get("a", 0), variables.get("b", 0), variables.get("quotient", 0))
+            number_complexity = min(max_number / 120, 1.0)
+            structure_complexity = 0.42 if template.question_type == QuestionType.multiple_choice else 0.48
+            representation_complexity = 0.22
+            linguistic_load = 0.07
+            distractor_similarity = 0.45
         elif template.template_code.startswith("mult_missing_factor"):
             max_number = max(variables.get("a", 0), variables.get("b", 0), variables.get("total", 0))
             number_complexity = min(max_number / 120, 1.0)

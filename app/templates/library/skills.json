@@ -351,5 +351,125 @@
       "off_by_one_factor"
     ],
     "active": true
+  },
+  {
+    "skill_id": "div_remainder_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Division",
+    "subtopic": "Division with remainders",
+    "name": "Solve division problems with remainders",
+    "description": "Learner finds the quotient and remainder when division does not divide equally.",
+    "caps_code": "G4-T1-DIV-RE-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "div_facts_g4_01"
+    ],
+    "misconception_tags": [
+      "ignore_remainder",
+      "use_divisor_as_remainder",
+      "round_up_quotient_remainder"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "fraction_equivalent_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Fractions",
+    "subtopic": "Equivalent fractions",
+    "name": "Recognise equivalent fractions",
+    "description": "Learner identifies and completes fractions that name the same part of a whole.",
+    "caps_code": "G4-T1-FRA-EQ-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "fraction_partwhole_g4_01"
+    ],
+    "misconception_tags": [
+      "scale_one_part_only",
+      "add_same_number_to_both_terms",
+      "copy_numerator_denominator"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "fraction_compare_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Fractions",
+    "subtopic": "Compare fractions",
+    "name": "Compare simple fractions",
+    "description": "Learner compares simple fractions using numerators and denominators in familiar cases.",
+    "caps_code": "G4-T1-FRA-CP-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "fraction_partwhole_g4_01"
+    ],
+    "misconception_tags": [
+      "compares_denominator_only",
+      "larger_denominator_means_larger_fraction",
+      "reverses_greater_less_symbol"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "fraction_simplify_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Fractions",
+    "subtopic": "Simplify fractions",
+    "name": "Simplify equivalent fractions",
+    "description": "Learner recognises and writes fractions in simplest form.",
+    "caps_code": "G4-T1-FRA-SM-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "fraction_equivalent_g4_01"
+    ],
+    "misconception_tags": [
+      "reduces_numerator_only",
+      "reduces_denominator_only",
+      "keeps_unsimplified_fraction"
+    ],
+    "active": true
   }
 ]

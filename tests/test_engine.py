@@ -44,6 +44,73 @@ def test_template_can_generate_many_valid_items() -> None:
         assert len(set(distractors)) == 3
 
 
+def test_fraction_simplify_generation_supports_simplest_form_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Fractions",
+        subskill="Simplify fractions",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="fraction-simplify-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any('Simplify:' in item.question_text for item in items)
+    assert any('/' in item.answer.value for item in items)
+    assert any(item.metadata.misconception_details for item in items)
+
+
+def test_fraction_compare_generation_supports_symbol_and_choice_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Fractions",
+        subskill="Compare fractions",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="fraction-compare-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any('__' in item.question_text and '/' in item.question_text for item in items)
+    assert any(item.answer.value in {'>', '<'} for item in items if item.question_type == QuestionType.fill_blank)
+    assert any('/' in item.answer.value for item in items if item.question_type == QuestionType.multiple_choice)
+
+
+def test_fraction_equivalent_generation_supports_equivalence_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Fractions",
+        subskill="Equivalent fractions",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="fraction-equivalent-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any("=" in item.question_text for item in items)
+    assert any("/" in item.answer.value for item in items if item.question_type == QuestionType.multiple_choice)
+
 def test_fraction_visual_generates_payload() -> None:
     service = build_service()
     request = GenerationRequest(
@@ -250,6 +317,27 @@ def test_mult_facts_generation_supports_array_visual() -> None:
     assert all(payload and payload.visual_type == "array_grid" for payload in visuals)
 
 
+def test_div_remainder_generation_supports_quotient_and_remainder() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Division",
+        subskill="Division with remainders",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.multiple_choice],
+        seed="div-remainder-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any("remainder" in item.question_text.lower() for item in items)
+    assert any("remainder" in item.answer.value.lower() for item in items)
+
 def test_div_facts_generation_supports_sharing_story() -> None:
     service = build_service()
     request = GenerationRequest(
@@ -302,4 +390,6 @@ def test_generated_metadata_includes_misconception_details() -> None:
     assert first_with_details.metadata.misconception_details[0].code in first_with_details.metadata.misconception_targets
     assert worksheet.teacher_notes.misconception_details
     assert worksheet.teacher_notes.misconception_details[0].description
+
+
 
