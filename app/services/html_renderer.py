@@ -138,46 +138,46 @@ class WorksheetHtmlRenderer:
     .fraction-bar {{ display: grid; gap: 4px; min-height: 44px; }}
     .fraction-part {{ border: 1px solid var(--accent); min-height: 42px; }}
     .fraction-part.shaded {{ background: repeating-linear-gradient(135deg, var(--accent-soft), var(--accent-soft) 10px, #99f6e4 10px, #99f6e4 20px); }}
-    .flow-diagram {
+    .flow-diagram {{
       display: grid;
       grid-template-columns: minmax(90px, 120px) 48px minmax(110px, 140px) 48px minmax(90px, 120px);
       align-items: center;
       gap: 8px;
       margin-top: 10px;
       max-width: 520px;
-    }
-    .flow-box {
+    }}
+    .flow-box {{
       border: 2px solid var(--math-line);
       border-radius: 12px;
       background: #ffffff;
       padding: 12px 10px;
       text-align: center;
       min-height: 52px;
-    }
-    .flow-box.rule {
+    }}
+    .flow-box.rule {{
       background: linear-gradient(180deg, var(--accent-soft) 0%, #ffffff 100%);
       border-color: var(--accent);
       font-weight: 700;
       color: var(--accent);
-    }
-    .flow-arrow {
+    }}
+    .flow-arrow {{
       text-align: center;
       color: var(--muted);
       font-size: 1.35rem;
       font-weight: 700;
-    }
-    .flow-label {
+    }}
+    .flow-label {{
       display: block;
       font-size: 0.8rem;
       color: var(--muted);
       margin-bottom: 4px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-    }
-    .flow-value {
+    }}
+    .flow-value {{
       font-size: 1.2rem;
       font-weight: 700;
-    }
+    }}
     .answer-key-page {{
       max-width: 900px;
       margin: 24px auto;
@@ -377,4 +377,6 @@ class WorksheetHtmlRenderer:
             for detail in details
         )
         return f"<div class=\"teacher-item-note\"><strong>Teacher note:</strong>{detail_html}</div>"
+
+
 

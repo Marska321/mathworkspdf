@@ -298,7 +298,7 @@
       "flow_rule_identification"
     ],
     "tests_exist": true,
-    "live_verified": false,
+    "live_verified": true,
     "notes": "Implemented in the current template-driven engine with real flow-diagram visual payload support."
   },
   {
