@@ -1,0 +1,311 @@
+{
+  "family_id": "fam_reading_ruler_g4_01",
+  "family_code": "reading_ruler_family",
+  "skill_id": "reading_ruler_g4_01",
+  "name": "Reading a Ruler",
+  "description": "Read measurements between major tick marks on a ruler in centimetres and millimetres.",
+  "supports_visual": true,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "visual",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "starts_counting_at_one",
+    "miscounts_minor_ticks",
+    "reads_major_mark_only",
+    "unit_confusion"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_reading_ruler_visual_01",
+      "template_code": "reading_ruler_visual_01",
+      "skill_id": "reading_ruler_g4_01",
+      "family_id": "reading_ruler_family",
+      "pattern_code": "visual_identification",
+      "name": "Read the measurement on a ruler",
+      "question_type": "visual",
+      "template_text": "Look at the ruler below. What measurement is shown by the arrow? Give your answer in {unit}.",
+      "instructions_template": null,
+      "variable_schema": {
+        "unit": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "cm",
+            "mm"
+          ]
+        },
+        "major_value": {
+          "type": "int",
+          "required": true
+        },
+        "minor_ticks": {
+          "type": "int",
+          "required": true
+        },
+        "tick_step": {
+          "type": "int",
+          "required": true
+        },
+        "ruler_max": {
+          "type": "int",
+          "required": true
+        },
+        "highlight_value": {
+          "type": "float",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "allowed_units": [
+            "cm"
+          ],
+          "major_value_range": [
+            2,
+            8
+          ],
+          "minor_ticks_range": [
+            1,
+            9
+          ]
+        },
+        "core": {
+          "allowed_units": [
+            "cm",
+            "mm"
+          ],
+          "major_value_range": [
+            2,
+            10
+          ],
+          "minor_ticks_range": [
+            1,
+            9
+          ]
+        },
+        "stretch": {
+          "allowed_units": [
+            "cm",
+            "mm"
+          ],
+          "major_value_range": [
+            3,
+            12
+          ],
+          "minor_ticks_range": [
+            1,
+            9
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "tick_step = 1 if unit == 'cm' else 10"
+        },
+        {
+          "type": "derived",
+          "rule": "ruler_max = major_value + 3 if unit == 'cm' else (major_value * 10) + 30"
+        },
+        {
+          "type": "derived",
+          "rule": "highlight_value = round(major_value + (minor_ticks / 10), 1) if unit == 'cm' else (major_value * 10) + minor_ticks"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = f'{highlight_value:.1f}'.rstrip('0').rstrip('.') if unit == 'cm' else str(int(highlight_value))"
+        },
+        {
+          "type": "expression",
+          "rule": "minor_ticks != 0"
+        },
+        {
+          "type": "expression",
+          "rule": "highlight_value < ruler_max"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Start measuring at 0 and count the small tick marks carefully to reach the exact measurement.",
+      "rendering": {
+        "visual_type": "measurement_ruler",
+        "visual_variable_map": {
+          "unit": "unit",
+          "max_value": "ruler_max",
+          "highlight_value": "highlight_value",
+          "tick_step": "tick_step"
+        },
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": [
+        "miscounts_minor_ticks",
+        "reads_major_mark_only"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_reading_ruler_mcq_01",
+      "template_code": "reading_ruler_mcq_01",
+      "skill_id": "reading_ruler_g4_01",
+      "family_id": "reading_ruler_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose the measurement on a ruler",
+      "question_type": "multiple_choice",
+      "template_text": "Look at the ruler below. Which measurement is shown by the arrow in {unit}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "unit": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "cm",
+            "mm"
+          ]
+        },
+        "major_value": {
+          "type": "int",
+          "required": true
+        },
+        "minor_ticks": {
+          "type": "int",
+          "required": true
+        },
+        "tick_step": {
+          "type": "int",
+          "required": true
+        },
+        "ruler_max": {
+          "type": "int",
+          "required": true
+        },
+        "highlight_value": {
+          "type": "float",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "allowed_units": [
+            "cm"
+          ],
+          "major_value_range": [
+            2,
+            8
+          ],
+          "minor_ticks_range": [
+            1,
+            9
+          ]
+        },
+        "core": {
+          "allowed_units": [
+            "cm",
+            "mm"
+          ],
+          "major_value_range": [
+            2,
+            10
+          ],
+          "minor_ticks_range": [
+            1,
+            9
+          ]
+        },
+        "stretch": {
+          "allowed_units": [
+            "cm",
+            "mm"
+          ],
+          "major_value_range": [
+            3,
+            12
+          ],
+          "minor_ticks_range": [
+            1,
+            9
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "tick_step = 1 if unit == 'cm' else 10"
+        },
+        {
+          "type": "derived",
+          "rule": "ruler_max = major_value + 3 if unit == 'cm' else (major_value * 10) + 30"
+        },
+        {
+          "type": "derived",
+          "rule": "highlight_value = round(major_value + (minor_ticks / 10), 1) if unit == 'cm' else (major_value * 10) + minor_ticks"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = f'{highlight_value:.1f}'.rstrip('0').rstrip('.') if unit == 'cm' else str(int(highlight_value))"
+        },
+        {
+          "type": "expression",
+          "rule": "minor_ticks != 0"
+        },
+        {
+          "type": "expression",
+          "rule": "highlight_value < ruler_max"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [
+        {
+          "type": "ruler_start_from_one"
+        },
+        {
+          "type": "ruler_miscount_minor"
+        },
+        {
+          "type": "ruler_major_only"
+        }
+      ],
+      "explanation_template": "Read from 0, use the small tick marks between whole units, and match the unit shown on the ruler.",
+      "rendering": {
+        "visual_type": "measurement_ruler",
+        "visual_variable_map": {
+          "unit": "unit",
+          "max_value": "ruler_max",
+          "highlight_value": "highlight_value",
+          "tick_step": "tick_step"
+        },
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": [
+        "starts_counting_at_one",
+        "miscounts_minor_ticks",
+        "reads_major_mark_only"
+      ],
+      "active": true
+    }
+  ]
+}

@@ -57,7 +57,7 @@ class SVGRenderer:
                 unit=str(params.get("unit", "cm")),
                 max_value=int(params.get("max_value", 10)),
                 highlight_value=(
-                    None if params.get("highlight_value") is None else int(params.get("highlight_value"))
+                    None if params.get("highlight_value") is None else float(params.get("highlight_value"))
                 ),
                 tick_step=int(params.get("tick_step", 1)),
             )
@@ -191,17 +191,31 @@ class SVGRenderer:
         *,
         unit: str,
         max_value: int,
-        highlight_value: int | None,
+        highlight_value: float | None,
         tick_step: int,
     ) -> str:
         width = 400
-        height = 60
+        height = 72
         margin_x = 20
         usable_width = width - (margin_x * 2)
-        safe_max = max(max_value, 1)
-        safe_tick_step = max(tick_step, 1)
-        num_ticks = (safe_max // safe_tick_step) + 1
-        step_px = usable_width / max(num_ticks - 1, 1)
+        safe_max = max(float(max_value), 1.0)
+        safe_tick_step = max(float(tick_step), 1.0)
+        normalized_unit = unit.lower()
+
+        if normalized_unit == "cm":
+            minor_step = 0.1
+            label_step = 1.0
+            tick_label = lambda value: f"{value:.1f}".rstrip("0").rstrip(".")
+        elif normalized_unit == "mm":
+            minor_step = 1.0
+            label_step = safe_tick_step
+            tick_label = lambda value: str(int(round(value)))
+        else:
+            minor_step = safe_tick_step
+            label_step = safe_tick_step
+            tick_label = lambda value: f"{value:g}"
+
+        tick_count = int(round(safe_max / minor_step)) + 1
 
         svg = [
             f'<svg class="svg-visual measurement-ruler-svg" width="{width}" height="{height}" '
@@ -209,34 +223,35 @@ class SVGRenderer:
             f'role="img" aria-label="Measurement ruler in {escape(unit)}">'
         ]
         svg.append(
-            f'<rect x="{margin_x}" y="10" width="{usable_width}" height="40" fill="#f8fafc" '
+            f'<rect x="{margin_x}" y="12" width="{usable_width}" height="42" fill="#f8fafc" '
             'stroke="#374151" stroke-width="2" rx="2" />'
         )
 
-        for index in range(num_ticks):
-            value = index * safe_tick_step
-            x = margin_x + (index * step_px)
-            tick_height = 15 if value % (safe_tick_step * 5) == 0 or value == 0 else 8
+        for index in range(tick_count):
+            value = round(index * minor_step, 2)
+            x = margin_x + (value / safe_max) * usable_width
+            is_major = abs((value / label_step) - round(value / label_step)) < 1e-9 or abs(value) < 1e-9 or abs(value - safe_max) < 1e-9
+            tick_height = 18 if is_major else 10
             svg.append(
-                f'<line x1="{x:.2f}" y1="10" x2="{x:.2f}" y2="{10 + tick_height}" '
-                'stroke="#374151" stroke-width="1.5" />'
+                f'<line x1="{x:.2f}" y1="12" x2="{x:.2f}" y2="{12 + tick_height}" '
+                'stroke="#374151" stroke-width="1.4" />'
             )
-            if value % (safe_tick_step * 5) == 0 or value == 0 or value == safe_max:
+            if is_major:
                 svg.append(
-                    f'<text x="{x:.2f}" y="42" dominant-baseline="middle" text-anchor="middle" '
+                    f'<text x="{x:.2f}" y="48" dominant-baseline="middle" text-anchor="middle" '
                     'font-family="sans-serif" font-size="12" fill="#374151">'
-                    f"{value}</text>"
+                    f'{escape(tick_label(value))}</text>'
                 )
 
         svg.append(
-            f'<text x="{width - margin_x - 10}" y="42" dominant-baseline="middle" text-anchor="end" '
+            f'<text x="{width - margin_x - 6}" y="48" dominant-baseline="middle" text-anchor="end" '
             'font-family="sans-serif" font-size="12" font-weight="bold" fill="#374151">'
-            f"{escape(unit)}</text>"
+            f'{escape(unit)}</text>'
         )
-        if highlight_value is not None and 0 <= highlight_value <= safe_max:
-            hx = margin_x + ((highlight_value / safe_max) * usable_width)
+        if highlight_value is not None and 0 <= float(highlight_value) <= safe_max:
+            hx = margin_x + (float(highlight_value) / safe_max) * usable_width
             svg.append(
-                f'<polygon class="ruler-highlight" points="{hx-6:.2f},0 {hx+6:.2f},0 {hx:.2f},10" fill="#ef4444" />'
+                f'<polygon class="ruler-highlight" points="{hx-6:.2f},0 {hx+6:.2f},0 {hx:.2f},12" fill="#ef4444" />'
             )
 
         svg.append("</svg>")
@@ -393,27 +408,19 @@ class SVGRenderer:
             svg.append(
                 f'<text x="{category_width - 10}" y="{y + row_height / 2 + 4:.2f}" text-anchor="end" '
                 'font-family="sans-serif" font-size="14" font-weight="bold" fill="#374151">'
-                f"{escape(category)}</text>"
+                f'{escape(category)}</text>'
             )
             svg.append(
                 f'<line x1="{category_width}" y1="{y}" x2="{category_width}" y2="{y + row_height}" '
                 'stroke="#d1d5db" stroke-width="2" />'
             )
 
-            full_icons = count // safe_key_value
-            remainder = count % safe_key_value
             icon_x = category_width + 15
-            for _ in range(full_icons):
+            for _ in range(max(int(count), 0)):
                 svg.append(
                     f'<circle class="pictograph-icon" cx="{icon_x}" cy="{y + row_height / 2:.2f}" r="8" fill="#f59e0b" />'
                 )
                 icon_x += 22
-
-            if remainder > 0:
-                svg.append(
-                    f'<path class="pictograph-partial-icon" d="M {icon_x} {y + row_height / 2 - 8:.2f} '
-                    f'A 8 8 0 0 0 {icon_x} {y + row_height / 2 + 8:.2f} Z" fill="#f59e0b" />'
-                )
 
         key_y = height - 20
         svg.append(
@@ -426,7 +433,6 @@ class SVGRenderer:
         )
         svg.append("</svg>")
         return "".join(svg)
-
 
 class WorksheetHtmlRenderer:
     def render(self, worksheet: dict[str, Any], teacher_mode: bool = False) -> str:
@@ -808,6 +814,8 @@ class WorksheetHtmlRenderer:
             for detail in details
         )
         return f"<div class=\"teacher-item-note\"><strong>Teacher note:</strong>{detail_html}</div>"
+
+
 
 
 

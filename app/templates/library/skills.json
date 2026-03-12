@@ -756,6 +756,118 @@
       "hour_minute_confusion"
     ],
     "active": true
+  },
+  {
+    "skill_id": "reading_ruler_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Measurement",
+    "topic": "Length",
+    "subtopic": "Read measurements on a ruler",
+    "name": "Read measurements on a ruler",
+    "description": "Learner reads measurements shown between major tick marks on a ruler in centimetres and millimetres.",
+    "caps_code": "G4-T1-MEA-LR-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "visual",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [],
+    "misconception_tags": [
+      "starts_counting_at_one",
+      "miscounts_minor_ticks",
+      "reads_major_mark_only",
+      "unit_confusion"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "reading_clock_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Measurement",
+    "topic": "Time",
+    "subtopic": "Read time on an analogue clock",
+    "name": "Read time on an analogue clock",
+    "description": "Learner reads an analogue clock and writes the time in digital HH:MM format.",
+    "caps_code": "G4-T1-MEA-TR-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "visual",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [],
+    "misconception_tags": [
+      "hour_minute_confusion",
+      "minute_hand_as_number",
+      "next_hour_confusion"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "bar_graphs_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Data Handling",
+    "topic": "Data Handling",
+    "subtopic": "Read bar graphs",
+    "name": "Read bar graphs",
+    "description": "Learner interprets bar graphs to find values, identify extremes, and compare quantities.",
+    "caps_code": "G4-T1-DH-BG-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "visual",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [],
+    "misconception_tags": [
+      "scale_misread",
+      "chooses_second_extreme",
+      "adds_instead_of_subtracting_difference"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "pictographs_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Data Handling",
+    "topic": "Data Handling",
+    "subtopic": "Read pictographs with a key",
+    "name": "Read pictographs with a key",
+    "description": "Learner interprets pictographs where one symbol stands for more than one item.",
+    "caps_code": "G4-T1-DH-PG-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "visual",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [],
+    "misconception_tags": [
+      "forgets_pictograph_key",
+      "adds_key_instead_of_multiplying",
+      "reads_adjacent_category_data"
+    ],
+    "active": true
   }
 ]
-

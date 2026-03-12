@@ -495,10 +495,13 @@
     "priority": 1,
     "visual_support": true,
     "allowed_patterns": [
+      "standard_mcq",
       "visual_identification"
     ],
     "misconception_targets": [
-      "scale_misread"
+      "scale_misread",
+      "chooses_second_extreme",
+      "adds_instead_of_subtracting_difference"
     ]
   },
   {
@@ -568,6 +571,52 @@
     ],
     "misconception_targets": [
       "hour_minute_confusion"
+    ]
+  },
+  {
+    "family_code": "reading_ruler_family",
+    "strand": "measurement",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "standard_mcq",
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "starts_counting_at_one",
+      "miscounts_minor_ticks",
+      "reads_major_mark_only",
+      "unit_confusion"
+    ]
+  },
+  {
+    "family_code": "reading_clock_family",
+    "strand": "measurement",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "standard_mcq",
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "hour_minute_confusion",
+      "minute_hand_as_number",
+      "next_hour_confusion"
+    ]
+  },
+  {
+    "family_code": "pictographs_family",
+    "strand": "data_handling",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "standard_mcq",
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "forgets_pictograph_key",
+      "adds_key_instead_of_multiplying",
+      "reads_adjacent_category_data"
     ]
   }
 ]

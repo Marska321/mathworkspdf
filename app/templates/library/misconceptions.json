@@ -825,7 +825,8 @@
     "description": "Learner uses or compares the wrong unit for a measurement situation.",
     "affected_skills": [
       "length_conv_g4_01",
-      "mass_conv_g4_01"
+      "mass_conv_g4_01",
+      "reading_ruler_g4_01"
     ],
     "name": "Unit confusion",
     "code": "unit_confusion"
@@ -837,7 +838,8 @@
     "distractor_strategy": "hour_minute_confusion",
     "description": "Learner swaps the roles of the hour hand and minute hand when reading time.",
     "affected_skills": [
-      "time_elapsed_g4_01"
+      "time_elapsed_g4_01",
+      "reading_clock_g4_01"
     ],
     "name": "Hour minute confusion",
     "code": "hour_minute_confusion"
@@ -868,8 +870,130 @@
     ],
     "distractor_strategy": "scale_misread",
     "description": "Learner reads bar-graph or data scale intervals incorrectly.",
-    "affected_skills": [],
+    "affected_skills": [
+      "bar_graphs_g4_01"
+    ],
     "name": "Scale misread",
     "code": "scale_misread"
+  },
+  {
+    "code": "starts_counting_at_one",
+    "name": "Starts counting at one",
+    "description": "Learner starts measuring from 1 instead of from 0 on a ruler.",
+    "affected_skills": [
+      "reading_ruler_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "reads 4.3 cm as 5.3 cm"
+    ],
+    "distractor_strategy": "ruler_start_from_one"
+  },
+  {
+    "code": "miscounts_minor_ticks",
+    "name": "Miscounts minor ticks",
+    "description": "Learner counts one too many or one too few small tick marks between major units.",
+    "affected_skills": [
+      "reading_ruler_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "4.3 cm read as 4.4 cm"
+    ],
+    "distractor_strategy": "ruler_miscount_minor"
+  },
+  {
+    "code": "reads_major_mark_only",
+    "name": "Reads major mark only",
+    "description": "Learner ignores the smaller subdivisions and answers with the nearest major mark only.",
+    "affected_skills": [
+      "reading_ruler_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "34 mm read as 30 mm"
+    ],
+    "distractor_strategy": "ruler_major_only"
+  },
+  {
+    "code": "minute_hand_as_number",
+    "name": "Minute hand as number",
+    "description": "Learner reads the number the minute hand points to as literal minutes instead of counting in fives.",
+    "affected_skills": [
+      "reading_clock_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "hand on 4 read as 04 minutes instead of 20 minutes"
+    ],
+    "distractor_strategy": "minute_hand_as_number"
+  },
+  {
+    "code": "next_hour_confusion",
+    "name": "Next hour confusion",
+    "description": "Learner reads the next hour instead of the current hour on an analogue clock.",
+    "affected_skills": [
+      "reading_clock_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3:25 read as 4:25"
+    ],
+    "distractor_strategy": "clock_next_hour"
+  },
+  {
+    "code": "chooses_second_extreme",
+    "name": "Chooses second extreme",
+    "description": "Learner picks the second-highest or second-lowest bar instead of the true extreme.",
+    "affected_skills": [
+      "bar_graphs_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "selects the second-highest bar when asked for the highest"
+    ],
+    "distractor_strategy": "bar_second_extreme"
+  },
+  {
+    "code": "adds_instead_of_subtracting_difference",
+    "name": "Adds instead of subtracting difference",
+    "description": "Learner adds two data values when the question asks for how many more or the difference.",
+    "affected_skills": [
+      "bar_graphs_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "8 and 5 combined as 13 instead of finding a difference of 3"
+    ],
+    "distractor_strategy": "bar_adds_instead_of_subtracts"
+  },
+  {
+    "code": "forgets_pictograph_key",
+    "name": "Forgets pictograph key",
+    "description": "Learner counts the symbols but forgets to multiply by the key value.",
+    "affected_skills": [
+      "pictographs_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3 symbols with key 5 answered as 3 instead of 15"
+    ],
+    "distractor_strategy": "pictograph_forget_key"
+  },
+  {
+    "code": "adds_key_instead_of_multiplying",
+    "name": "Adds key instead of multiplying",
+    "description": "Learner adds the key value to the number of symbols instead of multiplying.",
+    "affected_skills": [
+      "pictographs_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3 symbols with key 5 answered as 8 instead of 15"
+    ],
+    "distractor_strategy": "pictograph_adds_key"
+  },
+  {
+    "code": "reads_adjacent_category_data",
+    "name": "Reads adjacent category data",
+    "description": "Learner reads the total for a nearby category instead of the one named in the question.",
+    "affected_skills": [
+      "pictographs_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "gives the next category's total"
+    ],
+    "distractor_strategy": "pictograph_wrong_category"
   }
 ]

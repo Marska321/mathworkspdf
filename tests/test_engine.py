@@ -661,3 +661,86 @@ def test_build_visual_payload_uses_visual_variable_map_for_measurement_templates
         "tick_step": 1,
     }
 
+
+def test_reading_ruler_generation_supports_visual_measurement_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Measurement",
+        topic="Length",
+        subskill="Read measurements on a ruler",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.concept,
+        question_count=5,
+        question_types=[QuestionType.visual, QuestionType.multiple_choice],
+        seed="reading-ruler-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    assert any(item.visual_payload and item.visual_payload.visual_type == "measurement_ruler" for item in items)
+    assert any("ruler" in item.question_text.lower() for item in items)
+    assert any(item.metadata.misconception_details for item in items)
+
+
+def test_reading_clock_generation_supports_analogue_clock_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Measurement",
+        topic="Time",
+        subskill="Read time on an analogue clock",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.concept,
+        question_count=5,
+        question_types=[QuestionType.visual, QuestionType.multiple_choice],
+        seed="reading-clock-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    assert any(item.visual_payload and item.visual_payload.visual_type == "clock_face" for item in items)
+    assert all(":" in item.answer.value for item in items)
+    assert any(item.metadata.misconception_details for item in items)
+
+
+def test_bar_graph_generation_supports_visual_data_questions() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Data Handling",
+        topic="Data Handling",
+        subskill="Read bar graphs",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.concept,
+        question_count=5,
+        question_types=[QuestionType.visual, QuestionType.multiple_choice],
+        seed="bar-graphs-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    assert any(item.visual_payload and item.visual_payload.visual_type == "bar_graph" for item in items)
+    assert all(item.answer.value.lstrip('-').isdigit() for item in items)
+    assert any(item.metadata.misconception_details for item in items)
+
+
+def test_pictograph_generation_supports_key_based_data_questions() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Data Handling",
+        topic="Data Handling",
+        subskill="Read pictographs with a key",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.concept,
+        question_count=5,
+        question_types=[QuestionType.visual, QuestionType.multiple_choice],
+        seed="pictographs-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    assert any(item.visual_payload and item.visual_payload.visual_type == "pictograph" for item in items)
+    assert all(item.answer.value.lstrip('-').isdigit() for item in items)
+    assert any(item.metadata.misconception_details for item in items)

@@ -518,6 +518,74 @@ class WorksheetGenerationService:
             if rule_type == "subtracted_instead_of_added":
                 return f"{abs(start_hour - duration_hours):02d}:{abs(start_minute - duration_minutes):02d}"
 
+        if {"unit", "major_value", "minor_ticks", "highlight_value"}.issubset(variables):
+            unit = str(variables["unit"])
+            major_value = variables["major_value"]
+            highlight_value = float(variables["highlight_value"])
+            if rule_type == "ruler_start_from_one":
+                mistaken = highlight_value + (1 if unit == "cm" else 10)
+                return f"{mistaken:.1f}".rstrip("0").rstrip(".") if unit == "cm" else str(int(mistaken))
+            if rule_type == "ruler_miscount_minor":
+                mistaken = highlight_value + (0.1 if unit == "cm" else 1)
+                return f"{mistaken:.1f}".rstrip("0").rstrip(".") if unit == "cm" else str(int(mistaken))
+            if rule_type == "ruler_major_only":
+                return str(major_value) if unit == "cm" else str(major_value * 10)
+
+        if {"hour", "minute", "minute_index"}.issubset(variables):
+            hour = int(variables["hour"])
+            minute = int(variables["minute"])
+            minute_index = int(variables["minute_index"])
+            if rule_type == "swap_clock_hands":
+                return f"{minute:02d}:{hour:02d}"
+            if rule_type == "minute_hand_as_number":
+                return f"{hour:02d}:{minute_index:02d}"
+            if rule_type == "clock_next_hour":
+                return f"{((hour % 12) + 1):02d}:{minute:02d}"
+
+        if {"values", "question_variant", "correct_answer"}.issubset(variables):
+            values = [int(value) for value in variables["values"]]
+            question_variant = str(variables["question_variant"])
+            correct_value = int(variables["correct_answer"])
+            if rule_type == "bar_second_extreme":
+                if question_variant == "highest":
+                    return str(sorted(values, reverse=True)[1])
+                if question_variant == "lowest":
+                    return str(sorted(values)[1])
+                if question_variant == "difference_ab":
+                    return str(abs(int(variables["val_a"]) - int(variables["val_c"])))
+                return str(abs(int(variables["val_b"]) - int(variables["val_d"])))
+            if rule_type == "bar_adds_instead_of_subtracts":
+                if question_variant == "difference_ab":
+                    return str(int(variables["val_a"]) + int(variables["val_b"]))
+                if question_variant == "difference_cd":
+                    return str(int(variables["val_c"]) + int(variables["val_d"]))
+                return str(sorted(values, reverse=True)[1] if question_variant == "highest" else sorted(values)[1])
+            if rule_type == "bar_off_by_scale":
+                return str(correct_value + 2)
+
+        if {"symbol_counts", "real_values", "question_variant", "key_value"}.issubset(variables):
+            symbol_counts = [int(value) for value in variables["symbol_counts"]]
+            real_values = [int(value) for value in variables["real_values"]]
+            question_variant = str(variables["question_variant"])
+            key_value = int(variables["key_value"])
+            if rule_type == "pictograph_forget_key":
+                if question_variant == "single_total":
+                    return str(int(variables["target_symbol_count"]))
+                if question_variant == "compare_two":
+                    return str(abs(int(variables["symbols_a"]) - int(variables["symbols_b"])))
+                return str(sum(symbol_counts))
+            if rule_type == "pictograph_adds_key":
+                if question_variant == "single_total":
+                    return str(int(variables["target_symbol_count"]) + key_value)
+                if question_variant == "compare_two":
+                    return str(abs(int(variables["symbols_a"]) - int(variables["symbols_b"])) + key_value)
+                return str(sum(symbol_counts) + key_value)
+            if rule_type == "pictograph_wrong_category":
+                if question_variant == "single_total":
+                    return str(int(symbol_counts[(int(variables["target_category_index"]) + 1) % 4]) * key_value)
+                if question_variant == "compare_two":
+                    return str(abs(real_values[1] - real_values[2]))
+                return str(sum(real_values) - min(real_values))
         if "correct_value" in variables:
             correct_value = int(variables["correct_value"])
             if rule_type == "digit_only":
@@ -732,6 +800,25 @@ class WorksheetGenerationService:
             return str(int(answer.value) + 1000 * offset)
         if template_code.startswith("time_elapsed") and {"end_hour", "end_minute"}.issubset(variables):
             return f"{variables['end_hour']:02d}:{(variables['end_minute'] + (5 * offset)) % 60:02d}"
+        if template_code.startswith("reading_ruler"):
+            unit = str(variables.get("unit", "cm"))
+            answer_value = answer.value
+            if unit == "cm":
+                try:
+                    return f"{float(answer_value) + (0.1 * offset):.1f}".rstrip("0").rstrip(".")
+                except ValueError:
+                    return f"{offset / 10:.1f}".rstrip("0").rstrip(".")
+            try:
+                return str(int(float(answer_value)) + offset)
+            except ValueError:
+                return str(offset)
+        if template_code.startswith("reading_clock") and ":" in answer.value:
+            hour_text, minute_text = answer.value.split(":", maxsplit=1)
+            return f"{hour_text}:{(int(minute_text) + (5 * offset)) % 60:02d}"
+        if template_code.startswith("bar_graphs") and answer.value.lstrip('-').isdigit():
+            return str(max(0, int(answer.value) + (2 * offset)))
+        if template_code.startswith("pictographs") and answer.value.lstrip('-').isdigit():
+            return str(max(0, int(answer.value) + variables.get("key_value", 1) * offset))
         if answer.format == "fraction":
             numerator, denominator = answer.value.split("/")
             return f"{max(1, int(numerator) + offset)}/{denominator}"
@@ -933,6 +1020,36 @@ class WorksheetGenerationService:
             representation_complexity = 0.24
             linguistic_load = 0.12
             distractor_similarity = 0.48 if template.question_type == QuestionType.multiple_choice else 0.24
+        elif template.template_code.startswith("reading_ruler"):
+            max_number = max(float(variables.get("highlight_value", 0)), float(variables.get("ruler_max", 0)))
+            divisor = 120 if variables.get("unit") == "mm" else 15
+            number_complexity = min(max_number / divisor, 1.0)
+            structure_complexity = 0.46 if template.question_type == QuestionType.multiple_choice else 0.42
+            representation_complexity = 0.66 if template.rendering.visual_type == "measurement_ruler" else 0.28
+            linguistic_load = 0.10
+            distractor_similarity = 0.50 if template.question_type == QuestionType.multiple_choice else 0.22
+        elif template.template_code.startswith("reading_clock"):
+            max_number = max(int(variables.get("hour", 0)), int(variables.get("minute", 0)))
+            number_complexity = min(max_number / 60, 1.0)
+            structure_complexity = 0.48 if template.question_type == QuestionType.multiple_choice else 0.42
+            representation_complexity = 0.68 if template.rendering.visual_type == "clock_face" else 0.30
+            linguistic_load = 0.10
+            distractor_similarity = 0.50 if template.question_type == QuestionType.multiple_choice else 0.22
+        elif template.template_code.startswith("bar_graphs"):
+            max_number = max(max(variables.get("values", [0])), int(variables.get("y_max", 0)), int(variables.get("correct_answer", 0)))
+            number_complexity = min(max_number / 40, 1.0)
+            structure_complexity = 0.50 if template.question_type == QuestionType.multiple_choice else 0.44
+            representation_complexity = 0.66 if template.rendering.visual_type == "bar_graph" else 0.30
+            linguistic_load = 0.12
+            distractor_similarity = 0.52 if template.question_type == QuestionType.multiple_choice else 0.24
+        elif template.template_code.startswith("pictographs"):
+            real_values = variables.get("real_values", [0])
+            max_number = max(max(real_values), sum(real_values), int(variables.get("key_value", 1)))
+            number_complexity = min(max_number / 120, 1.0)
+            structure_complexity = 0.50 if template.question_type == QuestionType.multiple_choice else 0.44
+            representation_complexity = 0.68 if template.rendering.visual_type == "pictograph" else 0.32
+            linguistic_load = 0.12
+            distractor_similarity = 0.54 if template.question_type == QuestionType.multiple_choice else 0.24
         elif template.template_code.startswith("rounding"):
             max_number = variables.get("number", 0)
             number_complexity = min(max_number / 9999, 1.0)
@@ -1115,6 +1232,9 @@ class WorksheetGenerationService:
                 )
                 number += 1
         return answer_key
+
+
+
 
 
 

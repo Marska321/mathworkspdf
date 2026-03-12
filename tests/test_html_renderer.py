@@ -79,7 +79,7 @@ def test_measurement_ruler_visual_renders_ticks_and_highlight() -> None:
     html = renderer._render_visual(
         {
             "visual_type": "measurement_ruler",
-            "params": {"unit": "cm", "max_value": 10, "highlight_value": 6, "tick_step": 1},
+            "params": {"unit": "cm", "max_value": 10, "highlight_value": 6.4, "tick_step": 1},
         }
     )
 
@@ -141,7 +141,9 @@ def test_pictograph_visual_renders_icons_and_key() -> None:
     )
 
     assert '<svg class="svg-visual pictograph-svg"' in html
-    assert html.count('class="pictograph-icon"') == 3
-    assert 'class="pictograph-partial-icon"' in html
+    assert html.count('class="pictograph-icon"') == 7
+    assert 'class="pictograph-partial-icon"' not in html
     assert "Key:" in html
     assert "pets" in html
+
+

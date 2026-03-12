@@ -1,0 +1,599 @@
+{
+  "family_id": "fam_pictographs_g4_01",
+  "family_code": "pictographs_family",
+  "skill_id": "pictographs_g4_01",
+  "name": "Reading Pictographs",
+  "description": "Interpret pictographs where one symbol stands for more than one item.",
+  "supports_visual": true,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "visual",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "forgets_pictograph_key",
+    "adds_key_instead_of_multiplying",
+    "reads_adjacent_category_data"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_pictographs_visual_01",
+      "template_code": "pictographs_visual_01",
+      "skill_id": "pictographs_g4_01",
+      "family_id": "pictographs_family",
+      "pattern_code": "visual_identification",
+      "name": "Read a pictograph total",
+      "question_type": "visual",
+      "template_text": "Use the pictograph below to answer the question. Each {icon_label} stands for {key_value} {item_plural}. {question_text}",
+      "instructions_template": null,
+      "variable_schema": {
+        "theme": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "fruit",
+            "books",
+            "goals",
+            "stickers"
+          ]
+        },
+        "categories": {
+          "type": "list",
+          "required": true
+        },
+        "icon_label": {
+          "type": "string",
+          "required": true
+        },
+        "item_plural": {
+          "type": "string",
+          "required": true
+        },
+        "key_value": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            2,
+            5,
+            10
+          ]
+        },
+        "symbols_a": {
+          "type": "int",
+          "required": true
+        },
+        "symbols_b": {
+          "type": "int",
+          "required": true
+        },
+        "symbols_c": {
+          "type": "int",
+          "required": true
+        },
+        "symbols_d": {
+          "type": "int",
+          "required": true
+        },
+        "symbol_counts": {
+          "type": "list",
+          "required": true
+        },
+        "real_values": {
+          "type": "list",
+          "required": true
+        },
+        "target_category_index": {
+          "type": "int",
+          "required": true
+        },
+        "target_category": {
+          "type": "string",
+          "required": true
+        },
+        "target_symbol_count": {
+          "type": "int",
+          "required": true
+        },
+        "question_variant": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "single_total",
+            "compare_two",
+            "grand_total"
+          ]
+        },
+        "question_text": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "allowed_themes": [
+            "fruit",
+            "books"
+          ],
+          "allowed_key_values": [
+            2,
+            5
+          ],
+          "symbols_a_range": [
+            1,
+            5
+          ],
+          "symbols_b_range": [
+            1,
+            5
+          ],
+          "symbols_c_range": [
+            1,
+            5
+          ],
+          "symbols_d_range": [
+            1,
+            5
+          ],
+          "target_category_index_range": [
+            0,
+            3
+          ],
+          "allowed_question_variants": [
+            "single_total",
+            "compare_two"
+          ]
+        },
+        "core": {
+          "allowed_themes": [
+            "fruit",
+            "books",
+            "goals",
+            "stickers"
+          ],
+          "allowed_key_values": [
+            2,
+            5,
+            10
+          ],
+          "symbols_a_range": [
+            1,
+            8
+          ],
+          "symbols_b_range": [
+            1,
+            8
+          ],
+          "symbols_c_range": [
+            1,
+            8
+          ],
+          "symbols_d_range": [
+            1,
+            8
+          ],
+          "target_category_index_range": [
+            0,
+            3
+          ],
+          "allowed_question_variants": [
+            "single_total",
+            "compare_two",
+            "grand_total"
+          ]
+        },
+        "stretch": {
+          "allowed_themes": [
+            "fruit",
+            "books",
+            "goals",
+            "stickers"
+          ],
+          "allowed_key_values": [
+            2,
+            5,
+            10
+          ],
+          "symbols_a_range": [
+            2,
+            8
+          ],
+          "symbols_b_range": [
+            2,
+            8
+          ],
+          "symbols_c_range": [
+            2,
+            8
+          ],
+          "symbols_d_range": [
+            2,
+            8
+          ],
+          "target_category_index_range": [
+            0,
+            3
+          ],
+          "allowed_question_variants": [
+            "single_total",
+            "compare_two",
+            "grand_total"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "categories = {'fruit': ['Apples', 'Mangoes', 'Bananas', 'Pears'], 'books': ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], 'goals': ['Team A', 'Team B', 'Team C', 'Team D'], 'stickers': ['Stars', 'Hearts', 'Circles', 'Squares']}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "icon_label = {'fruit': 'fruit icon', 'books': 'book icon', 'goals': 'football icon', 'stickers': 'sticker icon'}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "item_plural = {'fruit': 'pieces of fruit', 'books': 'books', 'goals': 'goals', 'stickers': 'stickers'}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "symbol_counts = [symbols_a, symbols_b, symbols_c, symbols_d]"
+        },
+        {
+          "type": "derived",
+          "rule": "real_values = [s * key_value for s in symbol_counts]"
+        },
+        {
+          "type": "derived",
+          "rule": "target_category = categories[target_category_index]"
+        },
+        {
+          "type": "derived",
+          "rule": "target_symbol_count = symbol_counts[target_category_index]"
+        },
+        {
+          "type": "derived",
+          "rule": "question_text = {'single_total': f'How many {item_plural} does {target_category} have in total?', 'compare_two': f'How many more {item_plural} does {categories[0]} have than {categories[1]}?', 'grand_total': f'How many {item_plural} are there in total across all categories?'}[question_variant]"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = {'single_total': target_symbol_count * key_value, 'compare_two': abs(real_values[0] - real_values[1]), 'grand_total': sum(real_values)}[question_variant]"
+        },
+        {
+          "type": "expression",
+          "rule": "len(set(symbol_counts)) >= 3"
+        },
+        {
+          "type": "expression",
+          "rule": "symbols_a != symbols_b"
+        },
+        {
+          "type": "expression",
+          "rule": "question_variant != 'single_total' or target_symbol_count >= 2"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Count the symbols and multiply by the key value. For comparison questions, find the real totals first and then compare them.",
+      "rendering": {
+        "visual_type": "pictograph",
+        "visual_variable_map": {
+          "categories": "categories",
+          "counts": "symbol_counts",
+          "key_value": "key_value",
+          "icon_label": "icon_label"
+        },
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": [
+        "forgets_pictograph_key"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_pictographs_mcq_01",
+      "template_code": "pictographs_mcq_01",
+      "skill_id": "pictographs_g4_01",
+      "family_id": "pictographs_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose the correct pictograph total",
+      "question_type": "multiple_choice",
+      "template_text": "Use the pictograph below to answer the question. Each {icon_label} stands for {key_value} {item_plural}. {question_text}",
+      "instructions_template": null,
+      "variable_schema": {
+        "theme": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "fruit",
+            "books",
+            "goals",
+            "stickers"
+          ]
+        },
+        "categories": {
+          "type": "list",
+          "required": true
+        },
+        "icon_label": {
+          "type": "string",
+          "required": true
+        },
+        "item_plural": {
+          "type": "string",
+          "required": true
+        },
+        "key_value": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            2,
+            5,
+            10
+          ]
+        },
+        "symbols_a": {
+          "type": "int",
+          "required": true
+        },
+        "symbols_b": {
+          "type": "int",
+          "required": true
+        },
+        "symbols_c": {
+          "type": "int",
+          "required": true
+        },
+        "symbols_d": {
+          "type": "int",
+          "required": true
+        },
+        "symbol_counts": {
+          "type": "list",
+          "required": true
+        },
+        "real_values": {
+          "type": "list",
+          "required": true
+        },
+        "target_category_index": {
+          "type": "int",
+          "required": true
+        },
+        "target_category": {
+          "type": "string",
+          "required": true
+        },
+        "target_symbol_count": {
+          "type": "int",
+          "required": true
+        },
+        "question_variant": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "single_total",
+            "compare_two",
+            "grand_total"
+          ]
+        },
+        "question_text": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "allowed_themes": [
+            "fruit",
+            "books"
+          ],
+          "allowed_key_values": [
+            2,
+            5
+          ],
+          "symbols_a_range": [
+            1,
+            5
+          ],
+          "symbols_b_range": [
+            1,
+            5
+          ],
+          "symbols_c_range": [
+            1,
+            5
+          ],
+          "symbols_d_range": [
+            1,
+            5
+          ],
+          "target_category_index_range": [
+            0,
+            3
+          ],
+          "allowed_question_variants": [
+            "single_total",
+            "compare_two"
+          ]
+        },
+        "core": {
+          "allowed_themes": [
+            "fruit",
+            "books",
+            "goals",
+            "stickers"
+          ],
+          "allowed_key_values": [
+            2,
+            5,
+            10
+          ],
+          "symbols_a_range": [
+            1,
+            8
+          ],
+          "symbols_b_range": [
+            1,
+            8
+          ],
+          "symbols_c_range": [
+            1,
+            8
+          ],
+          "symbols_d_range": [
+            1,
+            8
+          ],
+          "target_category_index_range": [
+            0,
+            3
+          ],
+          "allowed_question_variants": [
+            "single_total",
+            "compare_two",
+            "grand_total"
+          ]
+        },
+        "stretch": {
+          "allowed_themes": [
+            "fruit",
+            "books",
+            "goals",
+            "stickers"
+          ],
+          "allowed_key_values": [
+            2,
+            5,
+            10
+          ],
+          "symbols_a_range": [
+            2,
+            8
+          ],
+          "symbols_b_range": [
+            2,
+            8
+          ],
+          "symbols_c_range": [
+            2,
+            8
+          ],
+          "symbols_d_range": [
+            2,
+            8
+          ],
+          "target_category_index_range": [
+            0,
+            3
+          ],
+          "allowed_question_variants": [
+            "single_total",
+            "compare_two",
+            "grand_total"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "categories = {'fruit': ['Apples', 'Mangoes', 'Bananas', 'Pears'], 'books': ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], 'goals': ['Team A', 'Team B', 'Team C', 'Team D'], 'stickers': ['Stars', 'Hearts', 'Circles', 'Squares']}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "icon_label = {'fruit': 'fruit icon', 'books': 'book icon', 'goals': 'football icon', 'stickers': 'sticker icon'}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "item_plural = {'fruit': 'pieces of fruit', 'books': 'books', 'goals': 'goals', 'stickers': 'stickers'}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "symbol_counts = [symbols_a, symbols_b, symbols_c, symbols_d]"
+        },
+        {
+          "type": "derived",
+          "rule": "real_values = [s * key_value for s in symbol_counts]"
+        },
+        {
+          "type": "derived",
+          "rule": "target_category = categories[target_category_index]"
+        },
+        {
+          "type": "derived",
+          "rule": "target_symbol_count = symbol_counts[target_category_index]"
+        },
+        {
+          "type": "derived",
+          "rule": "question_text = {'single_total': f'How many {item_plural} does {target_category} have in total?', 'compare_two': f'How many more {item_plural} does {categories[0]} have than {categories[1]}?', 'grand_total': f'How many {item_plural} are there in total across all categories?'}[question_variant]"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = {'single_total': target_symbol_count * key_value, 'compare_two': abs(real_values[0] - real_values[1]), 'grand_total': sum(real_values)}[question_variant]"
+        },
+        {
+          "type": "expression",
+          "rule": "len(set(symbol_counts)) >= 3"
+        },
+        {
+          "type": "expression",
+          "rule": "symbols_a != symbols_b"
+        },
+        {
+          "type": "expression",
+          "rule": "question_variant != 'single_total' or target_symbol_count >= 2"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [
+        {
+          "type": "pictograph_forget_key"
+        },
+        {
+          "type": "pictograph_adds_key"
+        },
+        {
+          "type": "pictograph_wrong_category"
+        }
+      ],
+      "explanation_template": "Every symbol stands for more than one item, so multiply the symbol count by the key before comparing totals.",
+      "rendering": {
+        "visual_type": "pictograph",
+        "visual_variable_map": {
+          "categories": "categories",
+          "counts": "symbol_counts",
+          "key_value": "key_value",
+          "icon_label": "icon_label"
+        },
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": [
+        "forgets_pictograph_key",
+        "adds_key_instead_of_multiplying",
+        "reads_adjacent_category_data"
+      ],
+      "active": true
+    }
+  ]
+}

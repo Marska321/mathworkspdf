@@ -1,0 +1,473 @@
+{
+  "family_id": "fam_bar_graphs_g4_01",
+  "family_code": "bar_graphs_family",
+  "skill_id": "bar_graphs_g4_01",
+  "name": "Reading Bar Graphs",
+  "description": "Interpret bar graphs to compare values and find differences.",
+  "supports_visual": true,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "visual",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "scale_misread",
+    "chooses_second_extreme",
+    "adds_instead_of_subtracting_difference"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_bar_graphs_visual_01",
+      "template_code": "bar_graphs_visual_01",
+      "skill_id": "bar_graphs_g4_01",
+      "family_id": "bar_graphs_family",
+      "pattern_code": "visual_identification",
+      "name": "Read a value from a bar graph",
+      "question_type": "visual",
+      "template_text": "Use the bar graph below to answer the question. {question_text}",
+      "instructions_template": null,
+      "variable_schema": {
+        "theme": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "fruit",
+            "days",
+            "animals",
+            "colours"
+          ]
+        },
+        "categories": {
+          "type": "list",
+          "required": true
+        },
+        "graph_title": {
+          "type": "string",
+          "required": true
+        },
+        "val_a": {
+          "type": "int",
+          "required": true
+        },
+        "val_b": {
+          "type": "int",
+          "required": true
+        },
+        "val_c": {
+          "type": "int",
+          "required": true
+        },
+        "val_d": {
+          "type": "int",
+          "required": true
+        },
+        "values": {
+          "type": "list",
+          "required": true
+        },
+        "y_max": {
+          "type": "int",
+          "required": true
+        },
+        "question_variant": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "highest",
+            "lowest",
+            "difference_ab",
+            "difference_cd"
+          ]
+        },
+        "question_text": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "allowed_themes": [
+            "fruit",
+            "days"
+          ],
+          "val_a_range": [
+            4,
+            16
+          ],
+          "val_b_range": [
+            4,
+            16
+          ],
+          "val_c_range": [
+            4,
+            16
+          ],
+          "val_d_range": [
+            4,
+            16
+          ],
+          "allowed_question_variants": [
+            "highest",
+            "lowest",
+            "difference_ab"
+          ]
+        },
+        "core": {
+          "allowed_themes": [
+            "fruit",
+            "days",
+            "animals",
+            "colours"
+          ],
+          "val_a_range": [
+            4,
+            24
+          ],
+          "val_b_range": [
+            4,
+            24
+          ],
+          "val_c_range": [
+            4,
+            24
+          ],
+          "val_d_range": [
+            4,
+            24
+          ],
+          "allowed_question_variants": [
+            "highest",
+            "lowest",
+            "difference_ab",
+            "difference_cd"
+          ]
+        },
+        "stretch": {
+          "allowed_themes": [
+            "fruit",
+            "days",
+            "animals",
+            "colours"
+          ],
+          "val_a_range": [
+            6,
+            30
+          ],
+          "val_b_range": [
+            6,
+            30
+          ],
+          "val_c_range": [
+            6,
+            30
+          ],
+          "val_d_range": [
+            6,
+            30
+          ],
+          "allowed_question_variants": [
+            "highest",
+            "lowest",
+            "difference_ab",
+            "difference_cd"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "categories = {'fruit': ['Apples', 'Bananas', 'Oranges', 'Grapes'], 'days': ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], 'animals': ['Lions', 'Elephants', 'Zebras', 'Giraffes'], 'colours': ['Red', 'Blue', 'Green', 'Yellow']}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "graph_title = {'fruit': 'Favourite Fruits of Grade 4 Learners', 'days': 'Books Read Per Day This Week', 'animals': 'Animals Spotted on a Safari', 'colours': 'Favourite Colour of Grade 4 Learners'}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "values = [val_a, val_b, val_c, val_d]"
+        },
+        {
+          "type": "derived",
+          "rule": "y_max = ceil(max(values) / 5) * 5 + 5"
+        },
+        {
+          "type": "derived",
+          "rule": "question_text = {'highest': 'How many does the highest bar show?', 'lowest': 'How many does the lowest bar show?', 'difference_ab': f'How many more {categories[0]} than {categories[1]} are there?', 'difference_cd': f'What is the difference between {categories[2]} and {categories[3]}?'}[question_variant]"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = {'highest': max(values), 'lowest': min(values), 'difference_ab': abs(val_a - val_b), 'difference_cd': abs(val_c - val_d)}[question_variant]"
+        },
+        {
+          "type": "expression",
+          "rule": "all_unique(values)"
+        },
+        {
+          "type": "expression",
+          "rule": "abs(val_a - val_b) > 2 and abs(val_c - val_d) > 2"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Read the height of each bar using the scale on the graph. For a difference question, subtract the two values.",
+      "rendering": {
+        "visual_type": "bar_graph",
+        "visual_variable_map": {
+          "categories": "categories",
+          "values": "values",
+          "y_max": "y_max",
+          "title": "graph_title"
+        },
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": [
+        "scale_misread"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_bar_graphs_mcq_01",
+      "template_code": "bar_graphs_mcq_01",
+      "skill_id": "bar_graphs_g4_01",
+      "family_id": "bar_graphs_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose a value from a bar graph",
+      "question_type": "multiple_choice",
+      "template_text": "Use the bar graph below to answer the question. {question_text}",
+      "instructions_template": null,
+      "variable_schema": {
+        "theme": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "fruit",
+            "days",
+            "animals",
+            "colours"
+          ]
+        },
+        "categories": {
+          "type": "list",
+          "required": true
+        },
+        "graph_title": {
+          "type": "string",
+          "required": true
+        },
+        "val_a": {
+          "type": "int",
+          "required": true
+        },
+        "val_b": {
+          "type": "int",
+          "required": true
+        },
+        "val_c": {
+          "type": "int",
+          "required": true
+        },
+        "val_d": {
+          "type": "int",
+          "required": true
+        },
+        "values": {
+          "type": "list",
+          "required": true
+        },
+        "y_max": {
+          "type": "int",
+          "required": true
+        },
+        "question_variant": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "highest",
+            "lowest",
+            "difference_ab",
+            "difference_cd"
+          ]
+        },
+        "question_text": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "allowed_themes": [
+            "fruit",
+            "days"
+          ],
+          "val_a_range": [
+            4,
+            16
+          ],
+          "val_b_range": [
+            4,
+            16
+          ],
+          "val_c_range": [
+            4,
+            16
+          ],
+          "val_d_range": [
+            4,
+            16
+          ],
+          "allowed_question_variants": [
+            "highest",
+            "lowest",
+            "difference_ab"
+          ]
+        },
+        "core": {
+          "allowed_themes": [
+            "fruit",
+            "days",
+            "animals",
+            "colours"
+          ],
+          "val_a_range": [
+            4,
+            24
+          ],
+          "val_b_range": [
+            4,
+            24
+          ],
+          "val_c_range": [
+            4,
+            24
+          ],
+          "val_d_range": [
+            4,
+            24
+          ],
+          "allowed_question_variants": [
+            "highest",
+            "lowest",
+            "difference_ab",
+            "difference_cd"
+          ]
+        },
+        "stretch": {
+          "allowed_themes": [
+            "fruit",
+            "days",
+            "animals",
+            "colours"
+          ],
+          "val_a_range": [
+            6,
+            30
+          ],
+          "val_b_range": [
+            6,
+            30
+          ],
+          "val_c_range": [
+            6,
+            30
+          ],
+          "val_d_range": [
+            6,
+            30
+          ],
+          "allowed_question_variants": [
+            "highest",
+            "lowest",
+            "difference_ab",
+            "difference_cd"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "categories = {'fruit': ['Apples', 'Bananas', 'Oranges', 'Grapes'], 'days': ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], 'animals': ['Lions', 'Elephants', 'Zebras', 'Giraffes'], 'colours': ['Red', 'Blue', 'Green', 'Yellow']}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "graph_title = {'fruit': 'Favourite Fruits of Grade 4 Learners', 'days': 'Books Read Per Day This Week', 'animals': 'Animals Spotted on a Safari', 'colours': 'Favourite Colour of Grade 4 Learners'}[theme]"
+        },
+        {
+          "type": "derived",
+          "rule": "values = [val_a, val_b, val_c, val_d]"
+        },
+        {
+          "type": "derived",
+          "rule": "y_max = ceil(max(values) / 5) * 5 + 5"
+        },
+        {
+          "type": "derived",
+          "rule": "question_text = {'highest': 'How many does the highest bar show?', 'lowest': 'How many does the lowest bar show?', 'difference_ab': f'How many more {categories[0]} than {categories[1]} are there?', 'difference_cd': f'What is the difference between {categories[2]} and {categories[3]}?'}[question_variant]"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = {'highest': max(values), 'lowest': min(values), 'difference_ab': abs(val_a - val_b), 'difference_cd': abs(val_c - val_d)}[question_variant]"
+        },
+        {
+          "type": "expression",
+          "rule": "all_unique(values)"
+        },
+        {
+          "type": "expression",
+          "rule": "abs(val_a - val_b) > 2 and abs(val_c - val_d) > 2"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [
+        {
+          "type": "bar_second_extreme"
+        },
+        {
+          "type": "bar_adds_instead_of_subtracts"
+        },
+        {
+          "type": "bar_off_by_scale"
+        }
+      ],
+      "explanation_template": "Read the bars carefully against the scale, and subtract only when the question asks for a difference.",
+      "rendering": {
+        "visual_type": "bar_graph",
+        "visual_variable_map": {
+          "categories": "categories",
+          "values": "values",
+          "y_max": "y_max",
+          "title": "graph_title"
+        },
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": [
+        "scale_misread",
+        "chooses_second_extreme",
+        "adds_instead_of_subtracting_difference"
+      ],
+      "active": true
+    }
+  ]
+}

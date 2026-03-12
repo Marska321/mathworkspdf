@@ -1,0 +1,245 @@
+{
+  "family_id": "fam_reading_clock_g4_01",
+  "family_code": "reading_clock_family",
+  "skill_id": "reading_clock_g4_01",
+  "name": "Reading an Analogue Clock",
+  "description": "Read an analogue clock and write the time in digital format.",
+  "supports_visual": true,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "visual",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "hour_minute_confusion",
+    "minute_hand_as_number",
+    "next_hour_confusion"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_reading_clock_visual_01",
+      "template_code": "reading_clock_visual_01",
+      "skill_id": "reading_clock_g4_01",
+      "family_id": "reading_clock_family",
+      "pattern_code": "visual_identification",
+      "name": "Read the time on a clock",
+      "question_type": "visual",
+      "template_text": "Look at the clock below. What time does it show? Write the time as HH:MM.",
+      "instructions_template": null,
+      "variable_schema": {
+        "hour": {
+          "type": "int",
+          "required": true
+        },
+        "minute_index": {
+          "type": "int",
+          "required": true
+        },
+        "minute": {
+          "type": "int",
+          "required": true
+        },
+        "caption": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "hour_range": [
+            1,
+            9
+          ],
+          "minute_index_range": [
+            1,
+            6
+          ]
+        },
+        "core": {
+          "hour_range": [
+            1,
+            12
+          ],
+          "minute_index_range": [
+            1,
+            11
+          ]
+        },
+        "stretch": {
+          "hour_range": [
+            1,
+            12
+          ],
+          "minute_index_range": [
+            1,
+            11
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "minute = minute_index * 5"
+        },
+        {
+          "type": "derived",
+          "rule": "caption = 'Read the time shown.'"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = f'{hour:02d}:{minute:02d}'"
+        },
+        {
+          "type": "expression",
+          "rule": "minute_index >= 1 and minute_index <= 11"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [],
+      "explanation_template": "The short hand shows the hour. The long hand points to a number that must be counted in fives to find the minutes.",
+      "rendering": {
+        "visual_type": "clock_face",
+        "visual_variable_map": {
+          "hour": "hour",
+          "minute": "minute",
+          "caption": "caption"
+        },
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": [
+        "hour_minute_confusion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_reading_clock_mcq_01",
+      "template_code": "reading_clock_mcq_01",
+      "skill_id": "reading_clock_g4_01",
+      "family_id": "reading_clock_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose the time on a clock",
+      "question_type": "multiple_choice",
+      "template_text": "Look at the clock below. Which time does it show?",
+      "instructions_template": null,
+      "variable_schema": {
+        "hour": {
+          "type": "int",
+          "required": true
+        },
+        "minute_index": {
+          "type": "int",
+          "required": true
+        },
+        "minute": {
+          "type": "int",
+          "required": true
+        },
+        "caption": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "hour_range": [
+            1,
+            9
+          ],
+          "minute_index_range": [
+            1,
+            6
+          ]
+        },
+        "core": {
+          "hour_range": [
+            1,
+            12
+          ],
+          "minute_index_range": [
+            1,
+            11
+          ]
+        },
+        "stretch": {
+          "hour_range": [
+            1,
+            12
+          ],
+          "minute_index_range": [
+            1,
+            11
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "minute = minute_index * 5"
+        },
+        {
+          "type": "derived",
+          "rule": "caption = 'Read the time shown.'"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = f'{hour:02d}:{minute:02d}'"
+        },
+        {
+          "type": "expression",
+          "rule": "minute_index >= 1 and minute_index <= 11"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [
+        {
+          "type": "swap_clock_hands"
+        },
+        {
+          "type": "minute_hand_as_number"
+        },
+        {
+          "type": "clock_next_hour"
+        }
+      ],
+      "explanation_template": "Read the hour from the short hand and multiply the minute-hand number by 5 to get the minutes past the hour.",
+      "rendering": {
+        "visual_type": "clock_face",
+        "visual_variable_map": {
+          "hour": "hour",
+          "minute": "minute",
+          "caption": "caption"
+        },
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": true,
+      "misconception_targets": [
+        "hour_minute_confusion",
+        "minute_hand_as_number",
+        "next_hour_confusion"
+      ],
+      "active": true
+    }
+  ]
+}

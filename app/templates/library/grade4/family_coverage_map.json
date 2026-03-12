@@ -413,13 +413,16 @@
   },
   {
     "family_code": "bar_graphs_family",
-    "implemented": false,
-    "family_file": null,
-    "templates_count": 0,
-    "patterns_supported": [],
-    "tests_exist": false,
-    "live_verified": false,
-    "notes": "Priority 1 roadmap family from repo.md."
+    "implemented": true,
+    "family_file": "app/templates/library/data_handling/bar_graphs_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "standard_mcq",
+      "visual_identification"
+    ],
+    "tests_exist": true,
+    "live_verified": true,
+    "notes": "Translated from caps_grade4_concept_families.json into the repo-native template schema."
   },
   {
     "family_code": "mult_missing_factor_family",
@@ -485,6 +488,44 @@
     "tests_exist": true,
     "live_verified": true,
     "notes": "Implemented in the current template-driven engine. Clock-face rendering is deferred."
+  },
+  {
+    "family_code": "reading_ruler_family",
+    "implemented": true,
+    "family_file": "app/templates/library/measurement/reading_ruler_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "standard_mcq",
+      "visual_identification"
+    ],
+    "tests_exist": true,
+    "live_verified": true,
+    "notes": "Translated from caps_grade4_concept_families.json into the repo-native template schema."
+  },
+  {
+    "family_code": "reading_clock_family",
+    "implemented": true,
+    "family_file": "app/templates/library/measurement/reading_clock_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "standard_mcq",
+      "visual_identification"
+    ],
+    "tests_exist": true,
+    "live_verified": true,
+    "notes": "Translated from caps_grade4_concept_families.json into the repo-native template schema."
+  },
+  {
+    "family_code": "pictographs_family",
+    "implemented": true,
+    "family_file": "app/templates/library/data_handling/pictographs_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "standard_mcq",
+      "visual_identification"
+    ],
+    "tests_exist": true,
+    "live_verified": true,
+    "notes": "Translated from caps_grade4_concept_families.json into the repo-native template schema."
   }
 ]
-
