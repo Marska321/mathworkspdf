@@ -547,6 +547,16 @@ class WorksheetGenerationService:
         if rule_type == "keep_unsimplified_fraction" and {"numerator", "denominator"}.issubset(variables):
             return f"{variables['numerator']}/{variables['denominator']}"
 
+        if rule_type == "sum_denominators_fraction" and {"numerator_a", "numerator_b", "denominator"}.issubset(variables):
+            return f"{variables['numerator_a'] + variables['numerator_b']}/{variables['denominator'] * 2}"
+
+        if rule_type == "keep_one_addend_fraction" and {"numerator_a", "numerator_b", "denominator"}.issubset(variables):
+            kept = max(variables['numerator_a'], variables['numerator_b'])
+            return f"{kept}/{variables['denominator']}"
+
+        if rule_type == "cross_add_fraction_digits" and {"numerator_a", "numerator_b", "denominator"}.issubset(variables):
+            return f"{variables['numerator_a'] + 1}/{variables['denominator'] + variables['numerator_b']}"
+
         if rule_type == "one_part_only" and {"unit_size"}.issubset(variables):
             return str(variables['unit_size'])
 
@@ -670,6 +680,13 @@ class WorksheetGenerationService:
             representation_complexity = 0.22
             linguistic_load = 0.08
             distractor_similarity = 0.4
+        elif template.template_code.startswith("fraction_add_same_denominator"):
+            denominator = variables["denominator"]
+            number_complexity = min(denominator / 12, 1.0)
+            structure_complexity = 0.35 if template.question_type == QuestionType.multiple_choice else 0.4
+            representation_complexity = 0.24
+            linguistic_load = 0.08
+            distractor_similarity = 0.42
         elif template.template_code.startswith("fraction_equivalent"):
             denominator = variables["denominator"]
             number_complexity = min(denominator / 12, 1.0)

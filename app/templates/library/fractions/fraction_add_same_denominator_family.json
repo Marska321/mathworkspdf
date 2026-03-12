@@ -1,0 +1,416 @@
+{
+  "family_id": "fam_fraction_add_same_denominator_g4_01",
+  "family_code": "fraction_add_same_denominator_family",
+  "skill_id": "fraction_add_same_denominator_g4_01",
+  "name": "Add Fractions With Same Denominator",
+  "description": "Add fractions that have the same denominator.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "adds_denominators_too",
+    "keeps_one_numerator_only",
+    "adds_across_fraction_digits"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_fraction_add_same_denominator_01",
+      "template_code": "fraction_add_same_denominator_01",
+      "skill_id": "fraction_add_same_denominator_g4_01",
+      "family_id": "fraction_add_same_denominator_family",
+      "pattern_code": "direct_compute",
+      "name": "Add like fractions direct",
+      "question_type": "direct",
+      "template_text": "{numerator_a}/{denominator} + {numerator_b}/{denominator} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator_a": {
+          "type": "int",
+          "required": true
+        },
+        "numerator_b": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "sum_numerator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "denominator_values": [
+            4,
+            5,
+            6,
+            8
+          ],
+          "numerator_a_values": [
+            1,
+            2,
+            3
+          ],
+          "numerator_b_values": [
+            1,
+            2,
+            3
+          ]
+        },
+        "core": {
+          "denominator_values": [
+            5,
+            6,
+            8,
+            10
+          ],
+          "numerator_a_values": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "numerator_b_values": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "stretch": {
+          "denominator_values": [
+            6,
+            8,
+            10,
+            12
+          ],
+          "numerator_a_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "numerator_b_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "sum_numerator = numerator_a + numerator_b"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator_a >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator_b >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "sum_numerator < denominator"
+        }
+      ],
+      "answer_formula": {
+        "type": "fraction",
+        "numerator": "sum_numerator",
+        "denominator": "denominator"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Add the numerators and keep the denominator the same when the denominators match.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "adds_denominators_too",
+        "keeps_one_numerator_only"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_add_same_denominator_02",
+      "template_code": "fraction_add_same_denominator_02",
+      "skill_id": "fraction_add_same_denominator_g4_01",
+      "family_id": "fraction_add_same_denominator_family",
+      "pattern_code": "complete_number_sentence",
+      "name": "Fill blank like fractions",
+      "question_type": "fill_blank",
+      "template_text": "{numerator_a}/{denominator} + {numerator_b}/{denominator} = __/{denominator}",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator_a": {
+          "type": "int",
+          "required": true
+        },
+        "numerator_b": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "sum_numerator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "denominator_values": [
+            4,
+            5,
+            6,
+            8
+          ],
+          "numerator_a_values": [
+            1,
+            2,
+            3
+          ],
+          "numerator_b_values": [
+            1,
+            2,
+            3
+          ]
+        },
+        "core": {
+          "denominator_values": [
+            5,
+            6,
+            8,
+            10
+          ],
+          "numerator_a_values": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "numerator_b_values": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "stretch": {
+          "denominator_values": [
+            6,
+            8,
+            10,
+            12
+          ],
+          "numerator_a_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "numerator_b_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "sum_numerator = numerator_a + numerator_b"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator_a >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator_b >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "sum_numerator < denominator"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "sum_numerator"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Only the numerators are added when the denominators are the same.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "keeps_one_numerator_only"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_add_same_denominator_03",
+      "template_code": "fraction_add_same_denominator_03",
+      "skill_id": "fraction_add_same_denominator_g4_01",
+      "family_id": "fraction_add_same_denominator_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose sum of like fractions",
+      "question_type": "multiple_choice",
+      "template_text": "Which fraction is equal to {numerator_a}/{denominator} + {numerator_b}/{denominator}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator_a": {
+          "type": "int",
+          "required": true
+        },
+        "numerator_b": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "sum_numerator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "denominator_values": [
+            4,
+            5,
+            6,
+            8
+          ],
+          "numerator_a_values": [
+            1,
+            2,
+            3
+          ],
+          "numerator_b_values": [
+            1,
+            2,
+            3
+          ]
+        },
+        "core": {
+          "denominator_values": [
+            5,
+            6,
+            8,
+            10
+          ],
+          "numerator_a_values": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "numerator_b_values": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "stretch": {
+          "denominator_values": [
+            6,
+            8,
+            10,
+            12
+          ],
+          "numerator_a_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "numerator_b_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "sum_numerator = numerator_a + numerator_b"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator_a >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator_b >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "sum_numerator < denominator"
+        }
+      ],
+      "answer_formula": {
+        "type": "fraction",
+        "numerator": "sum_numerator",
+        "denominator": "denominator"
+      },
+      "distractor_rules": [
+        {
+          "type": "sum_denominators_fraction"
+        },
+        {
+          "type": "keep_one_addend_fraction"
+        },
+        {
+          "type": "cross_add_fraction_digits"
+        }
+      ],
+      "explanation_template": "Like fractions keep the same denominator, so add only the numerators.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "adds_denominators_too",
+        "keeps_one_numerator_only",
+        "adds_across_fraction_digits"
+      ],
+      "active": true
+    }
+  ]
+}

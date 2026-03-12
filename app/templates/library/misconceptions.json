@@ -578,5 +578,41 @@
       "3/4 of 16 -> 16"
     ],
     "distractor_strategy": "use_whole_set_value"
+  },
+  {
+    "code": "adds_denominators_too",
+    "name": "Adds denominators too",
+    "description": "Learner adds the denominators as well as the numerators when adding like fractions.",
+    "affected_skills": [
+      "fraction_add_same_denominator_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "2/5 + 1/5 -> 3/10"
+    ],
+    "distractor_strategy": "sum_denominators_fraction"
+  },
+  {
+    "code": "keeps_one_numerator_only",
+    "name": "Keeps one numerator only",
+    "description": "Learner keeps one addend numerator instead of combining both numerators.",
+    "affected_skills": [
+      "fraction_add_same_denominator_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3/8 + 2/8 -> 3/8"
+    ],
+    "distractor_strategy": "keep_one_addend_fraction"
+  },
+  {
+    "code": "adds_across_fraction_digits",
+    "name": "Adds across fraction digits",
+    "description": "Learner mixes numerator and denominator operations and forms an unrelated fraction.",
+    "affected_skills": [
+      "fraction_add_same_denominator_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "1/4 + 2/4 -> 4/6"
+    ],
+    "distractor_strategy": "cross_add_fraction_digits"
   }
 ]

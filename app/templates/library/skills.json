@@ -502,5 +502,36 @@
       "uses_whole_set_instead_of_fraction_part"
     ],
     "active": true
+  },
+  {
+    "skill_id": "fraction_add_same_denominator_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Fractions",
+    "subtopic": "Add fractions with the same denominator",
+    "name": "Add fractions with the same denominator",
+    "description": "Learner adds fractions with the same denominator and keeps the denominator unchanged.",
+    "caps_code": "G4-T1-FRA-AD-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "fraction_partwhole_g4_01"
+    ],
+    "misconception_tags": [
+      "adds_denominators_too",
+      "keeps_one_numerator_only",
+      "adds_across_fraction_digits"
+    ],
+    "active": true
   }
 ]

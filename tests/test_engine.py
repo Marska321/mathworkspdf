@@ -44,6 +44,30 @@ def test_template_can_generate_many_valid_items() -> None:
         assert len(set(distractors)) == 3
 
 
+def test_fraction_add_same_denominator_generation_supports_like_fraction_sums() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Fractions",
+        subskill="Add fractions with the same denominator",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="fraction-add-like-denominator-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any('+' in item.question_text for item in items)
+    assert any('/' in item.answer.value for item in items if item.question_type != QuestionType.fill_blank)
+    assert any(item.answer.value.isdigit() for item in items if item.question_type == QuestionType.fill_blank)
+    assert any(item.metadata.misconception_details for item in items)
+
+
 def test_fraction_of_set_generation_supports_grouping_items() -> None:
     service = build_service()
     request = GenerationRequest(
