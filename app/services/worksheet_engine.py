@@ -557,6 +557,15 @@ class WorksheetGenerationService:
         if rule_type == "cross_add_fraction_digits" and {"numerator_a", "numerator_b", "denominator"}.issubset(variables):
             return f"{variables['numerator_a'] + 1}/{variables['denominator'] + variables['numerator_b']}"
 
+        if rule_type == "subtract_denominators_too_fraction" and {"numerator_a", "numerator_b", "denominator"}.issubset(variables):
+            return f"{variables['difference_numerator']}/{max(1, variables['denominator'] - 1)}"
+
+        if rule_type == "use_subtrahend_fraction" and {"numerator_b", "denominator"}.issubset(variables):
+            return f"{variables['numerator_b']}/{variables['denominator']}"
+
+        if rule_type == "keep_start_fraction" and {"numerator_a", "denominator"}.issubset(variables):
+            return f"{variables['numerator_a']}/{variables['denominator']}"
+
         if rule_type == "one_part_only" and {"unit_size"}.issubset(variables):
             return str(variables['unit_size'])
 
@@ -565,6 +574,18 @@ class WorksheetGenerationService:
 
         if rule_type == "use_whole_set_value" and {"total_objects"}.issubset(variables):
             return str(variables['total_objects'])
+
+        if rule_type == "less_than_one_text":
+            return "less than 1"
+
+        if rule_type == "greater_than_one_text":
+            return "greater than 1"
+
+        if rule_type == "equal_to_one_text":
+            return "equal to 1"
+
+        if rule_type == "cannot_tell_text":
+            return "cannot tell"
 
         if rule_type == "unit_fraction_same_denominator" and "/" in answer.value:
             numerator, denominator = [int(part) for part in answer.value.split("/")]
@@ -659,7 +680,7 @@ class WorksheetGenerationService:
             representation_complexity = 0.1
             linguistic_load = 0.05
             distractor_similarity = 0.45
-        elif template.template_code.startswith("fraction_compare"):
+        elif template.template_code.startswith("fraction_compare") and not template.template_code.startswith("fraction_compare_to_one"):
             denominator = max(variables.get("denominator", 0), variables.get("left_denominator", 0), variables.get("right_denominator", 0))
             number_complexity = min(denominator / 12, 1.0)
             structure_complexity = 0.36 if template.question_type == QuestionType.multiple_choice else 0.4
@@ -687,6 +708,20 @@ class WorksheetGenerationService:
             representation_complexity = 0.24
             linguistic_load = 0.08
             distractor_similarity = 0.42
+        elif template.template_code.startswith("fraction_sub_same_denominator"):
+            denominator = variables["denominator"]
+            number_complexity = min(denominator / 12, 1.0)
+            structure_complexity = 0.35 if template.question_type == QuestionType.multiple_choice else 0.4
+            representation_complexity = 0.24
+            linguistic_load = 0.08
+            distractor_similarity = 0.42
+        elif template.template_code.startswith("fraction_compare_to_one"):
+            max_term = max(variables["numerator"], variables["denominator"])
+            number_complexity = min(max_term / 6, 1.0)
+            structure_complexity = 0.62 if template.question_type == QuestionType.multiple_choice else 0.58
+            representation_complexity = 0.24
+            linguistic_load = 0.08
+            distractor_similarity = 0.56 if template.question_type == QuestionType.multiple_choice else 0.52
         elif template.template_code.startswith("fraction_equivalent"):
             denominator = variables["denominator"]
             number_complexity = min(denominator / 12, 1.0)

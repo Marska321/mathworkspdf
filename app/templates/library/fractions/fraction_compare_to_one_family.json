@@ -1,0 +1,357 @@
+{
+  "family_id": "fam_fraction_compare_to_one_g4_01",
+  "family_code": "fraction_compare_to_one_family",
+  "skill_id": "fraction_compare_to_one_g4_01",
+  "name": "Compare Fractions To One",
+  "description": "Compare a fraction to one whole.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "assumes_all_fractions_less_than_one",
+    "equal_numerator_denominator_confusion",
+    "reverses_fraction_whole_comparison"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_fraction_compare_to_one_01",
+      "template_code": "fraction_compare_to_one_01",
+      "skill_id": "fraction_compare_to_one_g4_01",
+      "family_id": "fraction_compare_to_one_family",
+      "pattern_code": "direct_compute",
+      "name": "Compare fraction to one direct",
+      "question_type": "direct",
+      "template_text": "{numerator}/{denominator} is __ 1",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "core": {
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        "stretch": {
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "denominator >= 2"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator <= denominator + 2"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "'less than' if numerator < denominator else ('equal to' if numerator == denominator else 'greater than')"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Compare the numerator and denominator: smaller means less than one, equal means one whole, larger means greater than one.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "assumes_all_fractions_less_than_one",
+        "equal_numerator_denominator_confusion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_compare_to_one_02",
+      "template_code": "fraction_compare_to_one_02",
+      "skill_id": "fraction_compare_to_one_g4_01",
+      "family_id": "fraction_compare_to_one_family",
+      "pattern_code": "complete_number_sentence",
+      "name": "Fill blank compare fraction to one",
+      "question_type": "fill_blank",
+      "template_text": "{numerator}/{denominator} is __ 1 whole.",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "core": {
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        "stretch": {
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "denominator >= 2"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator <= denominator + 2"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "'less than' if numerator < denominator else ('equal to' if numerator == denominator else 'greater than')"
+      },
+      "distractor_rules": [],
+      "explanation_template": "A fraction compares to one whole by comparing the numerator to the denominator.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "reverses_fraction_whole_comparison"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_compare_to_one_03",
+      "template_code": "fraction_compare_to_one_03",
+      "skill_id": "fraction_compare_to_one_g4_01",
+      "family_id": "fraction_compare_to_one_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose relation to one whole",
+      "question_type": "multiple_choice",
+      "template_text": "{numerator}/{denominator} is ...",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "core": {
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        "stretch": {
+          "numerator_values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "denominator >= 2"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator <= denominator + 2"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "'less than 1' if numerator < denominator else ('equal to 1' if numerator == denominator else 'greater than 1')"
+      },
+      "distractor_rules": [
+        {
+          "type": "less_than_one_text"
+        },
+        {
+          "type": "greater_than_one_text"
+        },
+        {
+          "type": "equal_to_one_text"
+        },
+        {
+          "type": "cannot_tell_text"
+        }
+      ],
+      "explanation_template": "Compare numerator and denominator to decide whether the fraction is less than, equal to, or greater than one whole.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "assumes_all_fractions_less_than_one",
+        "equal_numerator_denominator_confusion",
+        "reverses_fraction_whole_comparison"
+      ],
+      "active": true
+    }
+  ]
+}

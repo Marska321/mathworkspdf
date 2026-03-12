@@ -533,5 +533,67 @@
       "adds_across_fraction_digits"
     ],
     "active": true
+  },
+  {
+    "skill_id": "fraction_sub_same_denominator_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Fractions",
+    "subtopic": "Subtract fractions with the same denominator",
+    "name": "Subtract fractions with the same denominator",
+    "description": "Learner subtracts fractions with the same denominator and keeps the denominator unchanged.",
+    "caps_code": "G4-T1-FRA-SB-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "fraction_partwhole_g4_01"
+    ],
+    "misconception_tags": [
+      "subtracts_denominators_too",
+      "uses_subtrahend_numerator",
+      "keeps_starting_numerator"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "fraction_compare_to_one_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Fractions",
+    "subtopic": "Compare fractions to one whole",
+    "name": "Compare fractions to one whole",
+    "description": "Learner decides whether a fraction is less than, equal to, or greater than one whole.",
+    "caps_code": "G4-T1-FRA-CW-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "fraction_partwhole_g4_01"
+    ],
+    "misconception_tags": [
+      "assumes_all_fractions_less_than_one",
+      "equal_numerator_denominator_confusion",
+      "reverses_fraction_whole_comparison"
+    ],
+    "active": true
   }
 ]

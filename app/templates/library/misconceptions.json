@@ -614,5 +614,77 @@
       "1/4 + 2/4 -> 4/6"
     ],
     "distractor_strategy": "cross_add_fraction_digits"
+  },
+  {
+    "code": "subtracts_denominators_too",
+    "name": "Subtracts denominators too",
+    "description": "Learner subtracts the denominators as well as the numerators when subtracting like fractions.",
+    "affected_skills": [
+      "fraction_sub_same_denominator_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "4/7 - 2/7 -> 2/0"
+    ],
+    "distractor_strategy": "subtract_denominators_too_fraction"
+  },
+  {
+    "code": "uses_subtrahend_numerator",
+    "name": "Uses subtrahend numerator",
+    "description": "Learner uses only the second numerator as the answer numerator instead of subtracting the numerators.",
+    "affected_skills": [
+      "fraction_sub_same_denominator_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "5/8 - 3/8 -> 3/8"
+    ],
+    "distractor_strategy": "use_subtrahend_fraction"
+  },
+  {
+    "code": "keeps_starting_numerator",
+    "name": "Keeps starting numerator",
+    "description": "Learner leaves the first numerator unchanged instead of subtracting the second numerator.",
+    "affected_skills": [
+      "fraction_sub_same_denominator_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "5/8 - 2/8 -> 5/8"
+    ],
+    "distractor_strategy": "keep_start_fraction"
+  },
+  {
+    "code": "assumes_all_fractions_less_than_one",
+    "name": "Assumes all fractions less than one",
+    "description": "Learner thinks every fraction must be less than one whole.",
+    "affected_skills": [
+      "fraction_compare_to_one_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "6/5 -> less than 1"
+    ],
+    "distractor_strategy": "less_than_one_text"
+  },
+  {
+    "code": "equal_numerator_denominator_confusion",
+    "name": "Equal numerator denominator confusion",
+    "description": "Learner does not recognize that equal numerator and denominator make exactly one whole.",
+    "affected_skills": [
+      "fraction_compare_to_one_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "4/4 -> greater than 1"
+    ],
+    "distractor_strategy": "greater_than_one_text"
+  },
+  {
+    "code": "reverses_fraction_whole_comparison",
+    "name": "Reverses fraction whole comparison",
+    "description": "Learner reverses less than and greater than when comparing a fraction to one whole.",
+    "affected_skills": [
+      "fraction_compare_to_one_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3/5 -> greater than 1"
+    ],
+    "distractor_strategy": "comparison_label_flip"
   }
 ]

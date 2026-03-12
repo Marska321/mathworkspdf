@@ -31,7 +31,9 @@
           "fraction_compare_family",
           "fraction_simplify_family",
           "fraction_of_set_family",
-          "fraction_add_same_denominator_family"
+          "fraction_add_same_denominator_family",
+          "fraction_sub_same_denominator_family",
+          "fraction_compare_to_one_family"
         ],
         "instructions": "Start with guided questions."
       },
@@ -64,7 +66,9 @@
           "fraction_compare_family",
           "fraction_simplify_family",
           "fraction_of_set_family",
-          "fraction_add_same_denominator_family"
+          "fraction_add_same_denominator_family",
+          "fraction_sub_same_denominator_family",
+          "fraction_compare_to_one_family"
         ],
         "instructions": "Show what you know."
       },
@@ -96,7 +100,9 @@
           "fraction_compare_family",
           "fraction_simplify_family",
           "fraction_of_set_family",
-          "fraction_add_same_denominator_family"
+          "fraction_add_same_denominator_family",
+          "fraction_sub_same_denominator_family",
+          "fraction_compare_to_one_family"
         ],
         "instructions": "Try the trickier questions."
       }
@@ -136,7 +142,9 @@
           "fraction_compare_family",
           "fraction_simplify_family",
           "fraction_of_set_family",
-          "fraction_add_same_denominator_family"
+          "fraction_add_same_denominator_family",
+          "fraction_sub_same_denominator_family",
+          "fraction_compare_to_one_family"
         ],
         "instructions": "Work quickly and carefully."
       },
@@ -169,7 +177,9 @@
           "fraction_compare_family",
           "fraction_simplify_family",
           "fraction_of_set_family",
-          "fraction_add_same_denominator_family"
+          "fraction_add_same_denominator_family",
+          "fraction_sub_same_denominator_family",
+          "fraction_compare_to_one_family"
         ],
         "instructions": "Finish with mixed review."
       }
@@ -209,7 +219,9 @@
           "fraction_compare_family",
           "fraction_simplify_family",
           "fraction_of_set_family",
-          "fraction_add_same_denominator_family"
+          "fraction_add_same_denominator_family",
+          "fraction_sub_same_denominator_family",
+          "fraction_compare_to_one_family"
         ],
         "instructions": "Start with a mix of quick questions."
       },
@@ -245,7 +257,9 @@
           "fraction_compare_family",
           "fraction_simplify_family",
           "fraction_of_set_family",
-          "fraction_add_same_denominator_family"
+          "fraction_add_same_denominator_family",
+          "fraction_sub_same_denominator_family",
+          "fraction_compare_to_one_family"
         ],
         "instructions": "Use different strategies as you work through the set."
       },
@@ -280,7 +294,9 @@
           "fraction_compare_family",
           "fraction_simplify_family",
           "fraction_of_set_family",
-          "fraction_add_same_denominator_family"
+          "fraction_add_same_denominator_family",
+          "fraction_sub_same_denominator_family",
+          "fraction_compare_to_one_family"
         ],
         "instructions": "Finish by checking your understanding."
       }
