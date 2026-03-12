@@ -11,7 +11,8 @@
         "difficulty_bias": "support",
         "question_types": [
           "visual",
-          "fill_blank"
+          "fill_blank",
+          "sequence"
         ],
         "template_family_bias": [
           "fraction_partwhole_family",
@@ -34,7 +35,9 @@
           "fraction_add_same_denominator_family",
           "fraction_sub_same_denominator_family",
           "fraction_compare_to_one_family",
-          "fraction_mixed_number_family"
+          "fraction_mixed_number_family",
+          "numeric_patterns_family",
+          "flow_diagrams_family"
         ],
         "instructions": "Start with guided questions."
       },
@@ -47,7 +50,8 @@
           "direct",
           "fill_blank",
           "multiple_choice",
-          "visual"
+          "visual",
+          "sequence"
         ],
         "template_family_bias": [
           "fraction_partwhole_family",
@@ -70,7 +74,9 @@
           "fraction_add_same_denominator_family",
           "fraction_sub_same_denominator_family",
           "fraction_compare_to_one_family",
-          "fraction_mixed_number_family"
+          "fraction_mixed_number_family",
+          "numeric_patterns_family",
+          "flow_diagrams_family"
         ],
         "instructions": "Show what you know."
       },
@@ -82,7 +88,8 @@
         "question_types": [
           "direct",
           "multiple_choice",
-          "visual"
+          "visual",
+          "sequence"
         ],
         "template_family_bias": [
           "fraction_partwhole_family",
@@ -105,7 +112,9 @@
           "fraction_add_same_denominator_family",
           "fraction_sub_same_denominator_family",
           "fraction_compare_to_one_family",
-          "fraction_mixed_number_family"
+          "fraction_mixed_number_family",
+          "numeric_patterns_family",
+          "flow_diagrams_family"
         ],
         "instructions": "Try the trickier questions."
       }
@@ -148,7 +157,9 @@
           "fraction_add_same_denominator_family",
           "fraction_sub_same_denominator_family",
           "fraction_compare_to_one_family",
-          "fraction_mixed_number_family"
+          "fraction_mixed_number_family",
+          "numeric_patterns_family",
+          "flow_diagrams_family"
         ],
         "instructions": "Work quickly and carefully."
       },
@@ -184,7 +195,9 @@
           "fraction_add_same_denominator_family",
           "fraction_sub_same_denominator_family",
           "fraction_compare_to_one_family",
-          "fraction_mixed_number_family"
+          "fraction_mixed_number_family",
+          "numeric_patterns_family",
+          "flow_diagrams_family"
         ],
         "instructions": "Finish with mixed review."
       }
@@ -227,7 +240,9 @@
           "fraction_add_same_denominator_family",
           "fraction_sub_same_denominator_family",
           "fraction_compare_to_one_family",
-          "fraction_mixed_number_family"
+          "fraction_mixed_number_family",
+          "numeric_patterns_family",
+          "flow_diagrams_family"
         ],
         "instructions": "Start with a mix of quick questions."
       },
@@ -266,7 +281,9 @@
           "fraction_add_same_denominator_family",
           "fraction_sub_same_denominator_family",
           "fraction_compare_to_one_family",
-          "fraction_mixed_number_family"
+          "fraction_mixed_number_family",
+          "numeric_patterns_family",
+          "flow_diagrams_family"
         ],
         "instructions": "Use different strategies as you work through the set."
       },
@@ -304,7 +321,9 @@
           "fraction_add_same_denominator_family",
           "fraction_sub_same_denominator_family",
           "fraction_compare_to_one_family",
-          "fraction_mixed_number_family"
+          "fraction_mixed_number_family",
+          "numeric_patterns_family",
+          "flow_diagrams_family"
         ],
         "instructions": "Finish by checking your understanding."
       }

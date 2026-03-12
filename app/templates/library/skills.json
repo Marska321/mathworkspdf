@@ -22,7 +22,8 @@
     "prerequisite_skill_ids": [],
     "misconception_tags": [
       "swap_numerator_denominator",
-      "counts_unshaded"
+      "counts_unshaded",
+      "denominator_as_shaded"
     ],
     "active": true
   },
@@ -35,7 +36,7 @@
     "topic": "Addition",
     "subtopic": "Addition with regrouping",
     "name": "Add numbers with regrouping",
-    "description": "Learner adds two-digit numbers and explains regrouping.",
+    "description": "Learner adds 2- and 3-digit numbers using regrouping.",
     "caps_code": "G4-T1-ADD-RG-01",
     "difficulty_bands_supported": [
       "support",
@@ -44,8 +45,7 @@
     ],
     "recommended_question_types": [
       "direct",
-      "fill_blank",
-      "multiple_choice"
+      "fill_blank"
     ],
     "prerequisite_skill_ids": [],
     "misconception_tags": [
@@ -64,7 +64,7 @@
     "topic": "Place Value",
     "subtopic": "Place Value Identification",
     "name": "Identify digit values and place names",
-    "description": "Learner identifies the value and place of digits in whole numbers.",
+    "description": "Learner identifies the value of digits and names of places up to thousands.",
     "caps_code": "G4-T1-PV-ID-01",
     "difficulty_bands_supported": [
       "support",
@@ -93,7 +93,7 @@
     "topic": "Whole Numbers",
     "subtopic": "Compare and Order Whole Numbers",
     "name": "Compare and order whole numbers",
-    "description": "Learner compares and orders whole numbers up to 4 digits.",
+    "description": "Learner compares and orders whole numbers up to four digits.",
     "caps_code": "G4-T1-WN-CO-01",
     "difficulty_bands_supported": [
       "support",
@@ -105,7 +105,9 @@
       "multiple_choice",
       "sequence"
     ],
-    "prerequisite_skill_ids": [],
+    "prerequisite_skill_ids": [
+      "pv_identify_g4_01"
+    ],
     "misconception_tags": [
       "digit_count_confusion",
       "left_to_right_comparison_error",
@@ -122,7 +124,7 @@
     "topic": "Place Value",
     "subtopic": "Expanded Notation",
     "name": "Convert between standard and expanded notation",
-    "description": "Learner writes numbers in expanded notation and reconstructs standard form.",
+    "description": "Learner recognises and writes numbers in expanded notation.",
     "caps_code": "G4-T1-PV-EX-01",
     "difficulty_bands_supported": [
       "support",
@@ -152,7 +154,7 @@
     "topic": "Addition",
     "subtopic": "Addition without regrouping",
     "name": "Add numbers without regrouping",
-    "description": "Learner adds two-digit and three-digit numbers without regrouping.",
+    "description": "Learner adds 2- and 3-digit numbers without regrouping.",
     "caps_code": "G4-T1-ADD-NR-01",
     "difficulty_bands_supported": [
       "support",
@@ -180,7 +182,7 @@
     "topic": "Subtraction",
     "subtopic": "Subtraction without regrouping",
     "name": "Subtract numbers without regrouping",
-    "description": "Learner subtracts whole numbers when regrouping is not required.",
+    "description": "Learner subtracts 2- and 3-digit numbers without regrouping.",
     "caps_code": "G4-T1-SUB-NR-01",
     "difficulty_bands_supported": [
       "support",
@@ -208,7 +210,7 @@
     "topic": "Subtraction",
     "subtopic": "Subtraction with regrouping",
     "name": "Subtract numbers with regrouping",
-    "description": "Learner subtracts whole numbers where regrouping is required.",
+    "description": "Learner subtracts 2- and 3-digit numbers using regrouping.",
     "caps_code": "G4-T1-SUB-RG-01",
     "difficulty_bands_supported": [
       "support",
@@ -217,13 +219,10 @@
     ],
     "recommended_question_types": [
       "direct",
-      "fill_blank",
-      "word_problem",
-      "error_spotting"
+      "error_spotting",
+      "word_problem"
     ],
-    "prerequisite_skill_ids": [
-      "sub_noregroup_g4_01"
-    ],
+    "prerequisite_skill_ids": [],
     "misconception_tags": [
       "borrow_not_applied",
       "subtract_smaller_from_larger_digit",
@@ -240,7 +239,7 @@
     "topic": "Multiplication",
     "subtopic": "Multiplication facts",
     "name": "Recall and apply multiplication facts",
-    "description": "Learner solves multiplication facts using direct and visual representations.",
+    "description": "Learner recalls multiplication facts and relates them to simple arrays.",
     "caps_code": "G4-T1-MUL-FA-01",
     "difficulty_bands_supported": [
       "support",
@@ -249,7 +248,6 @@
     ],
     "recommended_question_types": [
       "direct",
-      "fill_blank",
       "visual"
     ],
     "prerequisite_skill_ids": [],
@@ -269,7 +267,7 @@
     "topic": "Division",
     "subtopic": "Division facts",
     "name": "Use division as sharing and grouping",
-    "description": "Learner solves simple division facts and sharing stories.",
+    "description": "Learner solves simple division facts and sharing/grouping situations.",
     "caps_code": "G4-T1-DIV-FA-01",
     "difficulty_bands_supported": [
       "support",
@@ -278,7 +276,6 @@
     ],
     "recommended_question_types": [
       "direct",
-      "fill_blank",
       "word_problem"
     ],
     "prerequisite_skill_ids": [
@@ -300,7 +297,7 @@
     "topic": "Place Value",
     "subtopic": "Rounding Whole Numbers",
     "name": "Round whole numbers to a given place",
-    "description": "Learner rounds whole numbers to the nearest ten, hundred, and thousand.",
+    "description": "Learner rounds whole numbers to the nearest ten, hundred, or thousand.",
     "caps_code": "G4-T1-PV-RD-01",
     "difficulty_bands_supported": [
       "support",
@@ -331,7 +328,7 @@
     "topic": "Multiplication",
     "subtopic": "Missing factor facts",
     "name": "Find missing factors in multiplication facts",
-    "description": "Learner finds a missing factor when one factor and the product are known.",
+    "description": "Learner uses inverse reasoning to find a missing multiplication factor.",
     "caps_code": "G4-T1-MUL-MF-01",
     "difficulty_bands_supported": [
       "support",
@@ -361,7 +358,7 @@
     "topic": "Division",
     "subtopic": "Division with remainders",
     "name": "Solve division problems with remainders",
-    "description": "Learner finds the quotient and remainder when division does not divide equally.",
+    "description": "Learner interprets quotient and remainder in simple division problems.",
     "caps_code": "G4-T1-DIV-RE-01",
     "difficulty_bands_supported": [
       "support",
@@ -624,6 +621,61 @@
       "whole_number_only_from_improper",
       "uses_numerator_as_remainder_mixed",
       "adds_whole_and_numerator_without_scaling"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "numeric_patterns_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Patterns, Functions and Algebra",
+    "topic": "Numeric Patterns",
+    "subtopic": "Extend numeric patterns",
+    "name": "Extend numeric patterns",
+    "description": "Learner extends additive number sequences using a constant step.",
+    "caps_code": "G4-T1-PFA-NP-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "sequence"
+    ],
+    "prerequisite_skill_ids": [
+      "compare_order_g4_01"
+    ],
+    "misconception_tags": [
+      "additive_vs_multiplicative_confusion"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "flow_diagrams_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Patterns, Functions and Algebra",
+    "topic": "Flow Diagrams",
+    "subtopic": "Identify the rule in a flow diagram",
+    "name": "Identify the rule in a flow diagram",
+    "description": "Learner identifies the operation rule that changes an input to an output in a simple flow diagram.",
+    "caps_code": "G4-T1-PFA-FD-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "visual",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "numeric_patterns_g4_01"
+    ],
+    "misconception_tags": [
+      "incorrect_rule"
     ],
     "active": true
   }

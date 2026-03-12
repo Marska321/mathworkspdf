@@ -161,10 +161,10 @@ class GenerationRequest(BaseModel):
         if not self.question_types:
             defaults = {
                 WorksheetType.fluency: [QuestionType.direct, QuestionType.fill_blank, QuestionType.multiple_choice],
-                WorksheetType.concept: [QuestionType.visual, QuestionType.fill_blank, QuestionType.multiple_choice],
-                WorksheetType.mixed: [QuestionType.direct, QuestionType.fill_blank, QuestionType.multiple_choice, QuestionType.visual],
+                WorksheetType.concept: [QuestionType.visual, QuestionType.fill_blank, QuestionType.multiple_choice, QuestionType.sequence],
+                WorksheetType.mixed: [QuestionType.direct, QuestionType.fill_blank, QuestionType.multiple_choice, QuestionType.visual, QuestionType.sequence],
                 WorksheetType.intervention: [QuestionType.visual, QuestionType.fill_blank],
-                WorksheetType.assessment: [QuestionType.direct, QuestionType.fill_blank, QuestionType.multiple_choice],
+                WorksheetType.assessment: [QuestionType.direct, QuestionType.fill_blank, QuestionType.multiple_choice, QuestionType.sequence],
             }
             self.question_types = defaults[self.worksheet_type]
         return self
@@ -274,3 +274,4 @@ class WorksheetGenerateResponse(BaseModel):
     status: Literal["generated"]
     worksheet_json: RenderableWorksheet
     answer_key_json: list[AnswerKeyEntry]
+

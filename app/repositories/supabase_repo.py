@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Any
 
 import httpx
 
 from app.repositories.base import WorksheetRepository
 from app.schemas.worksheet import RenderableWorksheet, Skill, Template, WorksheetBlueprint
+from app.templates.loader import load_template_library
 
 
 class SupabaseWorksheetRepository(WorksheetRepository):
@@ -51,6 +53,12 @@ class SupabaseWorksheetRepository(WorksheetRepository):
     def get_blueprints(self) -> list[WorksheetBlueprint]:
         rows = self._get("worksheet_blueprints", {"select": "*", "active": "eq.true"})
         return [WorksheetBlueprint.model_validate(row["structure_json"]) for row in rows]
+
+    def get_grade4_family_registry(self) -> list[dict[str, Any]]:
+        return deepcopy(load_template_library()["grade4_family_registry"])
+
+    def get_grade4_family_coverage_map(self) -> list[dict[str, Any]]:
+        return deepcopy(load_template_library()["grade4_family_coverage_map"])
 
     def save_generated_worksheet(
         self,

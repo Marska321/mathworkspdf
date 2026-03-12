@@ -759,7 +759,9 @@
     ],
     "distractor_strategy": "operation_confusion",
     "description": "Learner extends a pattern using the wrong operation, usually adding instead of multiplying or vice versa.",
-    "affected_skills": [],
+    "affected_skills": [
+      "numeric_patterns_g4_01"
+    ],
     "name": "Additive vs multiplicative confusion",
     "code": "additive_vs_multiplicative_confusion"
   },
@@ -769,7 +771,9 @@
     ],
     "distractor_strategy": "incorrect_rule",
     "description": "Learner identifies the wrong flow-diagram rule from the input-output relationship.",
-    "affected_skills": [],
+    "affected_skills": [
+      "flow_diagrams_g4_01"
+    ],
     "name": "Incorrect rule",
     "code": "incorrect_rule"
   },

@@ -121,6 +121,26 @@ def all_unique(values: list[Any]) -> bool:
     return len(values) == len(set(values))
 
 
+def apply_rule(value: int, operation: str, operand: int) -> int:
+    if operation == "add":
+        return value + operand
+    if operation == "subtract":
+        return value - operand
+    if operation == "multiply":
+        return value * operand
+    raise ValueError(f"Unsupported operation: {operation}")
+
+
+def flow_rule_text(operation: str, operand: int) -> str:
+    if operation == "add":
+        return f"+ {operand}"
+    if operation == "subtract":
+        return f"- {operand}"
+    if operation == "multiply":
+        return f"x {operand}"
+    raise ValueError(f"Unsupported operation: {operation}")
+
+
 def join_csv(values: list[Any]) -> str:
     return ", ".join(str(value) for value in values)
 
@@ -129,12 +149,14 @@ HELPER_REGISTRY = {
     "abs": abs,
     "adjacent_place_value": adjacent_place_value,
     "all_unique": all_unique,
+    "apply_rule": apply_rule,
     "compare_symbol": compare_symbol,
     "digit_only": digit_only,
     "distractor_borrow_not_applied": distractor_borrow_not_applied,
     "distractor_ignore_carry": distractor_ignore_carry,
     "expand_number": expand_number,
     "expand_number_as_text": expand_number_as_text,
+    "flow_rule_text": flow_rule_text,
     "get_digit_at_place": get_digit_at_place,
     "get_place_multiplier": get_place_multiplier,
     "join_csv": join_csv,
@@ -155,4 +177,3 @@ HELPER_REGISTRY = {
     "str": str,
     "to_mixed_number": to_mixed_number,
 }
-

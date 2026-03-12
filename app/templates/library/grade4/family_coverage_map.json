@@ -279,23 +279,27 @@
   },
   {
     "family_code": "numeric_patterns_family",
-    "implemented": false,
-    "family_file": null,
-    "templates_count": 0,
-    "patterns_supported": [],
-    "tests_exist": false,
-    "live_verified": false,
-    "notes": "Priority 1 roadmap family from repo.md."
+    "implemented": true,
+    "family_file": "app/templates/library/numeric_patterns/numeric_patterns_family.json",
+    "templates_count": 1,
+    "patterns_supported": [
+      "sequence_extension"
+    ],
+    "tests_exist": true,
+    "live_verified": true,
+    "notes": "Implemented in the current template-driven engine using sequence questions."
   },
   {
     "family_code": "flow_diagrams_family",
-    "implemented": false,
-    "family_file": null,
-    "templates_count": 0,
-    "patterns_supported": [],
-    "tests_exist": false,
+    "implemented": true,
+    "family_file": "app/templates/library/flow_diagrams/flow_diagrams_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "flow_rule_identification"
+    ],
+    "tests_exist": true,
     "live_verified": false,
-    "notes": "Priority 1 roadmap family from repo.md."
+    "notes": "Implemented in the current template-driven engine with real flow-diagram visual payload support."
   },
   {
     "family_code": "number_sentences_family",

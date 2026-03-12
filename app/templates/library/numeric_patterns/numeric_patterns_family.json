@@ -1,0 +1,123 @@
+{
+  "family_id": "fam_numeric_patterns_g4_01",
+  "family_code": "numeric_patterns_family",
+  "skill_id": "numeric_patterns_g4_01",
+  "name": "Numeric Patterns",
+  "description": "Extend additive numeric patterns with a constant step.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "sequence"
+  ],
+  "misconception_targets": [
+    "additive_vs_multiplicative_confusion"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_numeric_patterns_01",
+      "template_code": "numeric_patterns_01",
+      "skill_id": "numeric_patterns_g4_01",
+      "family_id": "numeric_patterns_family",
+      "pattern_code": "sequence_extension",
+      "name": "Complete additive number sequence",
+      "question_type": "sequence",
+      "template_text": "Complete the sequence: {a}, {b}, {c}, __, __",
+      "instructions_template": null,
+      "variable_schema": {
+        "start": {
+          "type": "int",
+          "required": true
+        },
+        "step": {
+          "type": "int",
+          "required": true
+        },
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "c": {
+          "type": "int",
+          "required": true
+        },
+        "d": {
+          "type": "int",
+          "required": true
+        },
+        "e": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "start_range": [1, 20],
+          "step_values": [2, 5, 10]
+        },
+        "core": {
+          "start_range": [1, 50],
+          "step_values": [2, 3, 4, 5, 10]
+        },
+        "stretch": {
+          "start_range": [1, 100],
+          "step_values": [3, 4, 6, 8, 12]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "a = start"
+        },
+        {
+          "type": "derived",
+          "rule": "b = start + step"
+        },
+        {
+          "type": "derived",
+          "rule": "c = start + (2 * step)"
+        },
+        {
+          "type": "derived",
+          "rule": "d = start + (3 * step)"
+        },
+        {
+          "type": "derived",
+          "rule": "e = start + (4 * step)"
+        },
+        {
+          "type": "expression",
+          "rule": "step > 0"
+        },
+        {
+          "type": "expression",
+          "rule": "all_unique([a, b, c, d, e])"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "join_csv([d, e])"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Keep adding the same number each time to continue the pattern.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "additive_vs_multiplicative_confusion"
+      ],
+      "active": true
+    }
+  ]
+}

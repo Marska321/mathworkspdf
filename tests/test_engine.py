@@ -515,3 +515,47 @@ def test_generated_metadata_includes_misconception_details() -> None:
 
 
 
+
+def test_numeric_patterns_generation_supports_sequence_extension() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Patterns, Functions and Algebra",
+        topic="Numeric Patterns",
+        subskill="Extend numeric patterns",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.concept,
+        question_count=5,
+        question_types=[QuestionType.sequence],
+        seed="numeric-patterns-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.sequence in question_types
+    assert all('Complete the sequence:' in item.question_text for item in items)
+    assert all(item.answer.value.count(',') == 1 for item in items)
+    assert any(item.metadata.misconception_details for item in items)
+
+def test_flow_diagrams_generation_supports_visual_rule_identification() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Patterns, Functions and Algebra",
+        topic="Flow Diagrams",
+        subskill="Identify the rule in a flow diagram",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.concept,
+        question_count=5,
+        question_types=[QuestionType.visual, QuestionType.multiple_choice],
+        seed="flow-diagrams-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.visual in question_types or QuestionType.multiple_choice in question_types
+    assert any(item.visual_payload and item.visual_payload.visual_type == 'flow_diagram' for item in items)
+    assert all(item.answer.value.startswith('+ ') or item.answer.value.startswith('- ') for item in items)
+    assert any(item.metadata.misconception_details for item in items)

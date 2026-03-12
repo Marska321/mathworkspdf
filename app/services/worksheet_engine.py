@@ -633,6 +633,20 @@ class WorksheetGenerationService:
             for value in sorted(other_values, reverse=True):
                 if str(value) != answer.value:
                     return str(value)
+
+        if {"operation", "operand"}.issubset(variables) and rule_type == "flow_wrong_operation_same_operand":
+            operation = variables["operation"]
+            opposite = {"add": "subtract", "subtract": "add"}.get(operation)
+            if opposite:
+                return HELPER_REGISTRY["flow_rule_text"](opposite, variables["operand"])
+
+        if {"operation", "operand"}.issubset(variables) and rule_type == "flow_neighbor_operand":
+            adjusted_operand = variables["operand"] + 1 if variables["operand"] < 9 else max(1, variables["operand"] - 1)
+            return HELPER_REGISTRY["flow_rule_text"](variables["operation"], adjusted_operand)
+
+        if {"operation", "operand"}.issubset(variables) and rule_type == "flow_double_operand":
+            adjusted_operand = max(1, variables["operand"] * 2)
+            return HELPER_REGISTRY["flow_rule_text"](variables["operation"], adjusted_operand)
         return None
 
     def fallback_distractor(
@@ -674,6 +688,8 @@ class WorksheetGenerationService:
             return f"{max(1, int(numerator) + offset)}/{max(2, int(denominator) + offset)}"
         if template_code.startswith("expanded_") and answer.value.isdigit():
             return str(int(answer.value) + offset)
+        if template_code.startswith("flow_diagrams") and {"operation", "operand"}.issubset(variables):
+            return HELPER_REGISTRY["flow_rule_text"](variables["operation"], variables["operand"] + offset)
         if answer.format == "fraction":
             numerator, denominator = answer.value.split("/")
             return f"{max(1, int(numerator) + offset)}/{denominator}"
@@ -840,6 +856,20 @@ class WorksheetGenerationService:
             representation_complexity = 0.2
             linguistic_load = 0.08
             distractor_similarity = 0.35
+        elif template.template_code.startswith("numeric_patterns"):
+            max_number = max(value for key, value in variables.items() if key in {"a", "b", "c", "d", "e"})
+            number_complexity = min(max_number / 120, 1.0)
+            structure_complexity = 0.48 if template.question_type == QuestionType.sequence else 0.36
+            representation_complexity = 0.18
+            linguistic_load = 0.06
+            distractor_similarity = 0.3
+        elif template.template_code.startswith("flow_diagrams"):
+            max_number = max(variables.get("input_value", 0), variables.get("output_value", 0), variables.get("operand", 0))
+            number_complexity = min(max_number / 60, 1.0)
+            structure_complexity = 0.46 if template.question_type == QuestionType.multiple_choice else 0.42
+            representation_complexity = 0.62 if template.rendering.visual_type == "flow_diagram" else 0.26
+            linguistic_load = 0.08
+            distractor_similarity = 0.45 if template.question_type == QuestionType.multiple_choice else 0.28
         elif template.template_code.startswith("rounding"):
             max_number = variables.get("number", 0)
             number_complexity = min(max_number / 9999, 1.0)
@@ -892,6 +922,15 @@ class WorksheetGenerationService:
                 params={
                     "rows": variables["rows"],
                     "cols": variables["cols"],
+                },
+            )
+        if template.rendering.visual_type == "flow_diagram":
+            return VisualPayload(
+                visual_type="flow_diagram",
+                params={
+                    "input_value": variables["input_value"],
+                    "output_value": variables["output_value"],
+                    "rule_label": "?",
                 },
             )
         return None
@@ -1002,6 +1041,10 @@ class WorksheetGenerationService:
                 )
                 number += 1
         return answer_key
+
+
+
+
 
 
 

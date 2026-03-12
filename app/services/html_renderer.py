@@ -138,6 +138,46 @@ class WorksheetHtmlRenderer:
     .fraction-bar {{ display: grid; gap: 4px; min-height: 44px; }}
     .fraction-part {{ border: 1px solid var(--accent); min-height: 42px; }}
     .fraction-part.shaded {{ background: repeating-linear-gradient(135deg, var(--accent-soft), var(--accent-soft) 10px, #99f6e4 10px, #99f6e4 20px); }}
+    .flow-diagram {
+      display: grid;
+      grid-template-columns: minmax(90px, 120px) 48px minmax(110px, 140px) 48px minmax(90px, 120px);
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      max-width: 520px;
+    }
+    .flow-box {
+      border: 2px solid var(--math-line);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 12px 10px;
+      text-align: center;
+      min-height: 52px;
+    }
+    .flow-box.rule {
+      background: linear-gradient(180deg, var(--accent-soft) 0%, #ffffff 100%);
+      border-color: var(--accent);
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .flow-arrow {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+    .flow-label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .flow-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
     .answer-key-page {{
       max-width: 900px;
       margin: 24px auto;
@@ -259,17 +299,34 @@ class WorksheetHtmlRenderer:
     def _render_visual(self, payload: dict[str, Any] | None) -> str:
         if not payload:
             return ""
-        if payload.get("visual_type") != "fraction_bar":
-            return f"<div class=\"visual\">{escape(payload.get('visual_type', 'visual'))}</div>"
+        visual_type = payload.get("visual_type")
         params = payload.get("params", {})
-        parts_total = int(params.get("parts_total", 1))
-        parts_shaded = int(params.get("parts_shaded", 0))
-        parts = []
-        for index in range(parts_total):
-            class_name = "fraction-part shaded" if index < parts_shaded else "fraction-part"
-            parts.append(f"<div class=\"{class_name}\"></div>")
-        style = f"grid-template-columns: repeat({parts_total}, minmax(0, 1fr));"
-        return f"<div class=\"visual\"><div class=\"fraction-bar\" style=\"{style}\">{''.join(parts)}</div></div>"
+
+        if visual_type == "fraction_bar":
+            parts_total = int(params.get("parts_total", 1))
+            parts_shaded = int(params.get("parts_shaded", 0))
+            parts = []
+            for index in range(parts_total):
+                class_name = "fraction-part shaded" if index < parts_shaded else "fraction-part"
+                parts.append(f"<div class=\"{class_name}\"></div>")
+            style = f"grid-template-columns: repeat({parts_total}, minmax(0, 1fr));"
+            return f"<div class=\"visual\"><div class=\"fraction-bar\" style=\"{style}\">{''.join(parts)}</div></div>"
+
+        if visual_type == "flow_diagram":
+            input_value = escape(str(params.get("input_value", "")))
+            output_value = escape(str(params.get("output_value", "")))
+            rule_label = escape(str(params.get("rule_label", "?")))
+            return (
+                "<div class=\"visual\"><div class=\"flow-diagram\">"
+                f"<div class=\"flow-box\"><span class=\"flow-label\">Input</span><span class=\"flow-value\">{input_value}</span></div>"
+                "<div class=\"flow-arrow\">→</div>"
+                f"<div class=\"flow-box rule\"><span class=\"flow-label\">Rule</span><span class=\"flow-value\">{rule_label}</span></div>"
+                "<div class=\"flow-arrow\">→</div>"
+                f"<div class=\"flow-box\"><span class=\"flow-label\">Output</span><span class=\"flow-value\">{output_value}</span></div>"
+                "</div></div>"
+            )
+
+        return f"<div class=\"visual\">{escape(payload.get('visual_type', 'visual'))}</div>"
 
     def _render_answer(self, answer: dict[str, Any]) -> str:
         explanation = escape(answer.get("explanation") or "")
@@ -320,3 +377,4 @@ class WorksheetHtmlRenderer:
             for detail in details
         )
         return f"<div class=\"teacher-item-note\"><strong>Teacher note:</strong>{detail_html}</div>"
+
