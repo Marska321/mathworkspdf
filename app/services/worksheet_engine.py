@@ -355,6 +355,8 @@ class WorksheetGenerationService:
             return rng.randint(1, variables["denominator"] - 1)
         if name == "remainder" and "b" in variables:
             return rng.randint(1, variables["b"] - 1)
+        if name == "remainder" and "denominator" in variables:
+            return rng.randint(1, variables["denominator"] - 1)
         if definition.type == "string" and name.endswith("_csv"):
             source_name = name.removesuffix("_csv")
             if source_name in variables and isinstance(variables[source_name], list):
@@ -575,6 +577,23 @@ class WorksheetGenerationService:
         if rule_type == "use_whole_set_value" and {"total_objects"}.issubset(variables):
             return str(variables['total_objects'])
 
+        if {"improper_numerator", "denominator", "whole_part", "remainder"}.issubset(variables):
+            if rule_type == "whole_number_only_from_improper":
+                return str(variables['whole_part'])
+            if rule_type == "uses_numerator_as_remainder_mixed":
+                return f"{variables['whole_part']} {variables['improper_numerator']}/{variables['denominator']}"
+            if rule_type == "off_by_one_whole_same_remainder_mixed":
+                adjusted_whole = variables['whole_part'] + 1
+                return f"{adjusted_whole} {variables['remainder']}/{variables['denominator']}"
+
+        if {"whole_part", "numerator", "denominator", "improper_numerator"}.issubset(variables):
+            if rule_type == "add_whole_and_numerator_fraction":
+                return f"{variables['whole_part'] + variables['numerator']}/{variables['denominator']}"
+            if rule_type == "ignore_fractional_part_in_conversion":
+                return f"{variables['whole_part'] * variables['denominator']}/{variables['denominator']}"
+            if rule_type == "adds_extra_denominator_group":
+                return f"{variables['improper_numerator'] + variables['denominator']}/{variables['denominator']}"
+
         if rule_type == "less_than_one_text":
             return "less than 1"
 
@@ -641,6 +660,12 @@ class WorksheetGenerationService:
             return str(max(1, int(answer.value) + offset))
         if template_code.startswith("rounding") and answer.value.isdigit():
             return str(int(answer.value) + offset * 10)
+        if template_code.startswith("fraction_mixed_number"):
+            if answer.format == "fraction":
+                numerator, denominator = answer.value.split("/")
+                return f"{max(1, int(numerator) + offset)}/{denominator}"
+            if {"whole_part", "remainder", "denominator"}.issubset(variables):
+                return f"{variables['whole_part'] + offset} {variables['remainder']}/{variables['denominator']}"
         if template_code.startswith("fraction_compare") and "/" in answer.value:
             numerator, denominator = answer.value.split("/")
             return f"{numerator}/{max(int(numerator) + 1, int(denominator) + offset)}"
@@ -722,6 +747,17 @@ class WorksheetGenerationService:
             representation_complexity = 0.24
             linguistic_load = 0.08
             distractor_similarity = 0.56 if template.question_type == QuestionType.multiple_choice else 0.52
+        elif template.template_code.startswith("fraction_mixed_number"):
+            max_term = max(
+                variables.get("improper_numerator", 0),
+                variables.get("whole_part", 0) * variables.get("denominator", 1) + variables.get("numerator", 0),
+                variables.get("denominator", 0),
+            )
+            number_complexity = min(max_term / 12, 1.0)
+            structure_complexity = 0.6 if template.question_type == QuestionType.multiple_choice else 0.54
+            representation_complexity = 0.28
+            linguistic_load = 0.08
+            distractor_similarity = 0.54 if template.question_type == QuestionType.multiple_choice else 0.46
         elif template.template_code.startswith("fraction_equivalent"):
             denominator = variables["denominator"]
             number_complexity = min(denominator / 12, 1.0)
@@ -896,10 +932,9 @@ class WorksheetGenerationService:
         if variant.question_type == QuestionType.multiple_choice and len(set(variant.options)) != 4:
             errors.append("mcq_options_invalid")
         if "/" in variant.answer.value:
-            _, denominator = variant.answer.value.split("/")
-            if int(denominator) == 0:
+            denominator = variant.answer.value.rsplit("/", maxsplit=1)[1].strip()
+            if denominator.isdigit() and int(denominator) == 0:
                 errors.append("no_division_by_zero")
-
         score = variant.metadata.estimated_difficulty_score
         if variant.difficulty == DifficultyBand.support and score > 0.39:
             errors.append("difficulty_in_band")
@@ -967,6 +1002,11 @@ class WorksheetGenerationService:
                 )
                 number += 1
         return answer_key
+
+
+
+
+
 
 
 

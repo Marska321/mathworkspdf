@@ -686,5 +686,41 @@
       "3/5 -> greater than 1"
     ],
     "distractor_strategy": "comparison_label_flip"
+  },
+  {
+    "code": "whole_number_only_from_improper",
+    "name": "Whole number only from improper fraction",
+    "description": "Learner writes only the whole number and ignores the leftover fractional part when converting an improper fraction to a mixed number.",
+    "affected_skills": [
+      "fraction_mixed_number_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "7/3 -> 2"
+    ],
+    "distractor_strategy": "whole_number_only_from_improper"
+  },
+  {
+    "code": "uses_numerator_as_remainder_mixed",
+    "name": "Uses numerator as remainder",
+    "description": "Learner keeps the original numerator as the mixed-number remainder instead of using what is left after making wholes.",
+    "affected_skills": [
+      "fraction_mixed_number_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "7/3 -> 2 7/3"
+    ],
+    "distractor_strategy": "uses_numerator_as_remainder_mixed"
+  },
+  {
+    "code": "adds_whole_and_numerator_without_scaling",
+    "name": "Adds whole and numerator without scaling",
+    "description": "Learner adds the whole number and numerator when converting to an improper fraction instead of multiplying the whole by the denominator first.",
+    "affected_skills": [
+      "fraction_mixed_number_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "2 1/3 -> 3/3"
+    ],
+    "distractor_strategy": "add_whole_and_numerator_fraction"
   }
 ]

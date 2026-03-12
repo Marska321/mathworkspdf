@@ -44,6 +44,32 @@ def test_template_can_generate_many_valid_items() -> None:
         assert len(set(distractors)) == 3
 
 
+def test_fraction_mixed_number_generation_supports_conversion_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Fractions",
+        subskill="Convert between mixed numbers and improper fractions",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="fraction-mixed-number-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any('mixed number' in item.question_text.lower() for item in items)
+    assert any('improper fraction' in item.question_text.lower() for item in items)
+    assert any(' ' in item.answer.value and '/' in item.answer.value for item in items if item.question_type == QuestionType.fill_blank)
+    assert any('/' in item.answer.value for item in items if item.question_type in {QuestionType.direct, QuestionType.multiple_choice})
+    assert any(item.metadata.misconception_details for item in items)
+
+
+
 def test_fraction_compare_to_one_generation_supports_whole_comparison() -> None:
     service = build_service()
     request = GenerationRequest(
@@ -485,6 +511,7 @@ def test_generated_metadata_includes_misconception_details() -> None:
     assert first_with_details.metadata.misconception_details[0].code in first_with_details.metadata.misconception_targets
     assert worksheet.teacher_notes.misconception_details
     assert worksheet.teacher_notes.misconception_details[0].description
+
 
 
 

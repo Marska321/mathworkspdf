@@ -107,6 +107,16 @@ def shade_indices(numerator: int, denominator: int) -> list[int]:
     return list(range(min(numerator, denominator)))
 
 
+def to_mixed_number(numerator: int, denominator: int) -> str:
+    whole = numerator // denominator
+    remainder = numerator % denominator
+    if remainder == 0:
+        return str(whole)
+    if whole == 0:
+        return f"{remainder}/{denominator}"
+    return f"{whole} {remainder}/{denominator}"
+
+
 def all_unique(values: list[Any]) -> bool:
     return len(values) == len(set(values))
 
@@ -143,4 +153,6 @@ HELPER_REGISTRY = {
     "sort_ascending": sort_ascending,
     "sort_descending": sort_descending,
     "str": str,
+    "to_mixed_number": to_mixed_number,
 }
+

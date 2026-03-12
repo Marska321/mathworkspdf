@@ -595,5 +595,36 @@
       "reverses_fraction_whole_comparison"
     ],
     "active": true
+  },
+  {
+    "skill_id": "fraction_mixed_number_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Fractions",
+    "subtopic": "Convert between mixed numbers and improper fractions",
+    "name": "Convert between mixed numbers and improper fractions",
+    "description": "Learner converts between mixed numbers and improper fractions using wholes and equal parts.",
+    "caps_code": "G4-T1-FRA-MN-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "fraction_compare_to_one_g4_01"
+    ],
+    "misconception_tags": [
+      "whole_number_only_from_improper",
+      "uses_numerator_as_remainder_mixed",
+      "adds_whole_and_numerator_without_scaling"
+    ],
+    "active": true
   }
 ]

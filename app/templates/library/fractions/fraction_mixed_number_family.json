@@ -1,0 +1,278 @@
+{
+  "family_id": "fam_fraction_mixed_number_g4_01",
+  "family_code": "fraction_mixed_number_family",
+  "skill_id": "fraction_mixed_number_g4_01",
+  "name": "Mixed Numbers And Improper Fractions",
+  "description": "Convert between mixed numbers and improper fractions.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "whole_number_only_from_improper",
+    "uses_numerator_as_remainder_mixed",
+    "adds_whole_and_numerator_without_scaling"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_fraction_mixed_number_01",
+      "template_code": "fraction_mixed_number_01",
+      "skill_id": "fraction_mixed_number_g4_01",
+      "family_id": "fraction_mixed_number_family",
+      "pattern_code": "complete_number_sentence",
+      "name": "Convert improper fraction to mixed number",
+      "question_type": "fill_blank",
+      "template_text": "Write {improper_numerator}/{denominator} as a mixed number.",
+      "instructions_template": null,
+      "variable_schema": {
+        "improper_numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "whole_part": {
+          "type": "int",
+          "required": true
+        },
+        "remainder": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "denominator_values": [2, 3, 4, 5],
+          "improper_numerator_values": [5, 7, 9, 11]
+        },
+        "core": {
+          "denominator_values": [3, 4, 5, 6],
+          "improper_numerator_values": [7, 9, 11, 13, 15]
+        },
+        "stretch": {
+          "denominator_values": [3, 4, 5, 6, 8],
+          "improper_numerator_values": [9, 11, 13, 15, 17, 19]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "whole_part = improper_numerator // denominator"
+        },
+        {
+          "type": "derived",
+          "rule": "remainder = improper_numerator % denominator"
+        },
+        {
+          "type": "expression",
+          "rule": "denominator >= 2"
+        },
+        {
+          "type": "expression",
+          "rule": "improper_numerator > denominator"
+        },
+        {
+          "type": "expression",
+          "rule": "remainder > 0"
+        },
+        {
+          "type": "expression",
+          "rule": "whole_part >= 1"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "to_mixed_number(improper_numerator, denominator)"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Make as many wholes as you can from the numerator. The leftover parts become the remainder over the same denominator.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "whole_number_only_from_improper",
+        "uses_numerator_as_remainder_mixed"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_mixed_number_02",
+      "template_code": "fraction_mixed_number_02",
+      "skill_id": "fraction_mixed_number_g4_01",
+      "family_id": "fraction_mixed_number_family",
+      "pattern_code": "direct_compute",
+      "name": "Convert mixed number to improper fraction",
+      "question_type": "direct",
+      "template_text": "Write {whole_part} {numerator}/{denominator} as an improper fraction.",
+      "instructions_template": null,
+      "variable_schema": {
+        "whole_part": {
+          "type": "int",
+          "required": true
+        },
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "improper_numerator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "whole_part_values": [1, 2],
+          "denominator_values": [2, 3, 4, 5]
+        },
+        "core": {
+          "whole_part_values": [1, 2, 3],
+          "denominator_values": [3, 4, 5, 6]
+        },
+        "stretch": {
+          "whole_part_values": [2, 3, 4],
+          "denominator_values": [3, 4, 5, 6, 8]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "improper_numerator = whole_part * denominator + numerator"
+        },
+        {
+          "type": "expression",
+          "rule": "whole_part >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator < denominator"
+        }
+      ],
+      "answer_formula": {
+        "type": "fraction",
+        "numerator": "improper_numerator",
+        "denominator": "denominator"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Multiply the whole number by the denominator, then add the numerator. Keep the denominator the same.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "adds_whole_and_numerator_without_scaling"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_mixed_number_03",
+      "template_code": "fraction_mixed_number_03",
+      "skill_id": "fraction_mixed_number_g4_01",
+      "family_id": "fraction_mixed_number_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose improper fraction for mixed number",
+      "question_type": "multiple_choice",
+      "template_text": "Which improper fraction is equal to {whole_part} {numerator}/{denominator}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "whole_part": {
+          "type": "int",
+          "required": true
+        },
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "improper_numerator": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "whole_part_values": [1, 2],
+          "denominator_values": [2, 3, 4, 5]
+        },
+        "core": {
+          "whole_part_values": [1, 2, 3],
+          "denominator_values": [3, 4, 5, 6]
+        },
+        "stretch": {
+          "whole_part_values": [2, 3, 4],
+          "denominator_values": [3, 4, 5, 6, 8]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "improper_numerator = whole_part * denominator + numerator"
+        },
+        {
+          "type": "expression",
+          "rule": "whole_part >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator < denominator"
+        }
+      ],
+      "answer_formula": {
+        "type": "fraction",
+        "numerator": "improper_numerator",
+        "denominator": "denominator"
+      },
+      "distractor_rules": [
+        {
+          "type": "add_whole_and_numerator_fraction"
+        },
+        {
+          "type": "ignore_fractional_part_in_conversion"
+        },
+        {
+          "type": "adds_extra_denominator_group"
+        }
+      ],
+      "explanation_template": "Convert the whole number into denominator-sized parts, add the extra numerator parts, and keep the denominator unchanged.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "adds_whole_and_numerator_without_scaling"
+      ],
+      "active": true
+    }
+  ]
+}
