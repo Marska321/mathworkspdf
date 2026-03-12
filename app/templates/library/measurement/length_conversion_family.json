@@ -37,7 +37,10 @@
         "conversion_type": {
           "type": "enum",
           "required": true,
-          "values": ["cm_to_mm", "m_to_cm"]
+          "values": [
+            "cm_to_mm",
+            "m_to_cm"
+          ]
         },
         "source_unit": {
           "type": "string",
@@ -50,20 +53,49 @@
         "correct_answer": {
           "type": "int",
           "required": true
+        },
+        "ruler_max": {
+          "type": "int",
+          "required": true
+        },
+        "highlight_value": {
+          "type": "int",
+          "required": true
+        },
+        "tick_step": {
+          "type": "int",
+          "required": true
         }
       },
       "difficulty_profiles": {
         "support": {
-          "base_value_range": [2, 20],
-          "allowed_conversion_types": ["cm_to_mm"]
+          "base_value_range": [
+            2,
+            20
+          ],
+          "allowed_conversion_types": [
+            "cm_to_mm"
+          ]
         },
         "core": {
-          "base_value_range": [2, 50],
-          "allowed_conversion_types": ["cm_to_mm", "m_to_cm"]
+          "base_value_range": [
+            2,
+            50
+          ],
+          "allowed_conversion_types": [
+            "cm_to_mm",
+            "m_to_cm"
+          ]
         },
         "stretch": {
-          "base_value_range": [5, 90],
-          "allowed_conversion_types": ["cm_to_mm", "m_to_cm"]
+          "base_value_range": [
+            5,
+            90
+          ],
+          "allowed_conversion_types": [
+            "cm_to_mm",
+            "m_to_cm"
+          ]
         }
       },
       "constraints": [
@@ -78,6 +110,18 @@
         {
           "type": "derived",
           "rule": "correct_answer = base_value * 10 if conversion_type == 'cm_to_mm' else base_value * 100"
+        },
+        {
+          "type": "derived",
+          "rule": "tick_step = 1 if base_value <= 20 else 5"
+        },
+        {
+          "type": "derived",
+          "rule": "highlight_value = base_value"
+        },
+        {
+          "type": "derived",
+          "rule": "ruler_max = max(10, ((base_value + tick_step - 1) // tick_step + 1) * tick_step)"
         }
       ],
       "answer_formula": {
@@ -87,11 +131,17 @@
       "distractor_rules": [],
       "explanation_template": "Match the starting unit to the correct conversion factor, then multiply the value.",
       "rendering": {
-        "visual_type": null,
-        "layout_hint": "single_line"
+        "visual_type": "measurement_ruler",
+        "layout_hint": "full_width",
+        "visual_variable_map": {
+          "unit": "source_unit",
+          "max_value": "ruler_max",
+          "highlight_value": "highlight_value",
+          "tick_step": "tick_step"
+        }
       },
       "theme_supported": false,
-      "visual_supported": false,
+      "visual_supported": true,
       "misconception_targets": [
         "unit_confusion"
       ],
@@ -115,7 +165,10 @@
         "conversion_type": {
           "type": "enum",
           "required": true,
-          "values": ["cm_to_mm", "m_to_cm"]
+          "values": [
+            "cm_to_mm",
+            "m_to_cm"
+          ]
         },
         "source_unit": {
           "type": "string",
@@ -128,20 +181,49 @@
         "correct_answer": {
           "type": "int",
           "required": true
+        },
+        "ruler_max": {
+          "type": "int",
+          "required": true
+        },
+        "highlight_value": {
+          "type": "int",
+          "required": true
+        },
+        "tick_step": {
+          "type": "int",
+          "required": true
         }
       },
       "difficulty_profiles": {
         "support": {
-          "base_value_range": [2, 20],
-          "allowed_conversion_types": ["cm_to_mm"]
+          "base_value_range": [
+            2,
+            20
+          ],
+          "allowed_conversion_types": [
+            "cm_to_mm"
+          ]
         },
         "core": {
-          "base_value_range": [2, 50],
-          "allowed_conversion_types": ["cm_to_mm", "m_to_cm"]
+          "base_value_range": [
+            2,
+            50
+          ],
+          "allowed_conversion_types": [
+            "cm_to_mm",
+            "m_to_cm"
+          ]
         },
         "stretch": {
-          "base_value_range": [5, 90],
-          "allowed_conversion_types": ["cm_to_mm", "m_to_cm"]
+          "base_value_range": [
+            5,
+            90
+          ],
+          "allowed_conversion_types": [
+            "cm_to_mm",
+            "m_to_cm"
+          ]
         }
       },
       "constraints": [
@@ -156,6 +238,18 @@
         {
           "type": "derived",
           "rule": "correct_answer = base_value * 10 if conversion_type == 'cm_to_mm' else base_value * 100"
+        },
+        {
+          "type": "derived",
+          "rule": "tick_step = 1 if base_value <= 20 else 5"
+        },
+        {
+          "type": "derived",
+          "rule": "highlight_value = base_value"
+        },
+        {
+          "type": "derived",
+          "rule": "ruler_max = max(10, ((base_value + tick_step - 1) // tick_step + 1) * tick_step)"
         }
       ],
       "answer_formula": {
@@ -175,11 +269,17 @@
       ],
       "explanation_template": "Use 10 to convert centimetres to millimetres and 100 to convert metres to centimetres.",
       "rendering": {
-        "visual_type": null,
-        "layout_hint": "single_line"
+        "visual_type": "measurement_ruler",
+        "layout_hint": "full_width",
+        "visual_variable_map": {
+          "unit": "source_unit",
+          "max_value": "ruler_max",
+          "highlight_value": "highlight_value",
+          "tick_step": "tick_step"
+        }
       },
       "theme_supported": false,
-      "visual_supported": false,
+      "visual_supported": true,
       "misconception_targets": [
         "unit_confusion"
       ],
@@ -187,5 +287,3 @@
     }
   ]
 }
-
-

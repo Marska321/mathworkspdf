@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from html import escape
 from typing import Any
 
@@ -50,6 +51,35 @@ class SVGRenderer:
                 input_value=params.get("input_value", ""),
                 output_value=params.get("output_value", "?"),
                 rule_label=params.get("rule_label", "?"),
+            )
+        if visual_type == "measurement_ruler":
+            return SVGRenderer._render_measurement_ruler(
+                unit=str(params.get("unit", "cm")),
+                max_value=int(params.get("max_value", 10)),
+                highlight_value=(
+                    None if params.get("highlight_value") is None else int(params.get("highlight_value"))
+                ),
+                tick_step=int(params.get("tick_step", 1)),
+            )
+        if visual_type == "clock_face":
+            return SVGRenderer._render_clock_face(
+                hour=int(params.get("hour", 12)),
+                minute=int(params.get("minute", 0)),
+                caption=str(params.get("caption", "")),
+            )
+        if visual_type == "bar_graph":
+            return SVGRenderer._render_bar_graph(
+                categories=[str(item) for item in params.get("categories", [])],
+                values=[int(item) for item in params.get("values", [])],
+                y_max=int(params.get("y_max", 10)),
+                title=str(params.get("title", "")),
+            )
+        if visual_type == "pictograph":
+            return SVGRenderer._render_pictograph(
+                categories=[str(item) for item in params.get("categories", [])],
+                counts=[int(item) for item in params.get("counts", [])],
+                key_value=int(params.get("key_value", 1)),
+                icon_label=str(params.get("icon_label", "Item")),
             )
         return ""
 
@@ -155,6 +185,247 @@ class SVGRenderer:
             f"{output_text}</text>"
             "</svg>"
         )
+
+    @staticmethod
+    def _render_measurement_ruler(
+        *,
+        unit: str,
+        max_value: int,
+        highlight_value: int | None,
+        tick_step: int,
+    ) -> str:
+        width = 400
+        height = 60
+        margin_x = 20
+        usable_width = width - (margin_x * 2)
+        safe_max = max(max_value, 1)
+        safe_tick_step = max(tick_step, 1)
+        num_ticks = (safe_max // safe_tick_step) + 1
+        step_px = usable_width / max(num_ticks - 1, 1)
+
+        svg = [
+            f'<svg class="svg-visual measurement-ruler-svg" width="{width}" height="{height}" '
+            f'viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
+            f'role="img" aria-label="Measurement ruler in {escape(unit)}">'
+        ]
+        svg.append(
+            f'<rect x="{margin_x}" y="10" width="{usable_width}" height="40" fill="#f8fafc" '
+            'stroke="#374151" stroke-width="2" rx="2" />'
+        )
+
+        for index in range(num_ticks):
+            value = index * safe_tick_step
+            x = margin_x + (index * step_px)
+            tick_height = 15 if value % (safe_tick_step * 5) == 0 or value == 0 else 8
+            svg.append(
+                f'<line x1="{x:.2f}" y1="10" x2="{x:.2f}" y2="{10 + tick_height}" '
+                'stroke="#374151" stroke-width="1.5" />'
+            )
+            if value % (safe_tick_step * 5) == 0 or value == 0 or value == safe_max:
+                svg.append(
+                    f'<text x="{x:.2f}" y="42" dominant-baseline="middle" text-anchor="middle" '
+                    'font-family="sans-serif" font-size="12" fill="#374151">'
+                    f"{value}</text>"
+                )
+
+        svg.append(
+            f'<text x="{width - margin_x - 10}" y="42" dominant-baseline="middle" text-anchor="end" '
+            'font-family="sans-serif" font-size="12" font-weight="bold" fill="#374151">'
+            f"{escape(unit)}</text>"
+        )
+        if highlight_value is not None and 0 <= highlight_value <= safe_max:
+            hx = margin_x + ((highlight_value / safe_max) * usable_width)
+            svg.append(
+                f'<polygon class="ruler-highlight" points="{hx-6:.2f},0 {hx+6:.2f},0 {hx:.2f},10" fill="#ef4444" />'
+            )
+
+        svg.append("</svg>")
+        return "".join(svg)
+
+    @staticmethod
+    def _render_clock_face(*, hour: int, minute: int, caption: str) -> str:
+        size = 160
+        caption_height = 30 if caption else 0
+        cx = size / 2
+        cy = size / 2
+        radius = 60
+
+        svg = [
+            f'<svg class="svg-visual clock-face-svg" width="{size}" height="{size + caption_height}" '
+            f'viewBox="0 0 {size} {size + caption_height}" xmlns="http://www.w3.org/2000/svg" '
+            'role="img" aria-label="Clock face">'
+        ]
+        svg.append(
+            f'<circle cx="{cx}" cy="{cy}" r="{radius}" fill="#ffffff" stroke="#374151" stroke-width="3" />'
+        )
+
+        for index in range(1, 13):
+            angle = math.radians(index * 30 - 90)
+            x1 = cx + (radius - 5) * math.cos(angle)
+            y1 = cy + (radius - 5) * math.sin(angle)
+            x2 = cx + radius * math.cos(angle)
+            y2 = cy + radius * math.sin(angle)
+            svg.append(
+                f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" '
+                'stroke="#374151" stroke-width="2" />'
+            )
+            nx = cx + (radius - 18) * math.cos(angle)
+            ny = cy + (radius - 18) * math.sin(angle)
+            svg.append(
+                f'<text x="{nx:.2f}" y="{ny + 4:.2f}" text-anchor="middle" font-family="sans-serif" '
+                'font-size="14" font-weight="bold" fill="#374151">'
+                f"{index}</text>"
+            )
+
+        minute_angle = math.radians(minute * 6 - 90)
+        minute_x = cx + (radius - 10) * math.cos(minute_angle)
+        minute_y = cy + (radius - 10) * math.sin(minute_angle)
+        svg.append(
+            f'<line class="minute-hand" x1="{cx}" y1="{cy}" x2="{minute_x:.2f}" y2="{minute_y:.2f}" '
+            'stroke="#6b7280" stroke-width="3" stroke-linecap="round" />'
+        )
+
+        hour_angle = math.radians(((hour % 12) + minute / 60.0) * 30 - 90)
+        hour_x = cx + (radius - 30) * math.cos(hour_angle)
+        hour_y = cy + (radius - 30) * math.sin(hour_angle)
+        svg.append(
+            f'<line class="hour-hand" x1="{cx}" y1="{cy}" x2="{hour_x:.2f}" y2="{hour_y:.2f}" '
+            'stroke="#111827" stroke-width="4" stroke-linecap="round" />'
+        )
+        svg.append(f'<circle cx="{cx}" cy="{cy}" r="4" fill="#111827" />')
+
+        if caption:
+            svg.append(
+                f'<text x="{cx}" y="{size + 20}" text-anchor="middle" font-family="sans-serif" '
+                'font-size="14" fill="#374151">'
+                f"{escape(caption)}</text>"
+            )
+
+        svg.append("</svg>")
+        return "".join(svg)
+
+    @staticmethod
+    def _render_bar_graph(*, categories: list[str], values: list[int], y_max: int, title: str) -> str:
+        width = 350
+        height = 200
+        pad_left, pad_bottom, pad_top, pad_right = 40, 40, 30, 20
+        graph_width = width - pad_left - pad_right
+        graph_height = height - pad_top - pad_bottom
+        safe_y_max = max(y_max, 1)
+
+        svg = [
+            f'<svg class="svg-visual bar-graph-svg" width="{width}" height="{height}" '
+            f'viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
+            'role="img" aria-label="Bar graph">'
+        ]
+        if title:
+            svg.append(
+                f'<text x="{width / 2:.2f}" y="20" text-anchor="middle" font-family="sans-serif" '
+                'font-size="14" font-weight="bold" fill="#111827">'
+                f"{escape(title)}</text>"
+            )
+
+        tick_count = 5
+        for index in range(tick_count + 1):
+            value = int(safe_y_max * (index / tick_count))
+            y = pad_top + graph_height - (graph_height * (value / safe_y_max))
+            svg.append(
+                f'<line x1="{pad_left}" y1="{y:.2f}" x2="{width - pad_right}" y2="{y:.2f}" '
+                'stroke="#e5e7eb" stroke-width="1" />'
+            )
+            svg.append(
+                f'<text x="{pad_left - 10}" y="{y + 4:.2f}" text-anchor="end" font-family="sans-serif" '
+                'font-size="12" fill="#6b7280">'
+                f"{value}</text>"
+            )
+
+        svg.append(
+            f'<line x1="{pad_left}" y1="{pad_top}" x2="{pad_left}" y2="{pad_top + graph_height}" '
+            'stroke="#374151" stroke-width="2" />'
+        )
+        svg.append(
+            f'<line x1="{pad_left}" y1="{pad_top + graph_height}" x2="{width - pad_right}" y2="{pad_top + graph_height}" '
+            'stroke="#374151" stroke-width="2" />'
+        )
+
+        if categories and values:
+            bar_area_width = graph_width / max(len(categories), 1)
+            bar_width = min(40, bar_area_width * 0.7)
+            for index, (category, value) in enumerate(zip(categories, values)):
+                bar_height = graph_height * (min(value, safe_y_max) / safe_y_max)
+                bar_x = pad_left + (index * bar_area_width) + (bar_area_width - bar_width) / 2
+                bar_y = pad_top + graph_height - bar_height
+                svg.append(
+                    f'<rect class="bar-graph-bar" x="{bar_x:.2f}" y="{bar_y:.2f}" width="{bar_width:.2f}" '
+                    f'height="{bar_height:.2f}" fill="#0ea5e9" opacity="0.8" rx="2" ry="2" />'
+                )
+                svg.append(
+                    f'<text x="{bar_x + bar_width / 2:.2f}" y="{pad_top + graph_height + 20}" '
+                    'text-anchor="middle" font-family="sans-serif" font-size="12" fill="#374151">'
+                    f"{escape(category)}</text>"
+                )
+
+        svg.append("</svg>")
+        return "".join(svg)
+
+    @staticmethod
+    def _render_pictograph(
+        *,
+        categories: list[str],
+        counts: list[int],
+        key_value: int,
+        icon_label: str,
+    ) -> str:
+        width = 350
+        row_height = 30
+        height = len(categories) * row_height + 60
+        category_width = 100
+        safe_key_value = max(key_value, 1)
+
+        svg = [
+            f'<svg class="svg-visual pictograph-svg" width="{width}" height="{height}" '
+            f'viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
+            'role="img" aria-label="Pictograph">'
+        ]
+
+        for index, (category, count) in enumerate(zip(categories, counts)):
+            y = 20 + index * row_height
+            svg.append(
+                f'<text x="{category_width - 10}" y="{y + row_height / 2 + 4:.2f}" text-anchor="end" '
+                'font-family="sans-serif" font-size="14" font-weight="bold" fill="#374151">'
+                f"{escape(category)}</text>"
+            )
+            svg.append(
+                f'<line x1="{category_width}" y1="{y}" x2="{category_width}" y2="{y + row_height}" '
+                'stroke="#d1d5db" stroke-width="2" />'
+            )
+
+            full_icons = count // safe_key_value
+            remainder = count % safe_key_value
+            icon_x = category_width + 15
+            for _ in range(full_icons):
+                svg.append(
+                    f'<circle class="pictograph-icon" cx="{icon_x}" cy="{y + row_height / 2:.2f}" r="8" fill="#f59e0b" />'
+                )
+                icon_x += 22
+
+            if remainder > 0:
+                svg.append(
+                    f'<path class="pictograph-partial-icon" d="M {icon_x} {y + row_height / 2 - 8:.2f} '
+                    f'A 8 8 0 0 0 {icon_x} {y + row_height / 2 + 8:.2f} Z" fill="#f59e0b" />'
+                )
+
+        key_y = height - 20
+        svg.append(
+            f'<line x1="20" y1="{key_y - 15}" x2="{width - 20}" y2="{key_y - 15}" stroke="#e5e7eb" stroke-width="1" />'
+        )
+        svg.append(
+            f'<text x="{width / 2:.2f}" y="{key_y}" text-anchor="middle" font-family="sans-serif" '
+            'font-size="12" fill="#6b7280">'
+            f'Key: 1 <tspan fill="#f59e0b">&#9679;</tspan> = {safe_key_value} {escape(icon_label)}</text>'
+        )
+        svg.append("</svg>")
+        return "".join(svg)
 
 
 class WorksheetHtmlRenderer:
@@ -537,3 +808,7 @@ class WorksheetHtmlRenderer:
             for detail in details
         )
         return f"<div class=\"teacher-item-note\"><strong>Teacher note:</strong>{detail_html}</div>"
+
+
+
+

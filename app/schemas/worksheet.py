@@ -57,6 +57,7 @@ class DistractorRule(BaseModel):
 
 class RenderingConfig(BaseModel):
     visual_type: str | None = None
+    visual_variable_map: dict[str, str] = Field(default_factory=dict)
     layout_hint: Literal["single_line", "two_column", "full_width"] = "single_line"
 
 
@@ -274,4 +275,6 @@ class WorksheetGenerateResponse(BaseModel):
     status: Literal["generated"]
     worksheet_json: RenderableWorksheet
     answer_key_json: list[AnswerKeyEntry]
+
+
 

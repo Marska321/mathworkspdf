@@ -535,7 +535,7 @@
     "family_code": "length_conversion_family",
     "strand": "measurement",
     "priority": 1,
-    "visual_support": false,
+    "visual_support": true,
     "allowed_patterns": [
       "direct_compute",
       "standard_mcq"
@@ -561,7 +561,7 @@
     "family_code": "time_elapsed_family",
     "strand": "measurement",
     "priority": 1,
-    "visual_support": false,
+    "visual_support": true,
     "allowed_patterns": [
       "direct_compute",
       "standard_mcq"

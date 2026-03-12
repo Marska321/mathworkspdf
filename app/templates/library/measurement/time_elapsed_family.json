@@ -37,7 +37,12 @@
         "start_minute": {
           "type": "enum",
           "required": true,
-          "values": [0, 15, 30, 45]
+          "values": [
+            0,
+            15,
+            30,
+            45
+          ]
         },
         "duration_hours": {
           "type": "int",
@@ -46,7 +51,12 @@
         "duration_minutes": {
           "type": "enum",
           "required": true,
-          "values": [10, 20, 30, 40]
+          "values": [
+            10,
+            20,
+            30,
+            40
+          ]
         },
         "end_minute_raw": {
           "type": "int",
@@ -67,26 +77,78 @@
         "correct_answer": {
           "type": "string",
           "required": true
+        },
+        "clock_caption": {
+          "type": "string",
+          "required": true
         }
       },
       "difficulty_profiles": {
         "support": {
-          "start_hour_range": [8, 12],
-          "duration_hours_range": [1, 2],
-          "allowed_start_minutes": [0, 15, 30, 45],
-          "allowed_duration_minutess": [10, 20, 30, 40]
+          "start_hour_range": [
+            8,
+            12
+          ],
+          "duration_hours_range": [
+            1,
+            2
+          ],
+          "allowed_start_minutes": [
+            0,
+            15,
+            30,
+            45
+          ],
+          "allowed_duration_minutess": [
+            10,
+            20,
+            30,
+            40
+          ]
         },
         "core": {
-          "start_hour_range": [8, 14],
-          "duration_hours_range": [1, 3],
-          "allowed_start_minutes": [0, 15, 30, 45],
-          "allowed_duration_minutess": [10, 20, 30, 40]
+          "start_hour_range": [
+            8,
+            14
+          ],
+          "duration_hours_range": [
+            1,
+            3
+          ],
+          "allowed_start_minutes": [
+            0,
+            15,
+            30,
+            45
+          ],
+          "allowed_duration_minutess": [
+            10,
+            20,
+            30,
+            40
+          ]
         },
         "stretch": {
-          "start_hour_range": [8, 16],
-          "duration_hours_range": [1, 4],
-          "allowed_start_minutes": [0, 15, 30, 45],
-          "allowed_duration_minutess": [10, 20, 30, 40]
+          "start_hour_range": [
+            8,
+            16
+          ],
+          "duration_hours_range": [
+            1,
+            4
+          ],
+          "allowed_start_minutes": [
+            0,
+            15,
+            30,
+            45
+          ],
+          "allowed_duration_minutess": [
+            10,
+            20,
+            30,
+            40
+          ]
         }
       },
       "constraints": [
@@ -113,6 +175,10 @@
         {
           "type": "expression",
           "rule": "end_hour <= 19"
+        },
+        {
+          "type": "derived",
+          "rule": "clock_caption = f'Starts at {start_time}'"
         }
       ],
       "answer_formula": {
@@ -122,11 +188,16 @@
       "distractor_rules": [],
       "explanation_template": "Add the hours and minutes. If the minutes reach 60 or more, exchange 60 minutes for 1 extra hour.",
       "rendering": {
-        "visual_type": null,
-        "layout_hint": "full_width"
+        "visual_type": "clock_face",
+        "layout_hint": "full_width",
+        "visual_variable_map": {
+          "hour": "start_hour",
+          "minute": "start_minute",
+          "caption": "clock_caption"
+        }
       },
       "theme_supported": false,
-      "visual_supported": false,
+      "visual_supported": true,
       "misconception_targets": [
         "hour_minute_confusion"
       ],
@@ -150,7 +221,12 @@
         "start_minute": {
           "type": "enum",
           "required": true,
-          "values": [0, 15, 30, 45]
+          "values": [
+            0,
+            15,
+            30,
+            45
+          ]
         },
         "duration_hours": {
           "type": "int",
@@ -159,7 +235,12 @@
         "duration_minutes": {
           "type": "enum",
           "required": true,
-          "values": [10, 20, 30, 40]
+          "values": [
+            10,
+            20,
+            30,
+            40
+          ]
         },
         "end_minute_raw": {
           "type": "int",
@@ -180,26 +261,72 @@
         "correct_answer": {
           "type": "string",
           "required": true
+        },
+        "clock_caption": {
+          "type": "string",
+          "required": true
         }
       },
       "difficulty_profiles": {
         "support": {
-          "start_hour_range": [8, 12],
-          "duration_hours_range": [1, 2],
-          "allowed_start_minutes": [15, 30, 45],
-          "allowed_duration_minutess": [20, 30, 40]
+          "start_hour_range": [
+            8,
+            12
+          ],
+          "duration_hours_range": [
+            1,
+            2
+          ],
+          "allowed_start_minutes": [
+            15,
+            30,
+            45
+          ],
+          "allowed_duration_minutess": [
+            20,
+            30,
+            40
+          ]
         },
         "core": {
-          "start_hour_range": [8, 14],
-          "duration_hours_range": [1, 3],
-          "allowed_start_minutes": [15, 30, 45],
-          "allowed_duration_minutess": [20, 30, 40]
+          "start_hour_range": [
+            8,
+            14
+          ],
+          "duration_hours_range": [
+            1,
+            3
+          ],
+          "allowed_start_minutes": [
+            15,
+            30,
+            45
+          ],
+          "allowed_duration_minutess": [
+            20,
+            30,
+            40
+          ]
         },
         "stretch": {
-          "start_hour_range": [8, 16],
-          "duration_hours_range": [1, 4],
-          "allowed_start_minutes": [15, 30, 45],
-          "allowed_duration_minutess": [20, 30, 40]
+          "start_hour_range": [
+            8,
+            16
+          ],
+          "duration_hours_range": [
+            1,
+            4
+          ],
+          "allowed_start_minutes": [
+            15,
+            30,
+            45
+          ],
+          "allowed_duration_minutess": [
+            20,
+            30,
+            40
+          ]
         }
       },
       "constraints": [
@@ -230,6 +357,10 @@
         {
           "type": "expression",
           "rule": "end_hour <= 19"
+        },
+        {
+          "type": "derived",
+          "rule": "clock_caption = f'Starts at {start_time}'"
         }
       ],
       "answer_formula": {
@@ -249,11 +380,16 @@
       ],
       "explanation_template": "When the minutes add to more than 59, trade 60 minutes for 1 extra hour and keep the leftover minutes.",
       "rendering": {
-        "visual_type": null,
-        "layout_hint": "full_width"
+        "visual_type": "clock_face",
+        "layout_hint": "full_width",
+        "visual_variable_map": {
+          "hour": "start_hour",
+          "minute": "start_minute",
+          "caption": "clock_caption"
+        }
       },
       "theme_supported": false,
-      "visual_supported": false,
+      "visual_supported": true,
       "misconception_targets": [
         "hour_minute_confusion"
       ],
@@ -261,6 +397,3 @@
     }
   ]
 }
-
-
-

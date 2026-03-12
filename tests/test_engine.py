@@ -581,6 +581,8 @@ def test_length_conversion_generation_supports_metric_conversion_items() -> None
     assert QuestionType.multiple_choice in question_types
     assert any("Convert" in item.question_text and ("cm" in item.question_text or "m" in item.question_text) for item in items)
     assert all(item.answer.value.isdigit() for item in items)
+    assert any(item.visual_payload and item.visual_payload.visual_type == "measurement_ruler" for item in items)
+    assert any(item.visual_payload and item.visual_payload.params.get("highlight_value") == item.variables["base_value"] for item in items)
     assert any(item.metadata.misconception_details for item in items)
 
 
@@ -627,7 +629,35 @@ def test_time_elapsed_generation_supports_end_time_items() -> None:
     assert QuestionType.multiple_choice in question_types
     assert any("starts at" in item.question_text.lower() for item in items)
     assert all(":" in item.answer.value for item in items)
+    assert any(item.visual_payload and item.visual_payload.visual_type == "clock_face" for item in items)
+    assert any(item.visual_payload and item.visual_payload.params.get("caption", "").startswith("Starts at") for item in items)
     assert any(item.metadata.misconception_details for item in items)
 
 
+
+
+
+def test_build_visual_payload_uses_visual_variable_map_for_measurement_templates() -> None:
+    repository = InMemoryWorksheetRepository()
+    service = WorksheetGenerationService(repository, get_settings())
+    template = next(item for item in repository.get_templates() if item.template_code == "length_conversion_01")
+
+    payload = service.build_visual_payload(
+        template,
+        {
+            "source_unit": "cm",
+            "ruler_max": 25,
+            "highlight_value": 12,
+            "tick_step": 1,
+        },
+    )
+
+    assert payload is not None
+    assert payload.visual_type == "measurement_ruler"
+    assert payload.params == {
+        "unit": "cm",
+        "max_value": 25,
+        "highlight_value": 12,
+        "tick_step": 1,
+    }
 

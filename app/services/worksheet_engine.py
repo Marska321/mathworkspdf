@@ -962,7 +962,18 @@ class WorksheetGenerationService:
         return round(min(max(score + adjustment, 0.0), 1.0), 2)
 
     def build_visual_payload(self, template: Template, variables: dict[str, Any]) -> VisualPayload | None:
-        if template.rendering.visual_type == "fraction_bar":
+        visual_type = template.rendering.visual_type
+        if not visual_type:
+            return None
+
+        if template.rendering.visual_variable_map:
+            params = {
+                param_key: variables.get(variable_name)
+                for param_key, variable_name in template.rendering.visual_variable_map.items()
+            }
+            return VisualPayload(visual_type=visual_type, params=params)
+
+        if visual_type == "fraction_bar":
             return VisualPayload(
                 visual_type="fraction_bar",
                 params={
@@ -971,7 +982,7 @@ class WorksheetGenerationService:
                     "orientation": "horizontal",
                 },
             )
-        if template.rendering.visual_type == "fraction_bar_blank":
+        if visual_type == "fraction_bar_blank":
             return VisualPayload(
                 visual_type="fraction_bar_blank",
                 params={
@@ -979,7 +990,7 @@ class WorksheetGenerationService:
                     "orientation": "horizontal",
                 },
             )
-        if template.rendering.visual_type == "array_grid":
+        if visual_type == "array_grid":
             return VisualPayload(
                 visual_type="array_grid",
                 params={
@@ -987,7 +998,7 @@ class WorksheetGenerationService:
                     "cols": variables["cols"],
                 },
             )
-        if template.rendering.visual_type == "flow_diagram":
+        if visual_type == "flow_diagram":
             return VisualPayload(
                 visual_type="flow_diagram",
                 params={
@@ -1104,6 +1115,9 @@ class WorksheetGenerationService:
                 )
                 number += 1
         return answer_key
+
+
+
 
 
 
