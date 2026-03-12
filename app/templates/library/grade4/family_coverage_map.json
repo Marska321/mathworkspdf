@@ -446,5 +446,44 @@
     "tests_exist": true,
     "live_verified": false,
     "notes": "Existing repo family retained during normalization."
+  },
+  {
+    "family_code": "length_conversion_family",
+    "implemented": true,
+    "family_file": "app/templates/library/measurement/length_conversion_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Implemented in the current template-driven engine. Visual ruler rendering is deferred."
+  },
+  {
+    "family_code": "mass_conversion_family",
+    "implemented": true,
+    "family_file": "app/templates/library/measurement/mass_conversion_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Implemented in the current template-driven engine using direct and multiple-choice conversion items."
+  },
+  {
+    "family_code": "time_elapsed_family",
+    "implemented": true,
+    "family_file": "app/templates/library/measurement/time_elapsed_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Implemented in the current template-driven engine. Clock-face rendering is deferred."
   }
 ]

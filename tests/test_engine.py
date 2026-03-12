@@ -559,3 +559,75 @@ def test_flow_diagrams_generation_supports_visual_rule_identification() -> None:
     assert any(item.visual_payload and item.visual_payload.visual_type == 'flow_diagram' for item in items)
     assert all(item.answer.value.startswith('+ ') or item.answer.value.startswith('- ') for item in items)
     assert any(item.metadata.misconception_details for item in items)
+
+
+def test_length_conversion_generation_supports_metric_conversion_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Measurement",
+        topic="Length",
+        subskill="Convert between centimetres, millimetres, and metres",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="length-conversion-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any("Convert" in item.question_text and ("cm" in item.question_text or "m" in item.question_text) for item in items)
+    assert all(item.answer.value.isdigit() for item in items)
+    assert any(item.metadata.misconception_details for item in items)
+
+
+def test_mass_conversion_generation_supports_kilograms_to_grams() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Measurement",
+        topic="Mass",
+        subskill="Convert kilograms to grams",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="mass-conversion-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any("kg" in item.question_text.lower() and "g" in item.question_text.lower() for item in items)
+    assert all(item.answer.value.isdigit() for item in items)
+    assert any(item.metadata.misconception_details for item in items)
+
+
+def test_time_elapsed_generation_supports_end_time_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Measurement",
+        topic="Time",
+        subskill="Calculate elapsed time in hours and minutes",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="time-elapsed-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any("starts at" in item.question_text.lower() for item in items)
+    assert all(":" in item.answer.value for item in items)
+    assert any(item.metadata.misconception_details for item in items)
+
+
+

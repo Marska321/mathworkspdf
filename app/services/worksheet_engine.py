@@ -483,6 +483,41 @@ class WorksheetGenerationService:
                     return f"{max(1, shaded // gcd_value)}/{max(2, (total // gcd_value) + 1)}"
                 return f"{shaded}/{max(2, total + 1)}"
 
+        if {"base_value", "conversion_type", "correct_answer"}.issubset(variables):
+            base_value = variables["base_value"]
+            conversion_type = variables["conversion_type"]
+            if rule_type == "wrong_factor_10":
+                return str(base_value * 100 if conversion_type == "cm_to_mm" else base_value * 10)
+            if rule_type == "wrong_factor_1000":
+                return str(base_value * 1000)
+            if rule_type == "added_instead_of_multiplied":
+                return str(base_value + 10 if conversion_type == "cm_to_mm" else base_value + 100)
+
+        if {"kg_value", "correct_answer"}.issubset(variables):
+            kg_value = variables["kg_value"]
+            if rule_type == "multiplied_by_100":
+                return str(kg_value * 100)
+            if rule_type == "multiplied_by_10":
+                return str(kg_value * 10)
+            if rule_type == "added_zeros_incorrectly":
+                return str(kg_value * 10000)
+
+        if {"start_hour", "start_minute", "duration_hours", "duration_minutes", "end_minute_raw", "end_minute"}.issubset(variables):
+            start_hour = variables["start_hour"]
+            start_minute = variables["start_minute"]
+            duration_hours = variables["duration_hours"]
+            duration_minutes = variables["duration_minutes"]
+            end_minute_raw = variables["end_minute_raw"]
+            end_minute = variables["end_minute"]
+            if rule_type == "base_100_error":
+                mistaken_hour = start_hour + duration_hours
+                mistaken_minute = end_minute_raw
+                return f"{mistaken_hour:02d}:{mistaken_minute:02d}"
+            if rule_type == "forgot_to_carry_hour":
+                return f"{start_hour + duration_hours:02d}:{end_minute:02d}"
+            if rule_type == "subtracted_instead_of_added":
+                return f"{abs(start_hour - duration_hours):02d}:{abs(start_minute - duration_minutes):02d}"
+
         if "correct_value" in variables:
             correct_value = int(variables["correct_value"])
             if rule_type == "digit_only":
@@ -690,6 +725,13 @@ class WorksheetGenerationService:
             return str(int(answer.value) + offset)
         if template_code.startswith("flow_diagrams") and {"operation", "operand"}.issubset(variables):
             return HELPER_REGISTRY["flow_rule_text"](variables["operation"], variables["operand"] + offset)
+        if template_code.startswith("length_conversion") and answer.value.isdigit():
+            factor = 10 if variables.get("conversion_type") == "cm_to_mm" else 100
+            return str(int(answer.value) + factor * offset)
+        if template_code.startswith("mass_conversion") and answer.value.isdigit():
+            return str(int(answer.value) + 1000 * offset)
+        if template_code.startswith("time_elapsed") and {"end_hour", "end_minute"}.issubset(variables):
+            return f"{variables['end_hour']:02d}:{(variables['end_minute'] + (5 * offset)) % 60:02d}"
         if answer.format == "fraction":
             numerator, denominator = answer.value.split("/")
             return f"{max(1, int(numerator) + offset)}/{denominator}"
@@ -870,6 +912,27 @@ class WorksheetGenerationService:
             representation_complexity = 0.62 if template.rendering.visual_type == "flow_diagram" else 0.26
             linguistic_load = 0.08
             distractor_similarity = 0.45 if template.question_type == QuestionType.multiple_choice else 0.28
+        elif template.template_code.startswith("length_conversion"):
+            max_number = max(variables.get("base_value", 0), variables.get("correct_answer", 0))
+            number_complexity = min(max_number / 9000, 1.0)
+            structure_complexity = 0.36 if template.question_type == QuestionType.multiple_choice else 0.28
+            representation_complexity = 0.18
+            linguistic_load = 0.06
+            distractor_similarity = 0.42 if template.question_type == QuestionType.multiple_choice else 0.2
+        elif template.template_code.startswith("mass_conversion"):
+            max_number = max(variables.get("kg_value", 0), variables.get("correct_answer", 0))
+            number_complexity = min(max_number / 35000, 1.0)
+            structure_complexity = 0.36 if template.question_type == QuestionType.multiple_choice else 0.28
+            representation_complexity = 0.18
+            linguistic_load = 0.06
+            distractor_similarity = 0.42 if template.question_type == QuestionType.multiple_choice else 0.2
+        elif template.template_code.startswith("time_elapsed"):
+            max_number = max(variables.get("end_hour", 0), variables.get("end_minute_raw", 0), variables.get("duration_hours", 0) * 60 + variables.get("duration_minutes", 0))
+            number_complexity = min(max_number / 180, 1.0)
+            structure_complexity = 0.44 if template.question_type == QuestionType.multiple_choice else 0.4
+            representation_complexity = 0.24
+            linguistic_load = 0.12
+            distractor_similarity = 0.48 if template.question_type == QuestionType.multiple_choice else 0.24
         elif template.template_code.startswith("rounding"):
             max_number = variables.get("number", 0)
             number_complexity = min(max_number / 9999, 1.0)
@@ -1041,6 +1104,11 @@ class WorksheetGenerationService:
                 )
                 number += 1
         return answer_key
+
+
+
+
+
 
 
 

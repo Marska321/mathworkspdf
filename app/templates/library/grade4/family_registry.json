@@ -530,5 +530,44 @@
       "use_divisor_as_remainder",
       "round_up_quotient_remainder"
     ]
+  },
+  {
+    "family_code": "length_conversion_family",
+    "strand": "measurement",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "unit_confusion"
+    ]
+  },
+  {
+    "family_code": "mass_conversion_family",
+    "strand": "measurement",
+    "priority": 2,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "unit_confusion"
+    ]
+  },
+  {
+    "family_code": "time_elapsed_family",
+    "strand": "measurement",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "hour_minute_confusion"
+    ]
   }
 ]

@@ -1,0 +1,190 @@
+{
+  "family_id": "fam_length_conv_g4_01",
+  "family_code": "length_conversion_family",
+  "skill_id": "length_conv_g4_01",
+  "name": "Length Conversions",
+  "description": "Convert between centimetres, millimetres, and metres.",
+  "supports_visual": true,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "unit_confusion"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_length_conversion_01",
+      "template_code": "length_conversion_01",
+      "skill_id": "length_conv_g4_01",
+      "family_id": "length_conversion_family",
+      "pattern_code": "direct_compute",
+      "name": "Convert length units",
+      "question_type": "fill_blank",
+      "template_text": "Convert {base_value} {source_unit} to {target_unit}.",
+      "instructions_template": null,
+      "variable_schema": {
+        "base_value": {
+          "type": "int",
+          "required": true
+        },
+        "conversion_type": {
+          "type": "enum",
+          "required": true,
+          "values": ["cm_to_mm", "m_to_cm"]
+        },
+        "source_unit": {
+          "type": "string",
+          "required": true
+        },
+        "target_unit": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "base_value_range": [2, 20],
+          "allowed_conversion_types": ["cm_to_mm"]
+        },
+        "core": {
+          "base_value_range": [2, 50],
+          "allowed_conversion_types": ["cm_to_mm", "m_to_cm"]
+        },
+        "stretch": {
+          "base_value_range": [5, 90],
+          "allowed_conversion_types": ["cm_to_mm", "m_to_cm"]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "source_unit = 'cm' if conversion_type == 'cm_to_mm' else 'm'"
+        },
+        {
+          "type": "derived",
+          "rule": "target_unit = 'mm' if conversion_type == 'cm_to_mm' else 'cm'"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = base_value * 10 if conversion_type == 'cm_to_mm' else base_value * 100"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Match the starting unit to the correct conversion factor, then multiply the value.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "unit_confusion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_length_conversion_02",
+      "template_code": "length_conversion_02",
+      "skill_id": "length_conv_g4_01",
+      "family_id": "length_conversion_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose converted length",
+      "question_type": "multiple_choice",
+      "template_text": "Which answer is equal to {base_value} {source_unit} in {target_unit}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "base_value": {
+          "type": "int",
+          "required": true
+        },
+        "conversion_type": {
+          "type": "enum",
+          "required": true,
+          "values": ["cm_to_mm", "m_to_cm"]
+        },
+        "source_unit": {
+          "type": "string",
+          "required": true
+        },
+        "target_unit": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "base_value_range": [2, 20],
+          "allowed_conversion_types": ["cm_to_mm"]
+        },
+        "core": {
+          "base_value_range": [2, 50],
+          "allowed_conversion_types": ["cm_to_mm", "m_to_cm"]
+        },
+        "stretch": {
+          "base_value_range": [5, 90],
+          "allowed_conversion_types": ["cm_to_mm", "m_to_cm"]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "source_unit = 'cm' if conversion_type == 'cm_to_mm' else 'm'"
+        },
+        {
+          "type": "derived",
+          "rule": "target_unit = 'mm' if conversion_type == 'cm_to_mm' else 'cm'"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = base_value * 10 if conversion_type == 'cm_to_mm' else base_value * 100"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [
+        {
+          "type": "wrong_factor_10"
+        },
+        {
+          "type": "wrong_factor_1000"
+        },
+        {
+          "type": "added_instead_of_multiplied"
+        }
+      ],
+      "explanation_template": "Use 10 to convert centimetres to millimetres and 100 to convert metres to centimetres.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "unit_confusion"
+      ],
+      "active": true
+    }
+  ]
+}
+

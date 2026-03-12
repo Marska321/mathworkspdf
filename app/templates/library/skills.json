@@ -678,5 +678,84 @@
       "incorrect_rule"
     ],
     "active": true
+  },
+  {
+    "skill_id": "length_conv_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Measurement",
+    "topic": "Length",
+    "subtopic": "Convert between centimetres, millimetres, and metres",
+    "name": "Convert between centimetres, millimetres, and metres",
+    "description": "Learner converts metric length measurements using factors of 10 and 100.",
+    "caps_code": "G4-T1-MEA-LC-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [],
+    "misconception_tags": [
+      "unit_confusion"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "mass_conv_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Measurement",
+    "topic": "Mass",
+    "subtopic": "Convert kilograms to grams",
+    "name": "Convert kilograms to grams",
+    "description": "Learner converts whole kilograms to grams using powers of ten.",
+    "caps_code": "G4-T1-MEA-MC-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [],
+    "misconception_tags": [
+      "unit_confusion"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "time_elapsed_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Measurement",
+    "topic": "Time",
+    "subtopic": "Calculate elapsed time in hours and minutes",
+    "name": "Calculate elapsed time in hours and minutes",
+    "description": "Learner calculates end times by adding hours and minutes using base-60 time.",
+    "caps_code": "G4-T1-MEA-TE-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [],
+    "misconception_tags": [
+      "hour_minute_confusion"
+    ],
+    "active": true
   }
 ]
+

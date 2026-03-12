@@ -823,7 +823,10 @@
     ],
     "distractor_strategy": "unit_confusion",
     "description": "Learner uses or compares the wrong unit for a measurement situation.",
-    "affected_skills": [],
+    "affected_skills": [
+      "length_conv_g4_01",
+      "mass_conv_g4_01"
+    ],
     "name": "Unit confusion",
     "code": "unit_confusion"
   },
@@ -833,7 +836,9 @@
     ],
     "distractor_strategy": "hour_minute_confusion",
     "description": "Learner swaps the roles of the hour hand and minute hand when reading time.",
-    "affected_skills": [],
+    "affected_skills": [
+      "time_elapsed_g4_01"
+    ],
     "name": "Hour minute confusion",
     "code": "hour_minute_confusion"
   },

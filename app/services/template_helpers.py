@@ -141,6 +141,10 @@ def flow_rule_text(operation: str, operand: int) -> str:
     raise ValueError(f"Unsupported operation: {operation}")
 
 
+def format_time(hour: int, minute: int) -> str:
+    return f"{hour:02d}:{minute:02d}"
+
+
 def join_csv(values: list[Any]) -> str:
     return ", ".join(str(value) for value in values)
 
@@ -157,6 +161,7 @@ HELPER_REGISTRY = {
     "expand_number": expand_number,
     "expand_number_as_text": expand_number_as_text,
     "flow_rule_text": flow_rule_text,
+    "format_time": format_time,
     "get_digit_at_place": get_digit_at_place,
     "get_place_multiplier": get_place_multiplier,
     "join_csv": join_csv,

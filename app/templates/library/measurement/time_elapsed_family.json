@@ -1,0 +1,265 @@
+{
+  "family_id": "fam_time_elapsed_g4_01",
+  "family_code": "time_elapsed_family",
+  "skill_id": "time_elapsed_g4_01",
+  "name": "Elapsed Time",
+  "description": "Calculate end times using hours and minutes.",
+  "supports_visual": true,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "hour_minute_confusion"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_time_elapsed_01",
+      "template_code": "time_elapsed_01",
+      "skill_id": "time_elapsed_g4_01",
+      "family_id": "time_elapsed_family",
+      "pattern_code": "direct_compute",
+      "name": "Find end time",
+      "question_type": "fill_blank",
+      "template_text": "A lesson starts at {start_time} and lasts {duration_hours} hour(s) and {duration_minutes} minutes. What time does it end?",
+      "instructions_template": null,
+      "variable_schema": {
+        "start_hour": {
+          "type": "int",
+          "required": true
+        },
+        "start_minute": {
+          "type": "enum",
+          "required": true,
+          "values": [0, 15, 30, 45]
+        },
+        "duration_hours": {
+          "type": "int",
+          "required": true
+        },
+        "duration_minutes": {
+          "type": "enum",
+          "required": true,
+          "values": [10, 20, 30, 40]
+        },
+        "end_minute_raw": {
+          "type": "int",
+          "required": true
+        },
+        "end_hour": {
+          "type": "int",
+          "required": true
+        },
+        "end_minute": {
+          "type": "int",
+          "required": true
+        },
+        "start_time": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "start_hour_range": [8, 12],
+          "duration_hours_range": [1, 2],
+          "allowed_start_minutes": [0, 15, 30, 45],
+          "allowed_duration_minutess": [10, 20, 30, 40]
+        },
+        "core": {
+          "start_hour_range": [8, 14],
+          "duration_hours_range": [1, 3],
+          "allowed_start_minutes": [0, 15, 30, 45],
+          "allowed_duration_minutess": [10, 20, 30, 40]
+        },
+        "stretch": {
+          "start_hour_range": [8, 16],
+          "duration_hours_range": [1, 4],
+          "allowed_start_minutes": [0, 15, 30, 45],
+          "allowed_duration_minutess": [10, 20, 30, 40]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "end_minute_raw = start_minute + duration_minutes"
+        },
+        {
+          "type": "derived",
+          "rule": "end_hour = start_hour + duration_hours + (1 if end_minute_raw >= 60 else 0)"
+        },
+        {
+          "type": "derived",
+          "rule": "end_minute = end_minute_raw - 60 if end_minute_raw >= 60 else end_minute_raw"
+        },
+        {
+          "type": "derived",
+          "rule": "start_time = f\"{start_hour:02d}:{start_minute:02d}\""
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = f\"{end_hour:02d}:{end_minute:02d}\""
+        },
+        {
+          "type": "expression",
+          "rule": "end_hour <= 19"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Add the hours and minutes. If the minutes reach 60 or more, exchange 60 minutes for 1 extra hour.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "hour_minute_confusion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_time_elapsed_02",
+      "template_code": "time_elapsed_02",
+      "skill_id": "time_elapsed_g4_01",
+      "family_id": "time_elapsed_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose end time",
+      "question_type": "multiple_choice",
+      "template_text": "A lesson starts at {start_time} and lasts {duration_hours} hour(s) and {duration_minutes} minutes. Which time shows when it ends?",
+      "instructions_template": null,
+      "variable_schema": {
+        "start_hour": {
+          "type": "int",
+          "required": true
+        },
+        "start_minute": {
+          "type": "enum",
+          "required": true,
+          "values": [0, 15, 30, 45]
+        },
+        "duration_hours": {
+          "type": "int",
+          "required": true
+        },
+        "duration_minutes": {
+          "type": "enum",
+          "required": true,
+          "values": [10, 20, 30, 40]
+        },
+        "end_minute_raw": {
+          "type": "int",
+          "required": true
+        },
+        "end_hour": {
+          "type": "int",
+          "required": true
+        },
+        "end_minute": {
+          "type": "int",
+          "required": true
+        },
+        "start_time": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "start_hour_range": [8, 12],
+          "duration_hours_range": [1, 2],
+          "allowed_start_minutes": [15, 30, 45],
+          "allowed_duration_minutess": [20, 30, 40]
+        },
+        "core": {
+          "start_hour_range": [8, 14],
+          "duration_hours_range": [1, 3],
+          "allowed_start_minutes": [15, 30, 45],
+          "allowed_duration_minutess": [20, 30, 40]
+        },
+        "stretch": {
+          "start_hour_range": [8, 16],
+          "duration_hours_range": [1, 4],
+          "allowed_start_minutes": [15, 30, 45],
+          "allowed_duration_minutess": [20, 30, 40]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "end_minute_raw = start_minute + duration_minutes"
+        },
+        {
+          "type": "derived",
+          "rule": "end_hour = start_hour + duration_hours + (1 if end_minute_raw >= 60 else 0)"
+        },
+        {
+          "type": "derived",
+          "rule": "end_minute = end_minute_raw - 60 if end_minute_raw >= 60 else end_minute_raw"
+        },
+        {
+          "type": "derived",
+          "rule": "start_time = f\"{start_hour:02d}:{start_minute:02d}\""
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = f\"{end_hour:02d}:{end_minute:02d}\""
+        },
+        {
+          "type": "expression",
+          "rule": "end_minute_raw >= 60"
+        },
+        {
+          "type": "expression",
+          "rule": "end_hour <= 19"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [
+        {
+          "type": "base_100_error"
+        },
+        {
+          "type": "forgot_to_carry_hour"
+        },
+        {
+          "type": "subtracted_instead_of_added"
+        }
+      ],
+      "explanation_template": "When the minutes add to more than 59, trade 60 minutes for 1 extra hour and keep the leftover minutes.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "hour_minute_confusion"
+      ],
+      "active": true
+    }
+  ]
+}
+
+

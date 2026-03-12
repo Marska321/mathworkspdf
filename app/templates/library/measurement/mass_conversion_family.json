@@ -1,0 +1,142 @@
+{
+  "family_id": "fam_mass_conv_g4_01",
+  "family_code": "mass_conversion_family",
+  "skill_id": "mass_conv_g4_01",
+  "name": "Mass Conversions",
+  "description": "Convert kilograms to grams.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "unit_confusion"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_mass_conversion_01",
+      "template_code": "mass_conversion_01",
+      "skill_id": "mass_conv_g4_01",
+      "family_id": "mass_conversion_family",
+      "pattern_code": "direct_compute",
+      "name": "Convert kilograms to grams",
+      "question_type": "fill_blank",
+      "template_text": "Convert {kg_value} kg to g.",
+      "instructions_template": null,
+      "variable_schema": {
+        "kg_value": {
+          "type": "int",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "kg_value_range": [1, 10]
+        },
+        "core": {
+          "kg_value_range": [1, 20]
+        },
+        "stretch": {
+          "kg_value_range": [5, 35]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "correct_answer = kg_value * 1000"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [],
+      "explanation_template": "There are 1000 grams in 1 kilogram, so multiply the kilograms by 1000.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "unit_confusion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_mass_conversion_02",
+      "template_code": "mass_conversion_02",
+      "skill_id": "mass_conv_g4_01",
+      "family_id": "mass_conversion_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose converted mass",
+      "question_type": "multiple_choice",
+      "template_text": "Which answer is equal to {kg_value} kg in grams?",
+      "instructions_template": null,
+      "variable_schema": {
+        "kg_value": {
+          "type": "int",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "kg_value_range": [1, 10]
+        },
+        "core": {
+          "kg_value_range": [1, 20]
+        },
+        "stretch": {
+          "kg_value_range": [5, 35]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "correct_answer = kg_value * 1000"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "correct_answer"
+      },
+      "distractor_rules": [
+        {
+          "type": "multiplied_by_100"
+        },
+        {
+          "type": "multiplied_by_10"
+        },
+        {
+          "type": "added_zeros_incorrectly"
+        }
+      ],
+      "explanation_template": "Kilograms are much larger than grams, so convert by multiplying by 1000.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "unit_confusion"
+      ],
+      "active": true
+    }
+  ]
+}
+
