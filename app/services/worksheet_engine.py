@@ -547,6 +547,15 @@ class WorksheetGenerationService:
         if rule_type == "keep_unsimplified_fraction" and {"numerator", "denominator"}.issubset(variables):
             return f"{variables['numerator']}/{variables['denominator']}"
 
+        if rule_type == "one_part_only" and {"unit_size"}.issubset(variables):
+            return str(variables['unit_size'])
+
+        if rule_type == "use_denominator_value" and {"denominator"}.issubset(variables):
+            return str(variables['denominator'])
+
+        if rule_type == "use_whole_set_value" and {"total_objects"}.issubset(variables):
+            return str(variables['total_objects'])
+
         if rule_type == "unit_fraction_same_denominator" and "/" in answer.value:
             numerator, denominator = [int(part) for part in answer.value.split("/")]
             unit_numerator = 2 if numerator == 1 and denominator > 2 else 1
@@ -654,6 +663,13 @@ class WorksheetGenerationService:
             representation_complexity = 0.26
             linguistic_load = 0.08
             distractor_similarity = 0.44
+        elif template.template_code.startswith("fraction_of_set"):
+            total_objects = variables["total_objects"]
+            number_complexity = min(total_objects / 40, 1.0)
+            structure_complexity = 0.34 if template.question_type == QuestionType.multiple_choice else 0.4
+            representation_complexity = 0.22
+            linguistic_load = 0.08
+            distractor_similarity = 0.4
         elif template.template_code.startswith("fraction_equivalent"):
             denominator = variables["denominator"]
             number_complexity = min(denominator / 12, 1.0)

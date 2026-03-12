@@ -29,7 +29,8 @@
           "div_remainder_family",
           "fraction_equivalent_family",
           "fraction_compare_family",
-          "fraction_simplify_family"
+          "fraction_simplify_family",
+          "fraction_of_set_family"
         ],
         "instructions": "Start with guided questions."
       },
@@ -60,7 +61,8 @@
           "div_remainder_family",
           "fraction_equivalent_family",
           "fraction_compare_family",
-          "fraction_simplify_family"
+          "fraction_simplify_family",
+          "fraction_of_set_family"
         ],
         "instructions": "Show what you know."
       },
@@ -90,7 +92,8 @@
           "div_remainder_family",
           "fraction_equivalent_family",
           "fraction_compare_family",
-          "fraction_simplify_family"
+          "fraction_simplify_family",
+          "fraction_of_set_family"
         ],
         "instructions": "Try the trickier questions."
       }
@@ -128,7 +131,8 @@
           "div_remainder_family",
           "fraction_equivalent_family",
           "fraction_compare_family",
-          "fraction_simplify_family"
+          "fraction_simplify_family",
+          "fraction_of_set_family"
         ],
         "instructions": "Work quickly and carefully."
       },
@@ -159,7 +163,8 @@
           "div_remainder_family",
           "fraction_equivalent_family",
           "fraction_compare_family",
-          "fraction_simplify_family"
+          "fraction_simplify_family",
+          "fraction_of_set_family"
         ],
         "instructions": "Finish with mixed review."
       }
@@ -197,7 +202,8 @@
           "div_remainder_family",
           "fraction_equivalent_family",
           "fraction_compare_family",
-          "fraction_simplify_family"
+          "fraction_simplify_family",
+          "fraction_of_set_family"
         ],
         "instructions": "Start with a mix of quick questions."
       },
@@ -231,7 +237,8 @@
           "div_remainder_family",
           "fraction_equivalent_family",
           "fraction_compare_family",
-          "fraction_simplify_family"
+          "fraction_simplify_family",
+          "fraction_of_set_family"
         ],
         "instructions": "Use different strategies as you work through the set."
       },
@@ -264,7 +271,8 @@
           "div_remainder_family",
           "fraction_equivalent_family",
           "fraction_compare_family",
-          "fraction_simplify_family"
+          "fraction_simplify_family",
+          "fraction_of_set_family"
         ],
         "instructions": "Finish by checking your understanding."
       }

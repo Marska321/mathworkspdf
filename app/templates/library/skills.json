@@ -471,5 +471,36 @@
       "keeps_unsimplified_fraction"
     ],
     "active": true
+  },
+  {
+    "skill_id": "fraction_of_set_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Fractions",
+    "subtopic": "Find a fraction of a set",
+    "name": "Find a fraction of a set",
+    "description": "Learner finds how many objects make up a given fraction of a whole set.",
+    "caps_code": "G4-T1-FRA-FS-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "fraction_partwhole_g4_01"
+    ],
+    "misconception_tags": [
+      "finds_one_part_only",
+      "uses_denominator_as_answer",
+      "uses_whole_set_instead_of_fraction_part"
+    ],
+    "active": true
   }
 ]

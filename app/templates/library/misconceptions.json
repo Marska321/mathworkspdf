@@ -542,5 +542,41 @@
       "6/8 -> 6/8"
     ],
     "distractor_strategy": "keep_unsimplified_fraction"
+  },
+  {
+    "code": "finds_one_part_only",
+    "name": "Finds one part only",
+    "description": "Learner divides the set by the denominator but forgets to multiply by the numerator.",
+    "affected_skills": [
+      "fraction_of_set_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "2/3 of 18 -> 6"
+    ],
+    "distractor_strategy": "one_part_only"
+  },
+  {
+    "code": "uses_denominator_as_answer",
+    "name": "Uses denominator as answer",
+    "description": "Learner gives the denominator as the number of objects instead of finding the fraction of the set.",
+    "affected_skills": [
+      "fraction_of_set_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3/5 of 20 -> 5"
+    ],
+    "distractor_strategy": "use_denominator_value"
+  },
+  {
+    "code": "uses_whole_set_instead_of_fraction_part",
+    "name": "Uses whole set instead of fraction part",
+    "description": "Learner repeats the whole set size instead of calculating the required fraction of it.",
+    "affected_skills": [
+      "fraction_of_set_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3/4 of 16 -> 16"
+    ],
+    "distractor_strategy": "use_whole_set_value"
   }
 ]

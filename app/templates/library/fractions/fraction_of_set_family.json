@@ -1,0 +1,410 @@
+{
+  "family_id": "fam_fraction_of_set_g4_01",
+  "family_code": "fraction_of_set_family",
+  "skill_id": "fraction_of_set_g4_01",
+  "name": "Fraction Of A Set",
+  "description": "Find how many objects are in a given fraction of a set.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "finds_one_part_only",
+    "uses_denominator_as_answer",
+    "uses_whole_set_instead_of_fraction_part"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_fraction_of_set_01",
+      "template_code": "fraction_of_set_01",
+      "skill_id": "fraction_of_set_g4_01",
+      "family_id": "fraction_of_set_family",
+      "pattern_code": "direct_compute",
+      "name": "Find a fraction of a set",
+      "question_type": "direct",
+      "template_text": "Find {numerator}/{denominator} of {total_objects}.",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "unit_size": {
+          "type": "int",
+          "required": true
+        },
+        "total_objects": {
+          "type": "int",
+          "required": true
+        },
+        "answer_count": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "numerator_values": [
+            1,
+            2,
+            3
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "unit_size_values": [
+            2,
+            3,
+            4
+          ]
+        },
+        "core": {
+          "numerator_values": [
+            2,
+            3,
+            4
+          ],
+          "denominator_values": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "unit_size_values": [
+            3,
+            4,
+            5
+          ]
+        },
+        "stretch": {
+          "numerator_values": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "denominator_values": [
+            4,
+            5,
+            6,
+            8
+          ],
+          "unit_size_values": [
+            4,
+            5,
+            6
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "total_objects = denominator * unit_size"
+        },
+        {
+          "type": "derived",
+          "rule": "answer_count = numerator * unit_size"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator < denominator"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "answer_count"
+      },
+      "distractor_rules": [],
+      "explanation_template": "First find one equal part by dividing by the denominator, then multiply by the numerator.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "finds_one_part_only"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_of_set_02",
+      "template_code": "fraction_of_set_02",
+      "skill_id": "fraction_of_set_g4_01",
+      "family_id": "fraction_of_set_family",
+      "pattern_code": "complete_number_sentence",
+      "name": "Complete fraction of set number sentence",
+      "question_type": "fill_blank",
+      "template_text": "{numerator}/{denominator} of {total_objects} = __",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "unit_size": {
+          "type": "int",
+          "required": true
+        },
+        "total_objects": {
+          "type": "int",
+          "required": true
+        },
+        "answer_count": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "numerator_values": [
+            1,
+            2,
+            3
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "unit_size_values": [
+            2,
+            3,
+            4
+          ]
+        },
+        "core": {
+          "numerator_values": [
+            2,
+            3,
+            4
+          ],
+          "denominator_values": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "unit_size_values": [
+            3,
+            4,
+            5
+          ]
+        },
+        "stretch": {
+          "numerator_values": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "denominator_values": [
+            4,
+            5,
+            6,
+            8
+          ],
+          "unit_size_values": [
+            4,
+            5,
+            6
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "total_objects = denominator * unit_size"
+        },
+        {
+          "type": "derived",
+          "rule": "answer_count = numerator * unit_size"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator < denominator"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "answer_count"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Divide the set into the denominator number of equal groups and then count the numerator number of groups.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "finds_one_part_only"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_fraction_of_set_03",
+      "template_code": "fraction_of_set_03",
+      "skill_id": "fraction_of_set_g4_01",
+      "family_id": "fraction_of_set_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose fraction of set result",
+      "question_type": "multiple_choice",
+      "template_text": "Which number is {numerator}/{denominator} of {total_objects}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "numerator": {
+          "type": "int",
+          "required": true
+        },
+        "denominator": {
+          "type": "int",
+          "required": true
+        },
+        "unit_size": {
+          "type": "int",
+          "required": true
+        },
+        "total_objects": {
+          "type": "int",
+          "required": true
+        },
+        "answer_count": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "numerator_values": [
+            1,
+            2,
+            3
+          ],
+          "denominator_values": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "unit_size_values": [
+            2,
+            3,
+            4
+          ]
+        },
+        "core": {
+          "numerator_values": [
+            2,
+            3,
+            4
+          ],
+          "denominator_values": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "unit_size_values": [
+            3,
+            4,
+            5
+          ]
+        },
+        "stretch": {
+          "numerator_values": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "denominator_values": [
+            4,
+            5,
+            6,
+            8
+          ],
+          "unit_size_values": [
+            4,
+            5,
+            6
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "total_objects = denominator * unit_size"
+        },
+        {
+          "type": "derived",
+          "rule": "answer_count = numerator * unit_size"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator >= 1"
+        },
+        {
+          "type": "expression",
+          "rule": "numerator < denominator"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "answer_count"
+      },
+      "distractor_rules": [
+        {
+          "type": "one_part_only"
+        },
+        {
+          "type": "use_denominator_value"
+        },
+        {
+          "type": "use_whole_set_value"
+        }
+      ],
+      "explanation_template": "The denominator tells how many equal groups to make, and the numerator tells how many of those groups to count.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "finds_one_part_only",
+        "uses_denominator_as_answer",
+        "uses_whole_set_instead_of_fraction_part"
+      ],
+      "active": true
+    }
+  ]
+}
