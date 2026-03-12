@@ -14,6 +14,8 @@ class InMemoryWorksheetRepository(WorksheetRepository):
         self._skills = [Skill.model_validate(item) for item in library["skills"]]
         self._templates = [Template.model_validate(item) for item in library["templates"]]
         self._blueprints = [WorksheetBlueprint.model_validate(item) for item in library["blueprints"]]
+        self._grade4_family_registry = deepcopy(library["grade4_family_registry"])
+        self._grade4_family_coverage_map = deepcopy(library["grade4_family_coverage_map"])
         self._generated: dict[str, dict[str, Any]] = {}
 
     def get_skills(self) -> list[Skill]:
@@ -24,6 +26,12 @@ class InMemoryWorksheetRepository(WorksheetRepository):
 
     def get_blueprints(self) -> list[WorksheetBlueprint]:
         return deepcopy(self._blueprints)
+
+    def get_grade4_family_registry(self) -> list[dict[str, Any]]:
+        return deepcopy(self._grade4_family_registry)
+
+    def get_grade4_family_coverage_map(self) -> list[dict[str, Any]]:
+        return deepcopy(self._grade4_family_coverage_map)
 
     def save_generated_worksheet(
         self,

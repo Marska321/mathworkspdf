@@ -20,6 +20,14 @@ class WorksheetRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def get_grade4_family_registry(self) -> list[dict[str, Any]]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_grade4_family_coverage_map(self) -> list[dict[str, Any]]:
+        raise NotImplementedError
+
+    @abstractmethod
     def save_generated_worksheet(
         self,
         worksheet: RenderableWorksheet,

@@ -1,0 +1,446 @@
+[
+  {
+    "family_code": "pv_identify_family",
+    "implemented": true,
+    "family_file": "app/templates/library/place_value/pv_identify_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "direct_compute",
+      "missing_operand",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false
+  },
+  {
+    "family_code": "compare_order_family",
+    "implemented": true,
+    "family_file": "app/templates/library/compare_order/compare_order_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "choose_greatest",
+      "compare_two_quantities",
+      "order_set"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Current repo combines compare and order coverage in one family."
+  },
+  {
+    "family_code": "expanded_notation_family",
+    "implemented": true,
+    "family_file": "app/templates/library/expanded_notation/expanded_notation_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "complete_number_sentence",
+      "direct_compute"
+    ],
+    "tests_exist": true,
+    "live_verified": false
+  },
+  {
+    "family_code": "rounding_family",
+    "implemented": true,
+    "family_file": "app/templates/library/place_value/rounding_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false
+  },
+  {
+    "family_code": "add_noregroup_family",
+    "implemented": true,
+    "family_file": "app/templates/library/addition/add_noregroup_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "direct_compute",
+      "missing_operand",
+      "one_step_story"
+    ],
+    "tests_exist": true,
+    "live_verified": false
+  },
+  {
+    "family_code": "add_regroup_family",
+    "implemented": true,
+    "family_file": "app/templates/library/addition/add_regroup_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "direct_compute",
+      "missing_operand"
+    ],
+    "tests_exist": true,
+    "live_verified": false
+  },
+  {
+    "family_code": "sub_noregroup_family",
+    "implemented": true,
+    "family_file": "app/templates/library/subtraction/sub_noregroup_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "direct_compute",
+      "missing_operand",
+      "one_step_story"
+    ],
+    "tests_exist": true,
+    "live_verified": false
+  },
+  {
+    "family_code": "sub_regroup_family",
+    "implemented": true,
+    "family_file": "app/templates/library/subtraction/sub_regroup_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "direct_compute",
+      "error_spotting",
+      "one_step_story"
+    ],
+    "tests_exist": true,
+    "live_verified": false
+  },
+  {
+    "family_code": "mult_facts_family",
+    "implemented": true,
+    "family_file": "app/templates/library/multiplication/mult_facts_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "direct_compute",
+      "visual_identification"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Current repo covers multiplication facts; arrays remain a separate roadmap family."
+  },
+  {
+    "family_code": "mult_arrays_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "div_facts_family",
+    "implemented": true,
+    "family_file": "app/templates/library/division/div_facts_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "direct_compute",
+      "equal_groups_story"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Current repo division facts family exists; sharing/grouping split remains roadmap follow-up."
+  },
+  {
+    "family_code": "div_sharing_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "div_grouping_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "fraction_partwhole_family",
+    "implemented": true,
+    "family_file": "app/templates/library/fractions/fraction_partwhole_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "standard_mcq",
+      "visual_identification"
+    ],
+    "tests_exist": true,
+    "live_verified": false
+  },
+  {
+    "family_code": "fraction_equivalent_family",
+    "implemented": true,
+    "family_file": "app/templates/library/fractions/fraction_equivalent_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "complete_number_sentence",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Existing repo family retained during normalization."
+  },
+  {
+    "family_code": "fraction_compare_family",
+    "implemented": true,
+    "family_file": "app/templates/library/fractions/fraction_compare_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "complete_number_sentence",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Existing repo family retained during normalization."
+  },
+  {
+    "family_code": "fraction_simplify_family",
+    "implemented": true,
+    "family_file": "app/templates/library/fractions/fraction_simplify_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "complete_number_sentence",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Existing repo family retained during normalization."
+  },
+  {
+    "family_code": "fraction_of_set_family",
+    "implemented": true,
+    "family_file": "app/templates/library/fractions/fraction_of_set_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Existing repo family retained during normalization."
+  },
+  {
+    "family_code": "fraction_add_same_denominator_family",
+    "implemented": true,
+    "family_file": "app/templates/library/fractions/fraction_add_same_denominator_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Existing repo family retained during normalization."
+  },
+  {
+    "family_code": "fraction_sub_same_denominator_family",
+    "implemented": true,
+    "family_file": "app/templates/library/fractions/fraction_sub_same_denominator_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Existing repo family retained during normalization."
+  },
+  {
+    "family_code": "fraction_compare_to_one_family",
+    "implemented": true,
+    "family_file": "app/templates/library/fractions/fraction_compare_to_one_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Existing repo family retained during normalization."
+  },
+  {
+    "family_code": "fraction_mixed_number_family",
+    "implemented": true,
+    "family_file": "app/templates/library/fractions/fraction_mixed_number_family.json",
+    "templates_count": 3,
+    "patterns_supported": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": true
+  },
+  {
+    "family_code": "numeric_patterns_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "flow_diagrams_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "number_sentences_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "shape_2d_identification_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "shape_3d_objects_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "symmetry_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Deferred priority 2 roadmap family from repo.md."
+  },
+  {
+    "family_code": "length_measurement_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "mass_measurement_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Deferred priority 2 roadmap family from repo.md."
+  },
+  {
+    "family_code": "capacity_measurement_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Deferred priority 2 roadmap family from repo.md."
+  },
+  {
+    "family_code": "time_reading_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "perimeter_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Deferred priority 2 roadmap family from repo.md."
+  },
+  {
+    "family_code": "area_count_squares_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Deferred priority 2 roadmap family from repo.md."
+  },
+  {
+    "family_code": "data_collection_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "bar_graphs_family",
+    "implemented": false,
+    "family_file": null,
+    "templates_count": 0,
+    "patterns_supported": [],
+    "tests_exist": false,
+    "live_verified": false,
+    "notes": "Priority 1 roadmap family from repo.md."
+  },
+  {
+    "family_code": "mult_missing_factor_family",
+    "implemented": true,
+    "family_file": "app/templates/library/multiplication/mult_missing_factor_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "missing_operand",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Existing repo family retained during normalization."
+  },
+  {
+    "family_code": "div_remainder_family",
+    "implemented": true,
+    "family_file": "app/templates/library/division/div_remainder_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "tests_exist": true,
+    "live_verified": false,
+    "notes": "Existing repo family retained during normalization."
+  }
+]

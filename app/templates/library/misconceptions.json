@@ -722,5 +722,145 @@
       "2 1/3 -> 3/3"
     ],
     "distractor_strategy": "add_whole_and_numerator_fraction"
+  },
+  {
+    "common_wrong_patterns": [
+      "3 rows of 4 -> 3"
+    ],
+    "distractor_strategy": "row_count_only",
+    "description": "Learner counts a single row or column of an array and treats it as the total.",
+    "affected_skills": [],
+    "name": "Array row count only",
+    "code": "array_row_count_only"
+  },
+  {
+    "common_wrong_patterns": [
+      "12 shared among 3 -> answer 3"
+    ],
+    "distractor_strategy": "group_size_confusion",
+    "description": "Learner confuses the number of groups with the number in each group when dividing.",
+    "affected_skills": [],
+    "name": "Group size confusion",
+    "code": "group_size_confusion"
+  },
+  {
+    "common_wrong_patterns": [
+      "How many groups of 3 in 12 -> 12 divided by answer choice backwards"
+    ],
+    "distractor_strategy": "reverse_division",
+    "description": "Learner reverses the grouping relationship and applies division in the wrong direction.",
+    "affected_skills": [],
+    "name": "Reverse division",
+    "code": "reverse_division"
+  },
+  {
+    "common_wrong_patterns": [
+      "2, 4, 8, 10"
+    ],
+    "distractor_strategy": "operation_confusion",
+    "description": "Learner extends a pattern using the wrong operation, usually adding instead of multiplying or vice versa.",
+    "affected_skills": [],
+    "name": "Additive vs multiplicative confusion",
+    "code": "additive_vs_multiplicative_confusion"
+  },
+  {
+    "common_wrong_patterns": [
+      "add 2 instead of multiply by 2"
+    ],
+    "distractor_strategy": "incorrect_rule",
+    "description": "Learner identifies the wrong flow-diagram rule from the input-output relationship.",
+    "affected_skills": [],
+    "name": "Incorrect rule",
+    "code": "incorrect_rule"
+  },
+  {
+    "common_wrong_patterns": [
+      "8 + __ = 13 solved with subtraction result misplaced"
+    ],
+    "distractor_strategy": "operation_confusion",
+    "description": "Learner chooses the wrong operation when completing or checking a number sentence.",
+    "affected_skills": [],
+    "name": "Operation confusion",
+    "code": "operation_confusion"
+  },
+  {
+    "common_wrong_patterns": [
+      "calls a rectangle a square because both have 4 sides"
+    ],
+    "distractor_strategy": "shape_property_confusion",
+    "description": "Learner identifies a shape by an incomplete or incorrect property set.",
+    "affected_skills": [],
+    "name": "Shape property confusion",
+    "code": "shape_property_confusion"
+  },
+  {
+    "common_wrong_patterns": [
+      "cube identified by edge count alone"
+    ],
+    "distractor_strategy": "faces_edges_confusion",
+    "description": "Learner confuses faces, edges, and vertices when identifying 3D objects.",
+    "affected_skills": [],
+    "name": "Faces edges confusion",
+    "code": "faces_edges_confusion"
+  },
+  {
+    "common_wrong_patterns": [
+      "vertical mirror line marked on a non-symmetric half"
+    ],
+    "distractor_strategy": "mirror_line_confusion",
+    "description": "Learner places or identifies a line of symmetry incorrectly.",
+    "affected_skills": [],
+    "name": "Mirror line confusion",
+    "code": "mirror_line_confusion"
+  },
+  {
+    "common_wrong_patterns": [
+      "measures ribbon in litres"
+    ],
+    "distractor_strategy": "unit_confusion",
+    "description": "Learner uses or compares the wrong unit for a measurement situation.",
+    "affected_skills": [],
+    "name": "Unit confusion",
+    "code": "unit_confusion"
+  },
+  {
+    "common_wrong_patterns": [
+      "3:30 read as 6:15"
+    ],
+    "distractor_strategy": "hour_minute_confusion",
+    "description": "Learner swaps the roles of the hour hand and minute hand when reading time.",
+    "affected_skills": [],
+    "name": "Hour minute confusion",
+    "code": "hour_minute_confusion"
+  },
+  {
+    "common_wrong_patterns": [
+      "perimeter of 4 by 3 rectangle given as 12"
+    ],
+    "distractor_strategy": "add_vs_multiply_confusion",
+    "description": "Learner multiplies side lengths when the task requires adding them, or adds when multiplication is needed.",
+    "affected_skills": [],
+    "name": "Add vs multiply confusion",
+    "code": "add_vs_multiply_confusion"
+  },
+  {
+    "common_wrong_patterns": [
+      "3 by 4 rectangle area given as 10"
+    ],
+    "distractor_strategy": "count_boundary_only",
+    "description": "Learner counts only the outer boundary units instead of the full area in square units.",
+    "affected_skills": [],
+    "name": "Count boundary only",
+    "code": "count_boundary_only"
+  },
+  {
+    "common_wrong_patterns": [
+      "bar at 6 read as 3 on a scale of twos"
+    ],
+    "distractor_strategy": "scale_misread",
+    "description": "Learner reads bar-graph or data scale intervals incorrectly.",
+    "affected_skills": [],
+    "name": "Scale misread",
+    "code": "scale_misread"
   }
 ]

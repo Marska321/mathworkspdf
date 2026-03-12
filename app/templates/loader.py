@@ -7,6 +7,7 @@ from typing import Any
 
 
 LIBRARY_ROOT = Path(__file__).resolve().parent / "library"
+GRADE4_ROOT = LIBRARY_ROOT / "grade4"
 
 
 def _load_json(path: Path) -> Any:
@@ -19,6 +20,8 @@ def load_template_library() -> dict[str, Any]:
     blueprints = _load_json(LIBRARY_ROOT / "blueprints.json")
     patterns = _load_json(LIBRARY_ROOT / "patterns.json")
     misconceptions = _load_json(LIBRARY_ROOT / "misconceptions.json")
+    grade4_family_registry = _load_json(GRADE4_ROOT / "family_registry.json")
+    grade4_family_coverage_map = _load_json(GRADE4_ROOT / "family_coverage_map.json")
     families: list[dict[str, Any]] = []
     templates: list[dict[str, Any]] = []
 
@@ -34,4 +37,6 @@ def load_template_library() -> dict[str, Any]:
         "blueprints": blueprints,
         "patterns": patterns,
         "misconceptions": misconceptions,
+        "grade4_family_registry": grade4_family_registry,
+        "grade4_family_coverage_map": grade4_family_coverage_map,
     }

@@ -1,0 +1,534 @@
+[
+  {
+    "family_code": "pv_identify_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "missing_operand",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "digit_value_confusion",
+      "place_name_confusion",
+      "reads_digit_not_value"
+    ]
+  },
+  {
+    "family_code": "compare_order_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "compare_two_quantities",
+      "choose_greatest",
+      "order_set"
+    ],
+    "misconception_targets": [
+      "digit_count_confusion",
+      "left_to_right_comparison_error",
+      "reverses_order_language"
+    ]
+  },
+  {
+    "family_code": "expanded_notation_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "complete_number_sentence",
+      "direct_compute"
+    ],
+    "misconception_targets": [
+      "drops_zero_place",
+      "adds_digits_not_values",
+      "wrong_place_expansion"
+    ]
+  },
+  {
+    "family_code": "rounding_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "rounds_down_instead_of_nearest",
+      "rounds_up_instead_of_nearest",
+      "rounds_to_wrong_place"
+    ]
+  },
+  {
+    "family_code": "add_noregroup_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "missing_operand",
+      "one_step_story"
+    ],
+    "misconception_targets": [
+      "place_alignment_error",
+      "ones_tens_mixup"
+    ]
+  },
+  {
+    "family_code": "add_regroup_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "missing_operand"
+    ],
+    "misconception_targets": [
+      "ignore_carry",
+      "place_value_confusion",
+      "digit_add_without_regroup"
+    ]
+  },
+  {
+    "family_code": "sub_noregroup_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "missing_operand",
+      "one_step_story"
+    ],
+    "misconception_targets": [
+      "subtract_smaller_from_larger_digit",
+      "place_alignment_error"
+    ]
+  },
+  {
+    "family_code": "sub_regroup_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "error_spotting",
+      "one_step_story"
+    ],
+    "misconception_targets": [
+      "borrow_not_applied",
+      "subtract_smaller_from_larger_digit",
+      "forgets_reduce_tens"
+    ]
+  },
+  {
+    "family_code": "mult_facts_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "direct_compute",
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "counts_additively_only",
+      "factor_order_confusion",
+      "repeated_addition_error"
+    ]
+  },
+  {
+    "family_code": "mult_arrays_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification",
+      "direct_compute"
+    ],
+    "misconception_targets": [
+      "array_row_count_only"
+    ]
+  },
+  {
+    "family_code": "div_facts_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "equal_groups_story"
+    ],
+    "misconception_targets": [
+      "division_as_subtraction_only",
+      "inverse_fact_confusion",
+      "group_count_confusion"
+    ]
+  },
+  {
+    "family_code": "div_sharing_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "one_step_story",
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "group_size_confusion"
+    ]
+  },
+  {
+    "family_code": "div_grouping_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "one_step_story",
+      "direct_compute"
+    ],
+    "misconception_targets": [
+      "reverse_division"
+    ]
+  },
+  {
+    "family_code": "fraction_partwhole_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "swap_numerator_denominator",
+      "counts_unshaded",
+      "denominator_as_shaded"
+    ]
+  },
+  {
+    "family_code": "fraction_equivalent_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "complete_number_sentence",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "scale_one_part_only",
+      "add_same_number_to_both_terms",
+      "copy_numerator_denominator"
+    ]
+  },
+  {
+    "family_code": "fraction_compare_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "complete_number_sentence",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "compares_denominator_only",
+      "larger_denominator_means_larger_fraction",
+      "reverses_greater_less_symbol"
+    ]
+  },
+  {
+    "family_code": "fraction_simplify_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "complete_number_sentence",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "reduces_numerator_only",
+      "reduces_denominator_only",
+      "keeps_unsimplified_fraction"
+    ]
+  },
+  {
+    "family_code": "fraction_of_set_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "finds_one_part_only",
+      "uses_denominator_as_answer",
+      "uses_whole_set_instead_of_fraction_part"
+    ]
+  },
+  {
+    "family_code": "fraction_add_same_denominator_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "adds_denominators_too",
+      "keeps_one_numerator_only",
+      "adds_across_fraction_digits"
+    ]
+  },
+  {
+    "family_code": "fraction_sub_same_denominator_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "subtracts_denominators_too",
+      "uses_subtrahend_numerator",
+      "keeps_starting_numerator"
+    ]
+  },
+  {
+    "family_code": "fraction_compare_to_one_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "assumes_all_fractions_less_than_one",
+      "equal_numerator_denominator_confusion",
+      "reverses_fraction_whole_comparison"
+    ]
+  },
+  {
+    "family_code": "fraction_mixed_number_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "complete_number_sentence",
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "whole_number_only_from_improper",
+      "uses_numerator_as_remainder_mixed",
+      "adds_whole_and_numerator_without_scaling"
+    ]
+  },
+  {
+    "family_code": "numeric_patterns_family",
+    "strand": "patterns_functions_algebra",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "sequence_extension",
+      "missing_operand"
+    ],
+    "misconception_targets": [
+      "additive_vs_multiplicative_confusion"
+    ]
+  },
+  {
+    "family_code": "flow_diagrams_family",
+    "strand": "patterns_functions_algebra",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "flow_rule_identification"
+    ],
+    "misconception_targets": [
+      "incorrect_rule"
+    ]
+  },
+  {
+    "family_code": "number_sentences_family",
+    "strand": "patterns_functions_algebra",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "missing_operand",
+      "error_spotting"
+    ],
+    "misconception_targets": [
+      "operation_confusion"
+    ]
+  },
+  {
+    "family_code": "shape_2d_identification_family",
+    "strand": "space_and_shape",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "shape_property_confusion"
+    ]
+  },
+  {
+    "family_code": "shape_3d_objects_family",
+    "strand": "space_and_shape",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "faces_edges_confusion"
+    ]
+  },
+  {
+    "family_code": "symmetry_family",
+    "strand": "space_and_shape",
+    "priority": 2,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "mirror_line_confusion"
+    ]
+  },
+  {
+    "family_code": "length_measurement_family",
+    "strand": "measurement",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification",
+      "direct_compute"
+    ],
+    "misconception_targets": [
+      "unit_confusion"
+    ]
+  },
+  {
+    "family_code": "mass_measurement_family",
+    "strand": "measurement",
+    "priority": 2,
+    "visual_support": true,
+    "allowed_patterns": [
+      "direct_compute"
+    ],
+    "misconception_targets": [
+      "unit_confusion"
+    ]
+  },
+  {
+    "family_code": "capacity_measurement_family",
+    "strand": "measurement",
+    "priority": 2,
+    "visual_support": true,
+    "allowed_patterns": [
+      "direct_compute"
+    ],
+    "misconception_targets": [
+      "unit_confusion"
+    ]
+  },
+  {
+    "family_code": "time_reading_family",
+    "strand": "measurement",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "hour_minute_confusion"
+    ]
+  },
+  {
+    "family_code": "perimeter_family",
+    "strand": "measurement",
+    "priority": 2,
+    "visual_support": true,
+    "allowed_patterns": [
+      "direct_compute"
+    ],
+    "misconception_targets": [
+      "add_vs_multiply_confusion"
+    ]
+  },
+  {
+    "family_code": "area_count_squares_family",
+    "strand": "measurement",
+    "priority": 2,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "count_boundary_only"
+    ]
+  },
+  {
+    "family_code": "data_collection_family",
+    "strand": "data_handling",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification"
+    ],
+    "misconception_targets": []
+  },
+  {
+    "family_code": "bar_graphs_family",
+    "strand": "data_handling",
+    "priority": 1,
+    "visual_support": true,
+    "allowed_patterns": [
+      "visual_identification"
+    ],
+    "misconception_targets": [
+      "scale_misread"
+    ]
+  },
+  {
+    "family_code": "mult_missing_factor_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "missing_operand",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "product_as_factor_confusion",
+      "additive_factor_error",
+      "off_by_one_factor"
+    ]
+  },
+  {
+    "family_code": "div_remainder_family",
+    "strand": "numbers_operations_relationships",
+    "priority": 1,
+    "visual_support": false,
+    "allowed_patterns": [
+      "direct_compute",
+      "standard_mcq"
+    ],
+    "misconception_targets": [
+      "ignore_remainder",
+      "use_divisor_as_remainder",
+      "round_up_quotient_remainder"
+    ]
+  }
+]

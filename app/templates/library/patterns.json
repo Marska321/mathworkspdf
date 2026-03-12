@@ -358,5 +358,64 @@
       "object_a"
     ],
     "generation_notes": "Use for grouping, sharing, and equal-rows situations."
+  },
+  {
+    "pattern_code": "sequence_extension",
+    "name": "Sequence extension",
+    "description": "Learner extends or completes a repeating or growing number pattern.",
+    "cognitive_type": "conceptual",
+    "allowed_question_types": [
+      "sequence",
+      "fill_blank"
+    ],
+    "recommended_worksheet_types": [
+      "concept",
+      "mixed",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "number_range_scaling",
+      "representation_shift"
+    ],
+    "visual_support": false,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "additive_vs_multiplicative_confusion"
+    ],
+    "template_slots": [
+      "terms_csv",
+      "missing_positions"
+    ],
+    "generation_notes": "Use for numeric pattern extension and missing-term tasks."
+  },
+  {
+    "pattern_code": "flow_rule_identification",
+    "name": "Flow rule identification",
+    "description": "Learner identifies the rule in a flow diagram or input-output table.",
+    "cognitive_type": "reasoning",
+    "allowed_question_types": [
+      "visual",
+      "fill_blank"
+    ],
+    "recommended_worksheet_types": [
+      "concept",
+      "mixed",
+      "assessment"
+    ],
+    "difficulty_behavior": [
+      "representation_shift",
+      "language_complexity"
+    ],
+    "visual_support": true,
+    "theme_support": false,
+    "typical_misconceptions": [
+      "incorrect_rule"
+    ],
+    "template_slots": [
+      "input",
+      "output",
+      "rule"
+    ],
+    "generation_notes": "Use for flow diagrams and function-machine style prompts."
   }
 ]

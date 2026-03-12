@@ -26,4 +26,6 @@ def validate_misconception_references() -> list[str]:
         referenced_codes.update(family.get("misconception_targets", []))
     for template in library["templates"]:
         referenced_codes.update(template.get("misconception_targets", []))
+    for family in library.get("grade4_family_registry", []):
+        referenced_codes.update(family.get("misconception_targets", []))
     return sorted(referenced_codes - known_codes)
