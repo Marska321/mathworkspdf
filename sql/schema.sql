@@ -105,3 +105,14 @@ create table if not exists generated_questions (
     answer_json jsonb not null,
     metadata_json jsonb not null
 );
+
+create table if not exists student_mastery (
+    id uuid primary key default gen_random_uuid(),
+    student_id uuid not null,
+    skill_id varchar not null,
+    mastery_score int not null check (mastery_score between 0 and 100),
+    status varchar not null check (status in ('learning', 'remediation', 'mastered')),
+    last_assessed_at timestamp with time zone not null default now(),
+    unique (student_id, skill_id)
+);
+

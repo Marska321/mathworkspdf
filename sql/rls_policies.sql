@@ -8,6 +8,7 @@ alter table public.template_misconceptions enable row level security;
 alter table public.worksheet_blueprints enable row level security;
 alter table public.generated_worksheets enable row level security;
 alter table public.generated_questions enable row level security;
+alter table public.student_mastery enable row level security;
 
 create policy "public read skills"
 on public.skills
@@ -51,3 +52,4 @@ using (true);
 
 -- No anon/authenticated policies for generated tables.
 -- Server-side access should use the service key, which bypasses RLS.
+
