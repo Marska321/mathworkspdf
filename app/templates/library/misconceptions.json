@@ -783,7 +783,9 @@
     ],
     "distractor_strategy": "operation_confusion",
     "description": "Learner chooses the wrong operation when completing or checking a number sentence.",
-    "affected_skills": [],
+    "affected_skills": [
+      "number_sentences_g4_01"
+    ],
     "name": "Operation confusion",
     "code": "operation_confusion"
   },
@@ -997,3 +999,7 @@
     "distractor_strategy": "pictograph_wrong_category"
   }
 ]
+
+
+
+

@@ -38,6 +38,7 @@
           "fraction_mixed_number_family",
           "numeric_patterns_family",
           "flow_diagrams_family",
+          "number_sentences_family",
           "length_conversion_family",
           "mass_conversion_family",
           "time_elapsed_family",
@@ -84,6 +85,7 @@
           "fraction_mixed_number_family",
           "numeric_patterns_family",
           "flow_diagrams_family",
+          "number_sentences_family",
           "length_conversion_family",
           "mass_conversion_family",
           "time_elapsed_family",
@@ -129,6 +131,7 @@
           "fraction_mixed_number_family",
           "numeric_patterns_family",
           "flow_diagrams_family",
+          "number_sentences_family",
           "length_conversion_family",
           "mass_conversion_family",
           "time_elapsed_family",
@@ -181,6 +184,7 @@
           "fraction_mixed_number_family",
           "numeric_patterns_family",
           "flow_diagrams_family",
+          "number_sentences_family",
           "length_conversion_family",
           "mass_conversion_family",
           "time_elapsed_family",
@@ -226,6 +230,7 @@
           "fraction_mixed_number_family",
           "numeric_patterns_family",
           "flow_diagrams_family",
+          "number_sentences_family",
           "length_conversion_family",
           "mass_conversion_family",
           "time_elapsed_family",
@@ -278,6 +283,7 @@
           "fraction_mixed_number_family",
           "numeric_patterns_family",
           "flow_diagrams_family",
+          "number_sentences_family",
           "length_conversion_family",
           "mass_conversion_family",
           "time_elapsed_family",
@@ -326,6 +332,7 @@
           "fraction_mixed_number_family",
           "numeric_patterns_family",
           "flow_diagrams_family",
+          "number_sentences_family",
           "length_conversion_family",
           "mass_conversion_family",
           "time_elapsed_family",
@@ -373,6 +380,7 @@
           "fraction_mixed_number_family",
           "numeric_patterns_family",
           "flow_diagrams_family",
+          "number_sentences_family",
           "length_conversion_family",
           "mass_conversion_family",
           "time_elapsed_family",
@@ -386,3 +394,4 @@
     ]
   }
 ]
+

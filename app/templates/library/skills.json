@@ -680,6 +680,35 @@
     "active": true
   },
   {
+    "skill_id": "number_sentences_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Patterns, Functions and Algebra",
+    "topic": "Number Sentences",
+    "subtopic": "Complete and check number sentences",
+    "name": "Complete and check number sentences",
+    "description": "Learner completes missing numbers and checks whether simple addition and subtraction number sentences are true.",
+    "caps_code": "G4-T1-PFA-NS-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "fill_blank",
+      "error_spotting"
+    ],
+    "prerequisite_skill_ids": [
+      "add_noregroup_g4_01",
+      "sub_noregroup_g4_01"
+    ],
+    "misconception_tags": [
+      "operation_confusion"
+    ],
+    "active": true
+  },
+  {
     "skill_id": "length_conv_g4_01",
     "curriculum": "CAPS",
     "grade": 4,
@@ -871,3 +900,7 @@
     "active": true
   }
 ]
+
+
+
+

@@ -999,6 +999,13 @@ class WorksheetGenerationService:
             representation_complexity = 0.62 if template.rendering.visual_type == "flow_diagram" else 0.26
             linguistic_load = 0.08
             distractor_similarity = 0.45 if template.question_type == QuestionType.multiple_choice else 0.28
+        elif template.template_code.startswith("number_sentences"):
+            max_number = max(variables.get("a", 0), variables.get("b", 0), variables.get("result", 0), variables.get("wrong_answer", 0))
+            number_complexity = min(max_number / 120, 1.0)
+            structure_complexity = 0.62 if template.question_type == QuestionType.error_spotting else 0.58
+            representation_complexity = 0.22
+            linguistic_load = 0.10
+            distractor_similarity = 0.46 if template.question_type == QuestionType.error_spotting else 0.38
         elif template.template_code.startswith("length_conversion"):
             max_number = max(variables.get("base_value", 0), variables.get("correct_answer", 0))
             number_complexity = min(max_number / 9000, 1.0)
@@ -1232,6 +1239,9 @@ class WorksheetGenerationService:
                 )
                 number += 1
         return answer_key
+
+
+
 
 
 

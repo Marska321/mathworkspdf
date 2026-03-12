@@ -1,0 +1,259 @@
+{
+  "family_id": "fam_number_sentences_g4_01",
+  "family_code": "number_sentences_family",
+  "skill_id": "number_sentences_g4_01",
+  "name": "Number Sentences",
+  "description": "Complete and check addition and subtraction number sentences.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "fill_blank",
+    "error_spotting"
+  ],
+  "misconception_targets": [
+    "operation_confusion"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_number_sentences_01",
+      "template_code": "number_sentences_01",
+      "skill_id": "number_sentences_g4_01",
+      "family_id": "number_sentences_family",
+      "pattern_code": "missing_operand",
+      "name": "Complete the missing number",
+      "question_type": "fill_blank",
+      "template_text": "Complete the number sentence: {a} {operator_symbol} __ = {result}",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "operation": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "add",
+            "subtract"
+          ]
+        },
+        "operator_symbol": {
+          "type": "string",
+          "required": true
+        },
+        "result": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            2,
+            20
+          ],
+          "b_range": [
+            1,
+            10
+          ],
+          "allowed_operations": [
+            "add"
+          ]
+        },
+        "core": {
+          "a_range": [
+            4,
+            40
+          ],
+          "b_range": [
+            1,
+            20
+          ],
+          "allowed_operations": [
+            "add",
+            "subtract"
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            10,
+            90
+          ],
+          "b_range": [
+            2,
+            40
+          ],
+          "allowed_operations": [
+            "add",
+            "subtract"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "operator_symbol = '+' if operation == 'add' else '-'"
+        },
+        {
+          "type": "derived",
+          "rule": "result = a + b if operation == 'add' else a - b"
+        },
+        {
+          "type": "expression",
+          "rule": "operation != 'subtract' or a > b"
+        },
+        {
+          "type": "expression",
+          "rule": "result > 0"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "b"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Use the inverse operation to find the missing number that makes the sentence true.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "operation_confusion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_number_sentences_02",
+      "template_code": "number_sentences_02",
+      "skill_id": "number_sentences_g4_01",
+      "family_id": "number_sentences_family",
+      "pattern_code": "error_spotting",
+      "name": "Check a worked number sentence",
+      "question_type": "error_spotting",
+      "template_text": "A learner says {a} {operator_symbol} {b} = {wrong_answer}. Is this number sentence correct?",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": {
+          "type": "int",
+          "required": true
+        },
+        "b": {
+          "type": "int",
+          "required": true
+        },
+        "operation": {
+          "type": "enum",
+          "required": true,
+          "values": [
+            "add",
+            "subtract"
+          ]
+        },
+        "operator_symbol": {
+          "type": "string",
+          "required": true
+        },
+        "correct_answer": {
+          "type": "int",
+          "required": true
+        },
+        "wrong_answer": {
+          "type": "int",
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_range": [
+            2,
+            20
+          ],
+          "b_range": [
+            1,
+            10
+          ],
+          "allowed_operations": [
+            "add"
+          ]
+        },
+        "core": {
+          "a_range": [
+            4,
+            40
+          ],
+          "b_range": [
+            1,
+            20
+          ],
+          "allowed_operations": [
+            "add",
+            "subtract"
+          ]
+        },
+        "stretch": {
+          "a_range": [
+            10,
+            90
+          ],
+          "b_range": [
+            2,
+            40
+          ],
+          "allowed_operations": [
+            "add",
+            "subtract"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "derived",
+          "rule": "operator_symbol = '+' if operation == 'add' else '-'"
+        },
+        {
+          "type": "derived",
+          "rule": "correct_answer = a + b if operation == 'add' else a - b"
+        },
+        {
+          "type": "derived",
+          "rule": "wrong_answer = (a - b if a > b else b - a) if operation == 'add' else a + b"
+        },
+        {
+          "type": "expression",
+          "rule": "operation != 'subtract' or a > b"
+        },
+        {
+          "type": "expression",
+          "rule": "wrong_answer != correct_answer"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "\"No\""
+      },
+      "distractor_rules": [],
+      "explanation_template": "Check the operation carefully. The learner used the wrong operation, so the number sentence is not correct.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "full_width"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "operation_confusion"
+      ],
+      "active": true
+    }
+  ]
+}

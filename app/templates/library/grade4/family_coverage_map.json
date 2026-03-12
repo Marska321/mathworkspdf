@@ -303,13 +303,16 @@
   },
   {
     "family_code": "number_sentences_family",
-    "implemented": false,
-    "family_file": null,
-    "templates_count": 0,
-    "patterns_supported": [],
-    "tests_exist": false,
+    "implemented": true,
+    "family_file": "app/templates/library/number_sentences/number_sentences_family.json",
+    "templates_count": 2,
+    "patterns_supported": [
+      "error_spotting",
+      "missing_operand"
+    ],
+    "tests_exist": true,
     "live_verified": false,
-    "notes": "Priority 1 roadmap family from repo.md."
+    "notes": "Implemented in the current template-driven engine using missing-number and error-spotting number sentence prompts."
   },
   {
     "family_code": "shape_2d_identification_family",
@@ -529,3 +532,4 @@
     "notes": "Translated from caps_grade4_concept_families.json into the repo-native template schema."
   }
 ]
+

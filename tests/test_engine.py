@@ -744,3 +744,26 @@ def test_pictograph_generation_supports_key_based_data_questions() -> None:
     assert any(item.visual_payload and item.visual_payload.visual_type == "pictograph" for item in items)
     assert all(item.answer.value.lstrip('-').isdigit() for item in items)
     assert any(item.metadata.misconception_details for item in items)
+
+def test_number_sentences_generation_supports_missing_and_checking_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Patterns, Functions and Algebra",
+        topic="Number Sentences",
+        subskill="Complete and check number sentences",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.fill_blank, QuestionType.error_spotting],
+        seed="number-sentences-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.fill_blank in question_types
+    assert QuestionType.error_spotting in question_types
+    assert any('number sentence' in item.question_text.lower() for item in items)
+    assert any(item.answer.value == "No" for item in items if item.question_type == QuestionType.error_spotting)
+    assert any(item.metadata.misconception_details for item in items)
