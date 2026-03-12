@@ -696,7 +696,7 @@
       "stretch"
     ],
     "recommended_question_types": [
-      "direct",
+      "fill_blank",
       "multiple_choice"
     ],
     "prerequisite_skill_ids": [],
@@ -722,7 +722,7 @@
       "stretch"
     ],
     "recommended_question_types": [
-      "direct",
+      "fill_blank",
       "multiple_choice"
     ],
     "prerequisite_skill_ids": [],
@@ -748,7 +748,7 @@
       "stretch"
     ],
     "recommended_question_types": [
-      "direct",
+      "fill_blank",
       "multiple_choice"
     ],
     "prerequisite_skill_ids": [],

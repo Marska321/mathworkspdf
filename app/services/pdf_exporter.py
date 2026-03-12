@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 from urllib.parse import quote
 
@@ -29,13 +30,11 @@ class WorksheetPdfExporter:
             html_url = f"{html_url}?teacher_mode=true"
         return html_url
 
-    def render(self, worksheet_id: str, base_url: str, teacher_mode: bool = False) -> Path:
-        output_path = self.build_output_path(worksheet_id)
-        html_url = self.build_html_url(worksheet_id, base_url, teacher_mode=teacher_mode)
+    def _run_render_command(self, source_url: str, output_path: Path) -> None:
         command = [
             self.resolve_node(),
             str(self.script_path),
-            html_url,
+            source_url,
             str(output_path),
         ]
         subprocess.run(
@@ -45,4 +44,31 @@ class WorksheetPdfExporter:
             capture_output=True,
             text=True,
         )
+
+    def render(self, worksheet_id: str, base_url: str, teacher_mode: bool = False) -> Path:
+        output_path = self.build_output_path(worksheet_id)
+        html_url = self.build_html_url(worksheet_id, base_url, teacher_mode=teacher_mode)
+        self._run_render_command(html_url, output_path)
         return output_path
+
+    def render_raw_html(self, html_content: str, output_path: str | Path) -> Path:
+        output = Path(output_path)
+        output.parent.mkdir(parents=True, exist_ok=True)
+
+        temp_path: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="w",
+                encoding="utf-8",
+                suffix=".html",
+                dir=output.parent,
+                delete=False,
+            ) as handle:
+                handle.write(html_content)
+                temp_path = Path(handle.name)
+
+            self._run_render_command(temp_path.resolve().as_uri(), output)
+            return output
+        finally:
+            if temp_path is not None:
+                temp_path.unlink(missing_ok=True)

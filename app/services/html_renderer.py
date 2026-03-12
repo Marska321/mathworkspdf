@@ -4,6 +4,159 @@ from html import escape
 from typing import Any
 
 
+class SVGRenderer:
+    """Internal helper to convert supported visual payloads into inline SVG."""
+
+    VISUAL_PARAM_SPECS: dict[str, tuple[str, ...]] = {
+        "fraction_bar": ("parts_total", "parts_shaded", "orientation"),
+        "fraction_bar_blank": ("parts_total", "orientation"),
+        "array_grid": ("rows", "cols"),
+        "flow_diagram": ("input_value", "output_value", "rule_label"),
+        "measurement_ruler": ("unit", "max_value", "highlight_value", "tick_step"),
+        "clock_face": ("hour", "minute", "caption"),
+        "bar_graph": ("categories", "values", "y_max", "title"),
+        "pictograph": ("categories", "counts", "key_value", "icon_label"),
+    }
+
+    @staticmethod
+    def render(visual_payload: dict[str, Any] | None) -> str:
+        if not visual_payload:
+            return ""
+
+        visual_type = str(visual_payload.get("visual_type") or "")
+        params = visual_payload.get("params", {})
+
+        if visual_type == "fraction_bar":
+            return SVGRenderer._render_fraction_bar(
+                parts_total=int(params.get("parts_total", 1)),
+                parts_shaded=int(params.get("parts_shaded", 0)),
+                orientation=str(params.get("orientation", "horizontal")),
+                blank=False,
+            )
+        if visual_type == "fraction_bar_blank":
+            return SVGRenderer._render_fraction_bar(
+                parts_total=int(params.get("parts_total", 1)),
+                parts_shaded=0,
+                orientation=str(params.get("orientation", "horizontal")),
+                blank=True,
+            )
+        if visual_type == "array_grid":
+            return SVGRenderer._render_array_grid(
+                rows=int(params.get("rows", 1)),
+                cols=int(params.get("cols", 1)),
+            )
+        if visual_type == "flow_diagram":
+            return SVGRenderer._render_flow_diagram(
+                input_value=params.get("input_value", ""),
+                output_value=params.get("output_value", "?"),
+                rule_label=params.get("rule_label", "?"),
+            )
+        return ""
+
+    @staticmethod
+    def _render_fraction_bar(
+        *,
+        parts_total: int,
+        parts_shaded: int,
+        orientation: str,
+        blank: bool,
+    ) -> str:
+        total = max(parts_total, 1)
+        shaded = max(0, min(parts_shaded, total))
+        horizontal = orientation != "vertical"
+        width = 260 if horizontal else 72
+        height = 48 if horizontal else 220
+        segment_width = width / total if horizontal else width
+        segment_height = height if horizontal else height / total
+
+        svg_parts = [
+            f'<svg class="svg-visual fraction-svg" width="{width}" height="{height}" '
+            f'viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
+            f'role="img" aria-label="Fraction model showing {shaded} of {total} parts">'
+        ]
+        for index in range(total):
+            x = segment_width * index if horizontal else 0
+            y = 0 if horizontal else segment_height * index
+            if blank:
+                class_name = "fraction-segment blank"
+                fill = "#ffffff"
+            elif index < shaded:
+                class_name = "fraction-segment shaded"
+                fill = "#0f766e"
+            else:
+                class_name = "fraction-segment unshaded"
+                fill = "#ffffff"
+            svg_parts.append(
+                f'<rect class="{class_name}" x="{x:.2f}" y="{y:.2f}" width="{segment_width:.2f}" '
+                f'height="{segment_height:.2f}" fill="{fill}" stroke="#1f2937" stroke-width="2" />'
+            )
+        svg_parts.append("</svg>")
+        return "".join(svg_parts)
+
+    @staticmethod
+    def _render_array_grid(*, rows: int, cols: int) -> str:
+        total_rows = max(rows, 1)
+        total_cols = max(cols, 1)
+        cell_size = 32
+        width = total_cols * cell_size
+        height = total_rows * cell_size
+        svg_parts = [
+            f'<svg class="svg-visual array-svg" width="{width}" height="{height}" '
+            f'viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
+            f'role="img" aria-label="Array with {total_rows} rows and {total_cols} columns">'
+        ]
+        for row in range(total_rows):
+            for col in range(total_cols):
+                x = col * cell_size
+                y = row * cell_size
+                svg_parts.append(
+                    f'<rect class="array-cell" x="{x}" y="{y}" width="{cell_size}" height="{cell_size}" '
+                    f'fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" />'
+                )
+        svg_parts.append("</svg>")
+        return "".join(svg_parts)
+
+    @staticmethod
+    def _render_flow_diagram(*, input_value: Any, output_value: Any, rule_label: Any) -> str:
+        width = 360
+        height = 100
+        center_y = height / 2
+        rule_box_width = 108
+        rule_box_height = 44
+        rule_box_x = (width - rule_box_width) / 2
+        output_text = "____" if str(output_value) == "?" else escape(str(output_value))
+
+        return (
+            f'<svg class="svg-visual flow-diagram-svg" width="{width}" height="{height}" '
+            f'viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
+            f'role="img" aria-label="Flow diagram">'
+            '<defs><marker id="flow-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">'
+            '<path d="M0,0 L0,6 L9,3 z" fill="#374151" /></marker></defs>'
+            f'<text x="42" y="{center_y:.1f}" dominant-baseline="middle" text-anchor="middle" '
+            'font-family="Georgia, serif" font-size="17" fill="#111827">Input</text>'
+            f'<text x="42" y="{center_y + 22:.1f}" dominant-baseline="middle" text-anchor="middle" '
+            'font-family="Georgia, serif" font-size="19" font-weight="700" fill="#111827">'
+            f"{escape(str(input_value))}</text>"
+            f'<line x1="72" y1="{center_y:.1f}" x2="{rule_box_x - 10:.1f}" y2="{center_y:.1f}" stroke="#374151" '
+            'stroke-width="2.5" marker-end="url(#flow-arrow)" />'
+            f'<rect x="{rule_box_x:.1f}" y="{center_y - rule_box_height / 2:.1f}" width="{rule_box_width}" '
+            f'height="{rule_box_height}" fill="#ecfeff" stroke="#0f766e" stroke-width="2" rx="8" />'
+            f'<text x="{width / 2:.1f}" y="{center_y - 12:.1f}" dominant-baseline="middle" text-anchor="middle" '
+            'font-family="Georgia, serif" font-size="13" fill="#0f766e">Rule</text>'
+            f'<text x="{width / 2:.1f}" y="{center_y + 10:.1f}" dominant-baseline="middle" text-anchor="middle" '
+            'font-family="Georgia, serif" font-size="18" font-weight="700" fill="#111827">'
+            f"{escape(str(rule_label))}</text>"
+            f'<line x1="{rule_box_x + rule_box_width + 10:.1f}" y1="{center_y:.1f}" x2="{width - 72:.1f}" '
+            f'y2="{center_y:.1f}" stroke="#374151" stroke-width="2.5" marker-end="url(#flow-arrow)" />'
+            f'<text x="{width - 42:.1f}" y="{center_y:.1f}" dominant-baseline="middle" text-anchor="middle" '
+            'font-family="Georgia, serif" font-size="17" fill="#111827">Output</text>'
+            f'<text x="{width - 42:.1f}" y="{center_y + 22:.1f}" dominant-baseline="middle" text-anchor="middle" '
+            'font-family="Georgia, serif" font-size="19" font-weight="700" fill="#111827">'
+            f"{output_text}</text>"
+            "</svg>"
+        )
+
+
 class WorksheetHtmlRenderer:
     def render(self, worksheet: dict[str, Any], teacher_mode: bool = False) -> str:
         title = escape(worksheet["title"])
@@ -126,6 +279,8 @@ class WorksheetHtmlRenderer:
     .options {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-top: 8px; }}
     .option {{ border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: #ffffff; }}
     .visual {{ margin-top: 10px; }}
+    .visual-wrapper {{ display: flex; justify-content: center; }}
+    .svg-visual {{ max-width: 100%; height: auto; overflow: visible; }}
     .teacher-item-note {{
       margin-top: 10px;
       padding: 10px 12px;
@@ -299,6 +454,11 @@ class WorksheetHtmlRenderer:
     def _render_visual(self, payload: dict[str, Any] | None) -> str:
         if not payload:
             return ""
+
+        svg_content = SVGRenderer.render(payload)
+        if svg_content:
+            return f"<div class=\"visual visual-wrapper\">{svg_content}</div>"
+
         visual_type = payload.get("visual_type")
         params = payload.get("params", {})
 
@@ -319,9 +479,9 @@ class WorksheetHtmlRenderer:
             return (
                 "<div class=\"visual\"><div class=\"flow-diagram\">"
                 f"<div class=\"flow-box\"><span class=\"flow-label\">Input</span><span class=\"flow-value\">{input_value}</span></div>"
-                "<div class=\"flow-arrow\">→</div>"
+                "<div class=\"flow-arrow\">-></div>"
                 f"<div class=\"flow-box rule\"><span class=\"flow-label\">Rule</span><span class=\"flow-value\">{rule_label}</span></div>"
-                "<div class=\"flow-arrow\">→</div>"
+                "<div class=\"flow-arrow\">-></div>"
                 f"<div class=\"flow-box\"><span class=\"flow-label\">Output</span><span class=\"flow-value\">{output_value}</span></div>"
                 "</div></div>"
             )
@@ -377,6 +537,3 @@ class WorksheetHtmlRenderer:
             for detail in details
         )
         return f"<div class=\"teacher-item-note\"><strong>Teacher note:</strong>{detail_html}</div>"
-
-
-
