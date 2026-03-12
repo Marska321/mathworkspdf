@@ -290,5 +290,66 @@
       "group_count_confusion"
     ],
     "active": true
+  },
+  {
+    "skill_id": "rounding_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Place Value",
+    "subtopic": "Rounding Whole Numbers",
+    "name": "Round whole numbers to a given place",
+    "description": "Learner rounds whole numbers to the nearest ten, hundred, and thousand.",
+    "caps_code": "G4-T1-PV-RD-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "direct",
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "pv_identify_g4_01"
+    ],
+    "misconception_tags": [
+      "rounds_down_instead_of_nearest",
+      "rounds_up_instead_of_nearest",
+      "rounds_to_wrong_place"
+    ],
+    "active": true
+  },
+  {
+    "skill_id": "mult_missing_factor_g4_01",
+    "curriculum": "CAPS",
+    "grade": 4,
+    "term": 1,
+    "strand": "Number, Operations and Relationships",
+    "topic": "Multiplication",
+    "subtopic": "Missing factor facts",
+    "name": "Find missing factors in multiplication facts",
+    "description": "Learner finds a missing factor when one factor and the product are known.",
+    "caps_code": "G4-T1-MUL-MF-01",
+    "difficulty_bands_supported": [
+      "support",
+      "core",
+      "stretch"
+    ],
+    "recommended_question_types": [
+      "fill_blank",
+      "multiple_choice"
+    ],
+    "prerequisite_skill_ids": [
+      "mult_facts_g4_01"
+    ],
+    "misconception_tags": [
+      "product_as_factor_confusion",
+      "additive_factor_error",
+      "off_by_one_factor"
+    ],
+    "active": true
   }
 ]

@@ -326,5 +326,77 @@
       "Shade 2/5 by shading all 5 parts"
     ],
     "distractor_strategy": "shade_all_parts"
+  },
+  {
+    "code": "rounds_down_instead_of_nearest",
+    "name": "Rounds down instead of nearest",
+    "description": "Learner chooses the lower multiple even when the number should round up.",
+    "affected_skills": [
+      "rounding_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "368 to nearest hundred -> 300"
+    ],
+    "distractor_strategy": "round_down_place"
+  },
+  {
+    "code": "rounds_up_instead_of_nearest",
+    "name": "Rounds up instead of nearest",
+    "description": "Learner chooses the higher multiple even when the number should round down.",
+    "affected_skills": [
+      "rounding_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "342 to nearest hundred -> 400"
+    ],
+    "distractor_strategy": "round_up_place"
+  },
+  {
+    "code": "rounds_to_wrong_place",
+    "name": "Rounds to wrong place",
+    "description": "Learner rounds to an adjacent place value instead of the named place.",
+    "affected_skills": [
+      "rounding_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "347 to nearest hundred -> 350"
+    ],
+    "distractor_strategy": "wrong_place_rounding"
+  },
+  {
+    "code": "product_as_factor_confusion",
+    "name": "Product as factor confusion",
+    "description": "Learner uses the product itself as the missing factor instead of finding the unknown factor.",
+    "affected_skills": [
+      "mult_missing_factor_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "3 ? __ = 12 answered as 12"
+    ],
+    "distractor_strategy": "use_product_as_factor"
+  },
+  {
+    "code": "additive_factor_error",
+    "name": "Additive factor error",
+    "description": "Learner adds known values or uses additive reasoning instead of multiplicative reasoning.",
+    "affected_skills": [
+      "mult_missing_factor_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "4 ? __ = 20 answered as 24 or 8"
+    ],
+    "distractor_strategy": "additive_factor_error"
+  },
+  {
+    "code": "off_by_one_factor",
+    "name": "Off by one factor",
+    "description": "Learner chooses a nearby factor instead of the exact missing factor.",
+    "affected_skills": [
+      "mult_missing_factor_g4_01"
+    ],
+    "common_wrong_patterns": [
+      "5 ? __ = 35 answered as 6 or 8"
+    ],
+    "distractor_strategy": "off_by_one_factor"
   }
 ]

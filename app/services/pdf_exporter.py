@@ -23,9 +23,15 @@ class WorksheetPdfExporter:
                 return resolved
         raise FileNotFoundError("node is not available for PDF export.")
 
-    def render(self, worksheet_id: str, base_url: str) -> Path:
-        output_path = self.build_output_path(worksheet_id)
+    def build_html_url(self, worksheet_id: str, base_url: str, teacher_mode: bool = False) -> str:
         html_url = f"{base_url.rstrip('/')}/api/worksheets/{quote(worksheet_id)}/html"
+        if teacher_mode:
+            html_url = f"{html_url}?teacher_mode=true"
+        return html_url
+
+    def render(self, worksheet_id: str, base_url: str, teacher_mode: bool = False) -> Path:
+        output_path = self.build_output_path(worksheet_id)
+        html_url = self.build_html_url(worksheet_id, base_url, teacher_mode=teacher_mode)
         command = [
             self.resolve_node(),
             str(self.script_path),

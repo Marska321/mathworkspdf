@@ -1,0 +1,282 @@
+{
+  "family_id": "fam_rounding_g4_01",
+  "family_code": "rounding_family",
+  "skill_id": "rounding_g4_01",
+  "name": "Rounding Whole Numbers",
+  "description": "Round whole numbers to the nearest ten, hundred, or thousand.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "fluency",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "direct",
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "rounds_down_instead_of_nearest",
+    "rounds_up_instead_of_nearest",
+    "rounds_to_wrong_place"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_rounding_01",
+      "template_code": "rounding_01",
+      "skill_id": "rounding_g4_01",
+      "family_id": "rounding_family",
+      "pattern_code": "direct_compute",
+      "name": "Round to nearest place",
+      "question_type": "direct",
+      "template_text": "Round {number} to the nearest {round_to_place}.",
+      "instructions_template": null,
+      "variable_schema": {
+        "number": {
+          "type": "int",
+          "required": true
+        },
+        "round_to_place": {
+          "type": "enum",
+          "values": [
+            "tens",
+            "hundreds",
+            "thousands"
+          ],
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "number_range": [
+            15,
+            999
+          ],
+          "allowed_round_to_places": [
+            "tens",
+            "hundreds"
+          ]
+        },
+        "core": {
+          "number_range": [
+            25,
+            9999
+          ],
+          "allowed_round_to_places": [
+            "tens",
+            "hundreds",
+            "thousands"
+          ]
+        },
+        "stretch": {
+          "number_range": [
+            105,
+            9999
+          ],
+          "allowed_round_to_places": [
+            "hundreds",
+            "thousands"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "number % get_place_multiplier(round_to_place) != 0"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "round_to_place_value(number, round_to_place)"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Look at the digit to the right of the rounding place to decide whether to round down or up.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "rounds_to_wrong_place"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_rounding_02",
+      "template_code": "rounding_02",
+      "skill_id": "rounding_g4_01",
+      "family_id": "rounding_family",
+      "pattern_code": "direct_compute",
+      "name": "Complete rounded value",
+      "question_type": "fill_blank",
+      "template_text": "{number} rounded to the nearest {round_to_place} is __.",
+      "instructions_template": null,
+      "variable_schema": {
+        "number": {
+          "type": "int",
+          "required": true
+        },
+        "round_to_place": {
+          "type": "enum",
+          "values": [
+            "tens",
+            "hundreds",
+            "thousands"
+          ],
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "number_range": [
+            15,
+            999
+          ],
+          "allowed_round_to_places": [
+            "tens",
+            "hundreds"
+          ]
+        },
+        "core": {
+          "number_range": [
+            25,
+            9999
+          ],
+          "allowed_round_to_places": [
+            "tens",
+            "hundreds",
+            "thousands"
+          ]
+        },
+        "stretch": {
+          "number_range": [
+            105,
+            9999
+          ],
+          "allowed_round_to_places": [
+            "hundreds",
+            "thousands"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "number % get_place_multiplier(round_to_place) != 0"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "round_to_place_value(number, round_to_place)"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Numbers with 5 or more in the next place round up. Smaller digits round down.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "rounds_down_instead_of_nearest",
+        "rounds_up_instead_of_nearest"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_rounding_03",
+      "template_code": "rounding_03",
+      "skill_id": "rounding_g4_01",
+      "family_id": "rounding_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose rounded value",
+      "question_type": "multiple_choice",
+      "template_text": "Which number is {number} rounded to the nearest {round_to_place}?",
+      "instructions_template": null,
+      "variable_schema": {
+        "number": {
+          "type": "int",
+          "required": true
+        },
+        "round_to_place": {
+          "type": "enum",
+          "values": [
+            "tens",
+            "hundreds",
+            "thousands"
+          ],
+          "required": true
+        }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "number_range": [
+            15,
+            999
+          ],
+          "allowed_round_to_places": [
+            "tens",
+            "hundreds"
+          ]
+        },
+        "core": {
+          "number_range": [
+            25,
+            9999
+          ],
+          "allowed_round_to_places": [
+            "tens",
+            "hundreds",
+            "thousands"
+          ]
+        },
+        "stretch": {
+          "number_range": [
+            105,
+            9999
+          ],
+          "allowed_round_to_places": [
+            "hundreds",
+            "thousands"
+          ]
+        }
+      },
+      "constraints": [
+        {
+          "type": "expression",
+          "rule": "number % get_place_multiplier(round_to_place) != 0"
+        }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "round_to_place_value(number, round_to_place)"
+      },
+      "distractor_rules": [
+        {
+          "type": "round_down_place"
+        },
+        {
+          "type": "round_up_place"
+        },
+        {
+          "type": "wrong_place_rounding"
+        }
+      ],
+      "explanation_template": "Round to the named place value, not just the nearest smaller place.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "rounds_down_instead_of_nearest",
+        "rounds_up_instead_of_nearest",
+        "rounds_to_wrong_place"
+      ],
+      "active": true
+    }
+  ]
+}

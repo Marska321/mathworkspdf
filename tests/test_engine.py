@@ -88,6 +88,27 @@ def test_place_value_generation_supports_digit_value_questions() -> None:
     assert any(item.answer.value in {"ones", "tens", "hundreds"} or item.answer.value.isdigit() for section in worksheet.sections for item in section.items)
 
 
+def test_rounding_generation_supports_round_to_place_items() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Place Value",
+        subskill="Rounding Whole Numbers",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.direct, QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="rounding-seed",
+    )
+    worksheet = service.generate(request)
+    texts = [item.question_text for section in worksheet.sections for item in section.items]
+    assert any("nearest" in text.lower() for text in texts)
+    assert any(item.question_type == QuestionType.multiple_choice for section in worksheet.sections for item in section.items)
+    assert all(int(item.answer.value) % 10 == 0 for section in worksheet.sections for item in section.items)
+
+
 def test_compare_order_generation_supports_sequence_items() -> None:
     service = build_service()
     request = GenerationRequest(
@@ -188,6 +209,27 @@ def test_sub_regroup_generation_supports_error_spotting() -> None:
     assert any(item.answer.value == "No" for section in worksheet.sections for item in section.items if item.question_type == QuestionType.error_spotting)
 
 
+def test_mult_missing_factor_generation_supports_inverse_reasoning() -> None:
+    service = build_service()
+    request = GenerationRequest(
+        grade=4,
+        term=1,
+        strand="Number, Operations and Relationships",
+        topic="Multiplication",
+        subskill="Missing factor facts",
+        difficulty=DifficultyBand.support,
+        worksheet_type=WorksheetType.mixed,
+        question_count=5,
+        question_types=[QuestionType.fill_blank, QuestionType.multiple_choice],
+        seed="mult-missing-factor-seed",
+    )
+    worksheet = service.generate(request)
+    items = [item for section in worksheet.sections for item in section.items]
+    question_types = [item.question_type for item in items]
+    assert QuestionType.multiple_choice in question_types
+    assert any("__" in item.question_text for item in items)
+    assert all(item.answer.value.isdigit() for item in items)
+
 def test_mult_facts_generation_supports_array_visual() -> None:
     service = build_service()
     request = GenerationRequest(
@@ -260,3 +302,4 @@ def test_generated_metadata_includes_misconception_details() -> None:
     assert first_with_details.metadata.misconception_details[0].code in first_with_details.metadata.misconception_targets
     assert worksheet.teacher_notes.misconception_details
     assert worksheet.teacher_notes.misconception_details[0].description
+

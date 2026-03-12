@@ -5,21 +5,23 @@ from typing import Any
 
 
 class WorksheetHtmlRenderer:
-    def render(self, worksheet: dict[str, Any]) -> str:
+    def render(self, worksheet: dict[str, Any], teacher_mode: bool = False) -> str:
         title = escape(worksheet["title"])
         subtitle = escape(worksheet["subtitle"])
         metadata = worksheet.get("metadata", {})
         sections = worksheet.get("sections", [])
         answer_key = worksheet.get("answer_key", [])
+        teacher_notes = worksheet.get("teacher_notes", {})
 
         question_number = 1
         rendered_sections: list[str] = []
         for index, section in enumerate(sections, start=1):
-            section_html, question_number = self._render_section(index, section, question_number)
+            section_html, question_number = self._render_section(index, section, question_number, teacher_mode)
             rendered_sections.append(section_html)
 
         section_html = "".join(rendered_sections)
         answer_key_html = "".join(self._render_answer(answer) for answer in answer_key)
+        teacher_notes_html = self._render_teacher_notes(teacher_notes) if teacher_mode else ""
         metadata_html = "".join(
             f"<span><strong>{escape(str(key).replace('_', ' ').title())}:</strong> {escape(str(value))}</span>"
             for key, value in metadata.items()
@@ -79,6 +81,16 @@ class WorksheetHtmlRenderer:
     .section {{ margin-top: 24px; padding-top: 18px; border-top: 2px solid var(--accent-soft); }}
     .section h2 {{ margin: 0 0 6px; font-size: 1.25rem; }}
     .instructions {{ color: var(--muted); margin-bottom: 14px; }}
+    .teacher-panel {{
+      margin: 20px 0 24px;
+      padding: 16px 18px;
+      border: 1px solid var(--math-line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #f0fdf4 0%, #ecfeff 100%);
+    }}
+    .teacher-panel h2, .teacher-panel h3 {{ margin: 0 0 8px; }}
+    .teacher-panel p {{ margin: 0 0 8px; }}
+    .teacher-list {{ margin: 8px 0 0; padding-left: 18px; }}
     .question-list {{ list-style: none; padding-left: 0; margin: 0; }}
     li {{ margin: 0 0 20px; }}
     .item-row {{ display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }}
@@ -114,6 +126,15 @@ class WorksheetHtmlRenderer:
     .options {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-top: 8px; }}
     .option {{ border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: #ffffff; }}
     .visual {{ margin-top: 10px; }}
+    .teacher-item-note {{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-left: 4px solid var(--accent);
+      background: #f8fafc;
+      color: var(--ink);
+      font-size: 0.95rem;
+    }}
+    .teacher-item-note strong {{ color: var(--accent); }}
     .fraction-bar {{ display: grid; gap: 4px; min-height: 44px; }}
     .fraction-part {{ border: 1px solid var(--accent); min-height: 42px; }}
     .fraction-part.shaded {{ background: repeating-linear-gradient(135deg, var(--accent-soft), var(--accent-soft) 10px, #99f6e4 10px, #99f6e4 20px); }}
@@ -145,6 +166,7 @@ class WorksheetHtmlRenderer:
       <div class=\"learner-line\"><strong>Date:</strong>&nbsp;</div>
     </div>
     <div class=\"meta\">{metadata_html}</div>
+    {teacher_notes_html}
     {section_html}
   </main>
   <section class=\"answer-key-page\">
@@ -157,11 +179,17 @@ class WorksheetHtmlRenderer:
 </html>
 """.strip()
 
-    def _render_section(self, index: int, section: dict[str, Any], start_number: int) -> tuple[str, int]:
+    def _render_section(
+        self,
+        index: int,
+        section: dict[str, Any],
+        start_number: int,
+        teacher_mode: bool,
+    ) -> tuple[str, int]:
         items_html: list[str] = []
         question_number = start_number
         for item in section.get("items", []):
-            items_html.append(self._render_item(item, question_number))
+            items_html.append(self._render_item(item, question_number, teacher_mode))
             question_number += 1
         instructions = escape(section.get("instructions") or "")
         return (
@@ -175,7 +203,7 @@ class WorksheetHtmlRenderer:
             question_number,
         )
 
-    def _render_item(self, item: dict[str, Any], question_number: int) -> str:
+    def _render_item(self, item: dict[str, Any], question_number: int, teacher_mode: bool) -> str:
         options_html = ""
         if item.get("options"):
             options_html = "<div class=\"options\">" + "".join(
@@ -184,6 +212,7 @@ class WorksheetHtmlRenderer:
         visual_html = self._render_visual(item.get("visual_payload"))
         question_html = self._render_question(item)
         response_html = self._render_response(item)
+        teacher_note_html = self._render_item_teacher_note(item) if teacher_mode else ""
         return f"""
 <li>
   <div class=\"item-row\">
@@ -193,6 +222,7 @@ class WorksheetHtmlRenderer:
       {visual_html}
       {response_html}
       {options_html}
+      {teacher_note_html}
     </div>
   </div>
 </li>
@@ -248,3 +278,45 @@ class WorksheetHtmlRenderer:
             f"{escape(answer['correct_answer'])}"
             f"<div>{explanation}</div></div>"
         )
+
+    def _render_teacher_notes(self, teacher_notes: dict[str, Any]) -> str:
+        skills = teacher_notes.get("skills_tested", [])
+        misconceptions = teacher_notes.get("misconceptions_targeted", [])
+        details = teacher_notes.get("misconception_details", [])
+
+        skills_html = "".join(f"<li>{escape(str(skill))}</li>" for skill in skills)
+        misconceptions_html = "".join(f"<li>{escape(str(code))}</li>" for code in misconceptions)
+        detail_html = "".join(
+            "<li>"
+            f"<strong>{escape(str(detail.get('name') or detail.get('code') or 'Misconception'))}</strong>: "
+            f"{escape(str(detail.get('description') or ''))}"
+            "</li>"
+            for detail in details
+        )
+
+        return f"""
+<section class=\"teacher-panel\">
+  <h2>Teacher Notes</h2>
+  <p><strong>Skills tested:</strong></p>
+  <ul class=\"teacher-list\">{skills_html or '<li>None recorded</li>'}</ul>
+  <p><strong>Misconceptions targeted:</strong></p>
+  <ul class=\"teacher-list\">{misconceptions_html or '<li>None recorded</li>'}</ul>
+  <p><strong>Misconception details:</strong></p>
+  <ul class=\"teacher-list\">{detail_html or '<li>No misconception details available</li>'}</ul>
+</section>
+"""
+
+    def _render_item_teacher_note(self, item: dict[str, Any]) -> str:
+        metadata = item.get("metadata", {})
+        details = metadata.get("misconception_details", [])
+        if not details:
+            return ""
+
+        detail_html = "".join(
+            "<div>"
+            f"<strong>{escape(str(detail.get('name') or detail.get('code') or 'Misconception'))}:</strong> "
+            f"{escape(str(detail.get('description') or ''))}"
+            "</div>"
+            for detail in details
+        )
+        return f"<div class=\"teacher-item-note\"><strong>Teacher note:</strong>{detail_html}</div>"

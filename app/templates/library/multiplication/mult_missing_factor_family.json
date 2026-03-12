@@ -1,0 +1,129 @@
+{
+  "family_id": "fam_mult_missing_factor_g4_01",
+  "family_code": "mult_missing_factor_family",
+  "skill_id": "mult_missing_factor_g4_01",
+  "name": "Multiplication Missing Factors",
+  "description": "Find the missing factor in multiplication number sentences.",
+  "supports_visual": false,
+  "supports_theme": false,
+  "recommended_worksheet_types": [
+    "concept",
+    "mixed",
+    "assessment"
+  ],
+  "recommended_question_types": [
+    "fill_blank",
+    "multiple_choice"
+  ],
+  "misconception_targets": [
+    "product_as_factor_confusion",
+    "additive_factor_error",
+    "off_by_one_factor"
+  ],
+  "templates": [
+    {
+      "template_id": "tpl_mult_missing_factor_01",
+      "template_code": "mult_missing_factor_01",
+      "skill_id": "mult_missing_factor_g4_01",
+      "family_id": "mult_missing_factor_family",
+      "pattern_code": "missing_operand",
+      "name": "Find the missing factor",
+      "question_type": "fill_blank",
+      "template_text": "{a} ? __ = {total}",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": { "type": "int", "required": true },
+        "b": { "type": "int", "required": true },
+        "total": { "type": "int", "required": true }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_values": [2, 5, 10],
+          "b_range": [1, 10]
+        },
+        "core": {
+          "a_values": [2, 3, 4, 5, 6, 7, 8, 9, 10],
+          "b_range": [1, 10]
+        },
+        "stretch": {
+          "a_values": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+          "b_range": [1, 12]
+        }
+      },
+      "constraints": [
+        { "type": "derived", "rule": "total = a * b" }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "b"
+      },
+      "distractor_rules": [],
+      "explanation_template": "Use the known factor and product to find the missing factor.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "product_as_factor_confusion"
+      ],
+      "active": true
+    },
+    {
+      "template_id": "tpl_mult_missing_factor_02",
+      "template_code": "mult_missing_factor_02",
+      "skill_id": "mult_missing_factor_g4_01",
+      "family_id": "mult_missing_factor_family",
+      "pattern_code": "standard_mcq",
+      "name": "Choose the missing factor",
+      "question_type": "multiple_choice",
+      "template_text": "Which number makes {a} ? __ = {total} true?",
+      "instructions_template": null,
+      "variable_schema": {
+        "a": { "type": "int", "required": true },
+        "b": { "type": "int", "required": true },
+        "total": { "type": "int", "required": true }
+      },
+      "difficulty_profiles": {
+        "support": {
+          "a_values": [2, 5, 10],
+          "b_range": [1, 10]
+        },
+        "core": {
+          "a_values": [2, 3, 4, 5, 6, 7, 8, 9, 10],
+          "b_range": [1, 10]
+        },
+        "stretch": {
+          "a_values": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+          "b_range": [1, 12]
+        }
+      },
+      "constraints": [
+        { "type": "derived", "rule": "total = a * b" }
+      ],
+      "answer_formula": {
+        "type": "expression",
+        "value": "b"
+      },
+      "distractor_rules": [
+        { "type": "use_product_as_factor" },
+        { "type": "additive_factor_error" },
+        { "type": "off_by_one_factor" }
+      ],
+      "explanation_template": "Check which factor multiplied by the known factor gives the product.",
+      "rendering": {
+        "visual_type": null,
+        "layout_hint": "single_line"
+      },
+      "theme_supported": false,
+      "visual_supported": false,
+      "misconception_targets": [
+        "product_as_factor_confusion",
+        "additive_factor_error",
+        "off_by_one_factor"
+      ],
+      "active": true
+    }
+  ]
+}

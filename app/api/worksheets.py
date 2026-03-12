@@ -1,7 +1,7 @@
 from pathlib import Path
 import subprocess
 
-from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from fastapi.responses import FileResponse, HTMLResponse
 
 from app.core.config import get_settings
@@ -52,19 +52,21 @@ def get_generated_worksheet(
 @router.get("/{worksheet_id}/html", response_class=HTMLResponse)
 def get_generated_worksheet_html(
     worksheet_id: str,
+    teacher_mode: bool = Query(default=False),
     service: WorksheetGenerationService = Depends(get_service),
 ) -> HTMLResponse:
     record = service.get_generated(worksheet_id)
     if not record:
         raise HTTPException(status_code=404, detail="Worksheet not found.")
     worksheet = record["worksheet_json"]
-    return HTMLResponse(content=renderer.render(worksheet))
+    return HTMLResponse(content=renderer.render(worksheet, teacher_mode=teacher_mode))
 
 
 @router.get("/{worksheet_id}/pdf")
 def get_generated_worksheet_pdf(
     worksheet_id: str,
     request: Request,
+    teacher_mode: bool = Query(default=False),
     service: WorksheetGenerationService = Depends(get_service),
 ):
     record = service.get_generated(worksheet_id)
@@ -73,7 +75,7 @@ def get_generated_worksheet_pdf(
 
     base_url = str(request.base_url).rstrip("/")
     try:
-        pdf_path = pdf_exporter.render(worksheet_id, base_url)
+        pdf_path = pdf_exporter.render(worksheet_id, base_url, teacher_mode=teacher_mode)
     except subprocess.CalledProcessError as exc:
         detail = exc.stderr.strip() if exc.stderr else "PDF export failed. Install Playwright Chromium first."
         raise HTTPException(status_code=503, detail=detail) from exc

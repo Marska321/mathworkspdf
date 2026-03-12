@@ -37,6 +37,22 @@ def expand_number_as_text(number: int) -> str:
     return " + ".join(str(value) for value in expand_number(number))
 
 
+def round_down_to_place(number: int, place: str) -> int:
+    multiplier = get_place_multiplier(place)
+    return (number // multiplier) * multiplier
+
+
+def round_up_to_place(number: int, place: str) -> int:
+    multiplier = get_place_multiplier(place)
+    return ((number + multiplier - 1) // multiplier) * multiplier
+
+
+def round_to_place_value(number: int, place: str) -> int:
+    multiplier = get_place_multiplier(place)
+    half_step = multiplier // 2
+    return ((number + half_step) // multiplier) * multiplier
+
+
 def no_regroup(a: int, b: int) -> bool:
     return all(((a // (10 ** place)) % 10) + ((b // (10 ** place)) % 10) < 10 for place in range(max(len(str(a)), len(str(b)))))
 
@@ -120,6 +136,9 @@ HELPER_REGISTRY = {
     "no_regroup_subtraction": no_regroup_subtraction,
     "requires_regroup": requires_regroup,
     "requires_regroup_subtraction": requires_regroup_subtraction,
+    "round_down_to_place": round_down_to_place,
+    "round_to_place_value": round_to_place_value,
+    "round_up_to_place": round_up_to_place,
     "shade_indices": shade_indices,
     "sort_ascending": sort_ascending,
     "sort_descending": sort_descending,

@@ -29,7 +29,15 @@ from app.schemas.worksheet import (
     WorksheetBlueprint,
 )
 from app.services.misconception_catalog import get_misconception
-from app.services.template_helpers import HELPER_REGISTRY, adjacent_place_value, distractor_ignore_carry, expand_number_as_text
+from app.services.template_helpers import (
+    HELPER_REGISTRY,
+    adjacent_place_value,
+    distractor_ignore_carry,
+    expand_number_as_text,
+    round_down_to_place,
+    round_to_place_value,
+    round_up_to_place,
+)
 
 
 class WorksheetGenerationError(RuntimeError):
@@ -476,6 +484,31 @@ class WorksheetGenerationService:
                 index = place_names.index(current)
                 return place_names[max(0, index - 1)] if index == len(place_names) - 1 else place_names[index + 1]
 
+
+        if {"number", "round_to_place"}.issubset(variables):
+            number = variables["number"]
+            round_to_place = variables["round_to_place"]
+            if rule_type == "round_down_place":
+                return str(round_down_to_place(number, round_to_place))
+            if rule_type == "round_up_place":
+                return str(round_up_to_place(number, round_to_place))
+            if rule_type == "wrong_place_rounding":
+                adjacent_place = {"tens": "hundreds", "hundreds": "tens", "thousands": "hundreds"}.get(round_to_place, "tens")
+                return str(round_to_place_value(number, adjacent_place))
+
+        if {"a", "b", "total"}.issubset(variables):
+            a = variables["a"]
+            b = variables["b"]
+            total = variables["total"]
+            if rule_type == "use_product_as_factor":
+                return str(total)
+            if rule_type == "additive_factor_error":
+                additive_guess = total - a
+                if additive_guess != b and additive_guess > 0:
+                    return str(additive_guess)
+                return str(a + b)
+            if rule_type == "off_by_one_factor":
+                return str(b + 1 if b < 12 else max(1, b - 1))
         if {"a", "b"}.issubset(variables) and rule_type == "flip_compare_symbol":
             compare_map = {">": "<", "<": ">", "=": "="}
             return compare_map.get(answer.value)
@@ -509,6 +542,10 @@ class WorksheetGenerationService:
             return str(int(answer.value) + offset)
         if template_code.startswith("div_facts"):
             return str(max(1, int(float(answer.value)) + offset))
+        if template_code.startswith("mult_missing_factor") and answer.value.isdigit():
+            return str(max(1, int(answer.value) + offset))
+        if template_code.startswith("rounding") and answer.value.isdigit():
+            return str(int(answer.value) + offset * 10)
         if template_code.startswith("expanded_") and answer.value.isdigit():
             return str(int(answer.value) + offset)
         if answer.format == "fraction":
@@ -582,6 +619,13 @@ class WorksheetGenerationService:
             representation_complexity = 0.18 if template.question_type != QuestionType.word_problem else 0.28
             linguistic_load = 0.08 if template.question_type != QuestionType.word_problem else 0.18
             distractor_similarity = 0.42
+        elif template.template_code.startswith("mult_missing_factor"):
+            max_number = max(variables.get("a", 0), variables.get("b", 0), variables.get("total", 0))
+            number_complexity = min(max_number / 120, 1.0)
+            structure_complexity = 0.4 if template.question_type == QuestionType.multiple_choice else 0.46
+            representation_complexity = 0.2
+            linguistic_load = 0.06
+            distractor_similarity = 0.42
         elif template.template_code.startswith("mult_facts"):
             max_number = max(variables.get("a", 0), variables.get("b", 0), variables.get("rows", 0), variables.get("cols", 0))
             number_complexity = min(max_number / 12, 1.0)
@@ -603,6 +647,13 @@ class WorksheetGenerationService:
             representation_complexity = 0.2
             linguistic_load = 0.08
             distractor_similarity = 0.35
+        elif template.template_code.startswith("rounding"):
+            max_number = variables.get("number", 0)
+            number_complexity = min(max_number / 9999, 1.0)
+            structure_complexity = 0.42 if template.question_type == QuestionType.multiple_choice else 0.5
+            representation_complexity = 0.18
+            linguistic_load = 0.08
+            distractor_similarity = 0.45
         else:
             number_complexity = 0.3
             structure_complexity = 0.3
@@ -759,3 +810,8 @@ class WorksheetGenerationService:
                 )
                 number += 1
         return answer_key
+
+
+
+
+
