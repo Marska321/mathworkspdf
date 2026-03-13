@@ -80,6 +80,23 @@ class MasteryTracker:
         )
         return rows[0] if rows else None
 
+    def list_mastery_records(
+        self,
+        student_id: UUID | str | None = None,
+        skill_id: str | None = None,
+        limit: int = 10,
+    ) -> list[dict[str, Any]]:
+        params: dict[str, Any] = {
+            "select": "*",
+            "order": "last_assessed_at.desc",
+            "limit": max(1, limit),
+        }
+        if student_id is not None:
+            params["student_id"] = f"eq.{student_id}"
+        if skill_id is not None:
+            params["skill_id"] = f"eq.{skill_id}"
+        return self._get_rows("student_mastery", params)
+
     def evaluate_next_step(
         self,
         student_id: UUID | str,
